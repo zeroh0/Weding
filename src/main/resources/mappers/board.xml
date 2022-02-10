@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDao">
+	<select id="boardTotal" parameterType="int"> <!-- mapping id 바꿔주세요 -->
+		select count(*) from board
+	</select>
+	
+	<select id="boardList" parameterType="Board"   resultType="Board"> <!-- mapping id 바꿔주세요 -->
+		SELECT *
+		FROM (
+		        SELECT rownum rn ,  a.*
+		        FROM  (select * from board order by b_num) a
+		     )
+		WHERE rn between #{start} AND  #{end}
+	</select>
+	
+	<select id="qnaBoardList" resultType="Board">
+		select *
+		from (select ROWNUM rn, a.*
+		      from (select B_NUM, B_CATEGORY, B_TITLE, B_DATE, B_HIT, id, (case B_STEP when 0 then 'N' else 'Y' end) ANSWER
+		            from BOARD
+		            where MINI_CAT = '200'
+		            and B_STEP = 0
+		            order by B_NUM desc) a
+		     )
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="reviewBoardList" resultType="Board">
+		select *
+		from (select ROWNUM rn, a.*
+		      from (select *
+		            from BOARD
+		            where MINI_CAT = '400'
+		            and P_NUM = '38'
+		            order by B_NUM desc) a
+		      )
+		where rn between #{start} and #{end}
+	</select>
+	
+	<insert id="reviewBoardWrite" parameterType="Product">
+		insert into
+		BOARD (B_NUM, MAIN_CAT, MINI_CAT, ID, B_TITLE, B_CONTENT, B_DATE, B_GROUP, B_STEP, B_LEVEL, P_NUM)
+		values (BOARD_SEQ.nextval, '300', '400', 'hong001', #{b_content}, #{b_content}, sysdate, BOARD_SEQ.nextval, 0, 0, '38')
+	</insert>
+	
+	<select id="qnaBoardListTotal" resultType="int">
+		select count(*)
+		from BOARD
+		where MINI_CAT = '200'
+	</select>
+	
+	<select id="reviewBoardListTotal" resultType="int">
+		select count(*)
+		from BOARD
+		where MINI_CAT = '400'
+		and P_NUM = '38'
+	</select>
+	
+	<select id="boardDetailView" resultType="Board">
+		select *
+		from BOARD
+		where B_NUM = #{b_num}
+	</select>
+	
+</mapper>
