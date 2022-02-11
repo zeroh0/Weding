@@ -6,8 +6,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.oracle.Weding.dto.Alarm;
 import com.oracle.Weding.dto.Cat;
+import com.oracle.Weding.dto.Dibs;
 import com.oracle.Weding.dto.Orders;
+import com.oracle.Weding.dto.Pname;
 import com.oracle.Weding.dto.Product;
 
 import lombok.extern.java.Log;
@@ -333,5 +336,236 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		return rstDel5;
 	}
+	
+	
+	@Override
+	public List<Product> catList() {
+		List<Product> catList = null;
+		System.out.println("ProductDaoImpl listCat Start..");
+		try {
+			catList = session.selectList("productCatList");
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl listCat Exception : "+e.getMessage());
+		}
+		return catList;
+	}
+
+	@Override
+	public int insert(Product product) {
+		System.out.println("ProductDaoImpl insert Start..");
+		int result = 0;
+		try {
+			result = session.insert("addProduct",product);			
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl insert Exception : "+e.getMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Product> sortNewProduct(Product product) {
+		List<Product> sortNewProduct = null;
+		System.out.println("ProductDaoImpl sortNewProduct Start..");
+		try {
+			sortNewProduct = session.selectList("sortNewProduct",product);
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl sortNewProduct Exception : "+e.getMessage());
+		}
+		return sortNewProduct;
+	}
+
+	@Override
+	public List<Product> sortPopularProduct(Product product) {
+		List<Product> sortPopularProduct = null;
+		System.out.println("ProductDaoImpl sortPopularProduct Start..");
+		try {
+			sortPopularProduct = session.selectList("sortPopularProduct",product);
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl sortPopularProduct Exception : "+e.getMessage());
+		}
+		return sortPopularProduct;
+	}
+
+	@Override
+	public List<Product> sortGoalProduct(Product product) {
+		List<Product> sortGoalProduct = null;
+		System.out.println("ProductDaoImpl sortGoalProduct Start..");
+		try {
+			sortGoalProduct = session.selectList("sortGoalProduct",product);
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl sortGoalProduct Exception : "+e.getMessage());
+		}
+		return sortGoalProduct;
+	}
+	
+	
+	//상품상세보기
+	@Override
+	public Product productDetail(int p_num) {
+		System.out.println("ProductDaoImpl productDetail Start...");
+		Product product = new Product();
+		try {
+			product = session.selectOne("productSelOne", p_num);
+		}catch(Exception e) {
+			System.out.println("EmpDaoImpl detail Exception->"+e.getMessage());
+		}
+		return product;
+	}
+
+	//상품상세보기 아래에 추천상품 나타내기
+	@Override
+	public List<Product> recommendProduct(int p_condition) {
+		System.out.println("ProductDaoImpl recommendProduct Start...");
+		List<Product> productList = null;
+		try {
+			productList = session.selectList("recommendProductList", p_condition);
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl recommendProduct Exception -> " + e.getMessage());
+		}
+		return productList;
+	}
+
+	//상품검색
+	@Override
+	public List<Product> selectSearchList(Product product) {
+		System.out.println("ProductDaoImpl selectSearchList Start...");
+		List<Product> productSearchList = null;
+		try {
+			productSearchList = session.selectList("productSearchList", product);
+			System.out.println("ProductDaoImpl selectSearchList productSearchList.size()->"+productSearchList.size());
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl selectSearchList Exception -> " + e.getMessage());
+		}
+		return productSearchList;
+	}
+
+	//상품찜하기 
+	@Override
+	public int pushDibs(Dibs dibs) {
+		System.out.println("ProductDaoImpl pushDibs Start...");
+		int dibsNum=0;
+		try {
+			dibsNum=session.insert("pushDibsProduct", dibs);
+			System.out.println("ProductDaoImpl pushDibs dibsNum->"+dibsNum);
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl pushDibs Exception -> " + e.getMessage());
+		}
+		return dibsNum;
+	}
+
+	//달성률 받아오기 
+	@Override
+	public int attainment(int p_num) {
+		System.out.println("ProductDaoImpl attainment Start...");
+		int attainment=0;
+		try {
+			attainment=session.selectOne("productAttainment", p_num);
+			System.out.println("ProductDaoImpl attainment result->"+attainment);
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl attainment Exception -> " + e.getMessage());
+		}
+		return attainment;
+	}
+
+	//로그인 후 상품 찜하기 했는지 확인하기
+	@Override
+	public int dibsProduct(Dibs dibs) {
+		System.out.println("ProductDaoImpl dibsProduct Start...");
+		int count=0;
+		try {
+			count = session.selectOne("dibsProduct", dibs);
+			System.out.println("ProductDaoImpl dibsProduct count->"+count);
+		}catch (Exception e) {
+			System.out.println("ProductDaoImpl mainProduct Exception -> " + e.getMessage());
+		} 
+		return count;
+	}
+
+	//찜하기 취소 
+	@Override
+	public int cancleDibs(Dibs dibs) {
+		System.out.println("ProductDaoImpl cancleDibs Start...");
+		int dibsNum=0;
+		try {
+			dibsNum=session.insert("cancleDibsProduct", dibs);
+			System.out.println("ProductDaoImpl cancleDibs dibsNum->"+dibsNum);
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl cancleDibs Exception -> " + e.getMessage());
+		}
+		return dibsNum;
+	}
+
+	//알림신청하기 
+	@Override
+	public int plzAlarmInsert(Alarm alarm1) {
+		System.out.println("ProductDaoImpl plzAlarmInsert Start...");
+		int alarmNum = 0;
+		try {
+			alarmNum=session.insert("plzAlarmInsert", alarm1);
+			System.out.println("ProductDaoImpl plzAlarmInsert alarmNum->"+alarmNum);
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl plzAlarmInsert Exception -> " + e.getMessage());
+		}
+		return alarmNum;
+	}
+
+	//로그인 후 상품 알림신청했는지 확인하기
+	@Override
+	public int alarmProduct(Alarm alarm) {
+		System.out.println("ProductDaoImpl alarmProduct Start...");
+		int alarmCount=0;
+		try {
+			alarmCount = session.selectOne("alarmProduct", alarm);
+			System.out.println("ProductDaoImpl dibsProduct count->"+alarmCount);
+		}catch (Exception e) {
+			System.out.println("ProductDaoImpl alarmProduct Exception -> " + e.getMessage());
+		} 
+		return alarmCount;
+	}
+
+	//알림신청 취소하기
+	@Override
+	public int plzAlarmDelete(Alarm alarm) {
+		System.out.println("ProductDaoImpl plzAlarmDelete Start...");
+		int alarmNum = 0;
+		try {
+			alarmNum=session.delete("plzAlarmDelete", alarm);
+			System.out.println("ProductDaoImpl plzAlarmDelete alarmNum->"+alarmNum);
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl plzAlarmDelete Exception -> " + e.getMessage());
+		}
+		return alarmNum;
+	}
+
+	//알림신청한 이메일 받아오기 
+	@Override
+	public List<Alarm> getEmailList(String p_num) {
+		System.out.println("ProductDaoImpl getEmailList Start...");
+		List<Alarm> emailList = null;
+		try {
+			emailList = session.selectList("getEmailList", p_num);
+			System.out.println("ProductDaoImpl getEmailList emailList.size()->"+emailList.size());
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl getEmailList Exception -> " + e.getMessage());
+		}
+		return emailList;
+	}
+	
+	
+	//상품이름 다 가져오기
+	@Override
+	public List<Pname> searchPName() {
+		System.out.println("ProductDaoImpl searchPName Start...");
+		List<Pname> pNameTotal = null;
+		try {
+			pNameTotal = session.selectList("pNameTotal");
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl getEmailList Exception -> " + e.getMessage());
+		}
+		return pNameTotal;
+	}
+	
+	
+	
 
 }

@@ -20,17 +20,29 @@
 <body>
     <div class="container">
 		<div class="container_sub">
+		 <form action="write" method ="post">
+		 	<input type="hidden" name="main_cat" value="${board.main_cat}">
+			<input type="hidden" name="mini_cat" value="${board.mini_cat}">
+			
+		<input type="text" name="id" value="${board.id}">
+			
+			<input type="hidden" name="b_category" value="">
+			<!-- 카테고리 셀렉트 -->
+		
+         
             <table>
-                <tr><td>제목</td><td><a><input type="text" value="${board.b_title}"></a></td></tr>
-                <tr><td>내용</td><td><a><textarea rows="4" cols="20">${board.b_content}</textarea></a></td></tr>
-                <tr><td>이미지</td><td><a><input type="file" value="${board.b_image1}"></a></td></tr>
+                <tr><td>제목</td><td><a><input name="b_title" type="text" ></a></td></tr>
+                <tr><td>내용</td><td><a><textarea name="b_content" rows="4" cols="20"></textarea></a></td></tr>
+                <tr><td>이미지</td><td><a><input type="file" name="b_image"></a></td></tr>
 				<tr><th><td>
 				<div style="float: right">
 				<button type="button" class="btn btn-outline-secondary" onclick="boardList">목록</button>
 				<button class="btn btn-outline-danger" onclick="history.back()">취소</button>
-				<button type="submit" class="btn btn-outline-success">등록/수정</button>
-				</div></td></th></tr>
+				<input type="submit" value="등록" class="btn btn-outline-success">
+				</div></td></tr>
             </table>
+        
+          </form> 
 		</div>
 	</div>
 <%@ include file="../footer.jsp" %>

@@ -3,9 +3,108 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="BoardDao">
-	<select id="boardTotal" parameterType="int"> <!-- mapping id 바꿔주세요 -->
+
+	<select id="BoardTotal" parameterType="Board" resultType="Integer" > <!-- 쿼리 하나로 공통된 보드를 사용할수있다 -->
 		select count(*) from board
+		where main_cat = #{main_cat}
+		and mini_cat = #{mini_cat}
 	</select>
+	
+	
+	<select id="BoardListAll" parameterType="Board"   resultType="Board"> 
+		 <![CDATA[
+ 	    SELECT *
+		FROM (
+		        SELECT rownum rn ,  a.*
+		        FROM  (select * from board order by b_num desc) a
+		        WHERE	   main_cat = #{main_cat} AND mini_cat = #{mini_cat}
+		     )
+		WHERE  rn >= #{start} 
+		AND    rn <= #{end}
+		order by b_Group desc, b_Step asc, b_num desc
+		
+		  ]]>	
+	</select>
+	
+	
+	<select id="BoardDetail" parameterType="int" resultType="Board">
+		select * From board Where b_num = #{b_num}
+	</select>
+	
+	
+	<update id="BoardUpdate" parameterType="Board">
+	 update board set b_title=#{b_title}, b_content=#{b_content}
+			where b_num=#{b_num}
+	</update>
+	
+	
+	<insert id="insertBoard" parameterType="Board" >
+		insert into board (b_num,  main_cat,           mini_cat,    b_title,  b_content,   b_date,  b_image, b_category,  
+		                   b_hit , b_Group ,           b_Step,      b_level) 
+		VALUES (BOARD_SEQ.nextval,#{main_cat},       #{mini_cat}, #{b_title},#{b_content},sysdate,#{b_image},#{b_category},
+		                   0     , BOARD_SEQ.currval,  0,            0)
+    </insert>
+	
+	
+	<update id="Boardhit" parameterType="int">
+		UPDATE board SET b_hit = b_hit + 1
+		WHERE	b_num = #{b_num}
+	</update>
+	
+	
+	<delete id="BoardDelete" parameterType="int">
+		delete from board where b_num = #{b_num}
+	</delete>
+	
+	
+	<!--  -->
+	
+	<select id="qnaListAll" parameterType="Board" resultType="Board">
+	   select b.* 
+	   	from (SELECT rownum rn, a.*FROM (SELECT * FROM board order by b_num) a) b
+	    where rn between 1 AND 300
+	    and b.main_cat = 300
+        and b.mini_cat = 300
+	     and id = 'hong001'
+	    order by b_Group desc, b_Step asc
+     </select>  
+	    
+	<select id = "sellerQnaAll" parameterType="Board" resultType="Board">
+		select * 
+		from board
+		where mini_cat = 300
+		and p_num in(select p_num
+					 from  product
+					 where id ='seller001')
+		order by p_num desc			 
+	</select>
+	
+	
+	<!-- 답글 -->
+	<select id = "replyForm" resultType="Board" parameterType="int" >
+		select *
+		from board
+		where b_num = #{b_num}
+	</select>
+	
+	
+	<update id = "replyShape" parameterType="Board">
+		update Board set b_step= b_step + 1
+		where b_group = #{b_group} and b_step > #{b_step}
+	</update>
+
+
+	<insert id = "reply" parameterType="Board">
+		insert into Board(b_num, main_cat, mini_cat, id,
+						  b_title, b_content, b_date,
+						  b_hit, b_group,
+						  b_step, b_level)
+			 values (board_seq.nextval, #{main_cat},
+			  		 #{mini_cat}, #{id}, #{b_title},
+			  		 #{b_content}, sysdate,
+			 		 0,  #{b_group},
+			 		 #{b_step}+1, #{b_level}+1 )
+	</insert>
 	
 	<select id="boardList" parameterType="Board"   resultType="Board"> <!-- mapping id 바꿔주세요 -->
 		SELECT *

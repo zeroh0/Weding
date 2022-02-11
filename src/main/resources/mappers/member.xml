@@ -58,4 +58,56 @@
 		update member set m_status = 0 where id = #{id}
 	</update>
 	
+	<!-- 회원 수 조회 -->
+	<select id="memberTotal" resultType="int">
+		select Count(*) FROM member
+	</select>
+	
+	<select id="allMemberList" parameterType="Member" resultType="Member">
+		select m.* ,c.c_content current_content 
+		from  (
+        select rownum rn, a.*
+        from (select * from member order by id) a
+      ) m ,cat c
+		where rn between #{start} and #{end}
+		and c.main_cat=m.main_cat
+		and c.mini_cat =m.mini_cat
+	</select>
+	
+	<update id="changeMemberLv" parameterType="Member">
+			update member
+			SET    mini_cat = #{mini_cat}
+			WHERE  id = #{id}
+	</update>
+	
+	<select id="memberCatList" parameterType="Member" resultType="Member">
+		<![CDATA[
+		select mini_cat, c_content mini_content
+		from cat 
+		where main_cat=100 
+		and mini_cat <> 999 
+		 ]]>
+	</select>
+	
+	<select id="memberIdFind" parameterType="Member" resultType="String">
+		select id from member
+		where name=#{name}
+		and phone=#{phone}
+		and m_status=1
+	</select>
+	
+	<select id="getMemberEmail" parameterType="Member" resultType="Member">
+		select * from member
+		where id=#{id}
+		and email=#{email}
+		and m_status=1
+	</select>
+	
+	<update id="randomPassword" parameterType="String">
+		update member
+		set password = #{tempPassword}
+		where id=#{id}
+		and m_status=1
+	</update>
+	
 </mapper>

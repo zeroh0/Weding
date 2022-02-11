@@ -1,8 +1,8 @@
 package com.oracle.Weding.controller;
 
-import java.text.SimpleDateFormat; 
-import java.util.Date;
-import java.util.List; 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oracle.Weding.dto.Alarm;
 import com.oracle.Weding.dto.Board;
 import com.oracle.Weding.dto.Cat;
+import com.oracle.Weding.dto.Dibs;
+import com.oracle.Weding.dto.Member;
 import com.oracle.Weding.dto.Orders;
+import com.oracle.Weding.dto.Pname;
 import com.oracle.Weding.dto.Product;
 import com.oracle.Weding.service.BoardService;
 import com.oracle.Weding.service.Paging;
@@ -32,8 +36,9 @@ public class ProductController {
 	
 	/**
 	 * 메인페이지 이동
-	 * 작성자 - 장동호
-	 * 목적 - 메인페이지 이동 & 랜덤, 인기, 당일 오픈, 리뷰가 있는 상품 조회
+	 * 작성자: 장동호
+	 * 
+	 * 메인페이지 이동 & 랜덤, 인기, 당일 오픈, 리뷰가 있는 상품 조회
 	 * 
 	 * @param model
 	 * @return
@@ -52,11 +57,12 @@ public class ProductController {
 		return "main";
 	}
 	
-
+	
 	/**
 	 * 펀딩예정 상품 목록
-	 * 작성자 - 장동호
-	 * 목적 - 펀딩예정인 상품들을 조회
+	 * 작성자: 장동호
+	 * 
+	 * 펀딩예정인 상품들을 조회
 	 * 
 	 * @param product
 	 * @param currentPage
@@ -92,8 +98,9 @@ public class ProductController {
 	
 	/**
 	 * 펀딩중 상품 목록
-	 * 작성자 - 장동호, 조소현
-	 * 목적 - 펀딩중인 상품들을 카테고리별로 조회
+	 * 작성자: 장동호, 조소현
+	 * 
+	 * 펀딩중인 상품들을 카테고리별로 조회
 	 * 
 	 * @param product
 	 * @param currentPage
@@ -134,8 +141,9 @@ public class ProductController {
 	
 	/**
 	 * 펀딩종료 목록
-	 * 작성자 - 장동호, 조소현
-	 * 목적 - 펀딩종료된 상품들을 카테고리별로 조회
+	 * 작성자: 장동호, 조소현
+	 * 
+	 * 펀딩종료된 상품들을 카테고리별로 조회
 	 * 
 	 * @param product
 	 * @param currentPage
@@ -148,9 +156,9 @@ public class ProductController {
 	@GetMapping(value = "/fundingEndList")
 	public String fundingEndList(Product product,
 							     @RequestParam(value = "currentPage", defaultValue = "1" ) String currentPage,
-			 				     @RequestParam(value = "main_cat", defaultValue = "200") String main_cat, // default : main_cat = 200 
-				 				 @RequestParam(value = "mini_cat", defaultValue = "101") String mini_cat, // default : main_cat = 999 
-				 				 @RequestParam(value = "p_condition", defaultValue = "3") String p_condition, // default : p_condition = 2
+			 				     @RequestParam(value = "main_cat", defaultValue = "200") String main_cat,
+				 				 @RequestParam(value = "mini_cat", defaultValue = "101") String mini_cat,
+				 				 @RequestParam(value = "p_condition", defaultValue = "3") String p_condition, 
 				 				 Model model) {
 		//펀딩 중 상품목록에서 카테고리 이름 정렬 가져오기
 		List<Cat> catList = ps.arrayCategory();
@@ -175,8 +183,7 @@ public class ProductController {
 	
 	/**
 	 * 펀딩내역 조회
-	 * 작성자 - 장동호
-	 * 목적 - 현재 세션에 접속 유저의 펀딩내역 조회
+	 * 작성자: 장동호
 	 * 
 	 * @param orders
 	 * @param product
@@ -189,9 +196,6 @@ public class ProductController {
 						  Product product,
 						  @RequestParam(value = "currentPage", defaultValue = "1" ) String currentPage, 
 						  Model model) {
-		Date date = new Date();
-		SimpleDateFormat today = new SimpleDateFormat("yy/MM/dd");
-		
 		int total = ps.payListTotal();
 		Paging pg = new Paging(total, currentPage);
 		orders.setStart(pg.getStart());
@@ -204,10 +208,10 @@ public class ProductController {
 		return "/mypage/payList";
 	}
 	
+	
 	/**
 	 * 펀딩내역 취소
-	 * 작성자 - 장동호
-	 * 목적 - 현재 세션에 접속한 유저의 펀딩을 취소
+	 * 작성자: 장동호
 	 * 
 	 * @param orders
 	 * @return
@@ -226,30 +230,23 @@ public class ProductController {
 		return "redirect:payList";
 	}
 	
+	
 	/**
-	 * 펀딩상품 상세보기
-	 * 작성자 - 장동호
-	 * 목적 - 선택한 펀딩상품의 정보 조회
+	 * 펀딩중, 펀딩종료 상품 상세보기
+	 * 작성자: 장동호
 	 * 
 	 * @param model
 	 * @param board
 	 * @param currentPage
 	 * @return
 	 */
-	@RequestMapping(value = "fundingDetail")
-	public String fundingDetail(Model model, Board board, String currentPage) {
-		log.info("fundingDetail");
-		int total = bs.reviewBoardListTotal();
-		Paging pg = new Paging(total, currentPage);
-		board.setStart(pg.getStart());
-		board.setEnd(pg.getEnd());
-		List<Board> reviewBoardList = bs.reviewBoardList(board);
-		model.addAttribute("pg", pg);
-		model.addAttribute("total", total);
-		model.addAttribute("reviewBoardList", reviewBoardList);
-		return "/product/fundingDetail";
-	}
+
 	
+	
+	/**
+	 * 펀딩예정 상품 상세보기
+	 * @return
+	 */
 	@RequestMapping(value = "beforeFundDetail") 
 	public String beforeFundDetail() {
 		return "/product/beforeFundDetail";
@@ -258,8 +255,7 @@ public class ProductController {
 	
 	/**
      * 주문 정보 입력 폼 이동
-     * 작성자 - 장동호
-     * 목적 - 주문 상품의 정보를 주문 정보 입력 페이지에 가져오기
+     * 작성자: 장동호
      */
     @RequestMapping(value = "orderForm")
     public String orderForm() {
@@ -269,8 +265,7 @@ public class ProductController {
 	
 	/**
 	 * 결제 처리
-	 * 작성자 - 장동호
-	 * 목적 - 현재 세션에 접속한 유저 정보와 주문한 상품을 Orders 테이블에 insert
+	 * 작성자: 장동호
 	 * 
 	 * @param orders
 	 * @param model
@@ -283,14 +278,16 @@ public class ProductController {
 		if(result > 0) {
 			ps.sumCurPrice(orders);
 		}
+		
 		return result;
 	}
 	
     
     /**
      * 결제 결과 처리
-     * 작성자 - 장동호
-     * 목적 - 결제 성공/실패 여부 확인 & 주문한 상품의 정보 확인
+     * 작성자: 장동호
+     * 
+     * 결제 성공/실패 여부 확인 & 주문한 상품의 정보 확인
      *  
      * @param orders
      * @param model
@@ -299,13 +296,14 @@ public class ProductController {
     @RequestMapping(value = "orderSuccess")
     public String orderSuccess(Orders orders, Model model) {
     	model.addAttribute("orders", orders);
+    	
     	return "/product/orderSuccess";
     }
     
     
     /**
-     * 마이페이지: 찜목록 조회
-     * 작성자 - 김태근
+     * 마이페이지 - 찜목록
+     * 작성자: 김태근
      * 
      * @param product
      * @param model
@@ -318,12 +316,14 @@ public class ProductController {
  		List<Product> dibsList = ps.dibsList(product);
  		System.out.println("ProductController dibsList listProduct.size() ->" + dibsList.size());
  		model.addAttribute("dibsList", dibsList);
+ 		
  		return "mypage/dibsList";
  	}
     
+ 	
     /**
      * 관리자페이지 - 전체 상품관리List 조회
-     * 작성자 - 김태근
+     * 작성자: 김태근
      * 
      * @param product
      * @param currentPage
@@ -350,8 +350,8 @@ public class ProductController {
  	
  	
  	/**
- 	 * 관리자페이지: 전체상품 UpdateForm
- 	 * 작성자 - 김태근
+ 	 * 관리자페이지 - 전체상품 UpdateForm
+ 	 * 작성자: 김태근
  	 * 
  	 * @param product
  	 * @param model
@@ -368,8 +368,8 @@ public class ProductController {
 
  	
  	/**
- 	 * 관리자페이지: 전체상품중 해당상품Update
- 	 * 작성자 - 김태근
+ 	 * 관리자페이지 - 전체상품중 해당상품Update
+ 	 * 작성자: 김태근
  	 * 
  	 * @param product
  	 * @param model
@@ -385,9 +385,10 @@ public class ProductController {
 		return "redirect:allProductList";
 	}
 	
+	
 	/**
-	 * 관리자페이지: 전체상품중 해당상품List에서 Ajax로 Delete
-	 * 작성자 - 김태근
+	 * 관리자페이지 - 전체상품중 해당상품List에서 Ajax로 Delete
+	 * 작성자: 김태근
 	 * @param product
 	 * @return
 	 */
@@ -398,12 +399,13 @@ public class ProductController {
 		System.out.println("ProductController allProductDelete product.getP_num() ->" + product.getP_num());
 		int allProductStatus = ps.delete(product.getP_num());
 		String allProductStatusStr = Integer.toString(allProductStatus);
+		
 		return allProductStatusStr;
 	}
 	
 	/**
-	 * 관리자페이지: 전체상품중 해당상품 Detail에서 Delete
-	 * 작성자 - 김태근
+	 * 관리자페이지 - 전체상품중 해당상품 Detail에서 Delete
+	 * 작성자: 김태근
 	 * 
 	 * @param p_num
 	 * @param model
@@ -413,7 +415,221 @@ public class ProductController {
 	public String allProductDetailDelete(String p_num, Model model) {
 		System.out.println("ProductController allProductDetailDelete Start...");
 		int allProductStatus = ps.delete(p_num);
+		
 		return "redirect:allProductList";
 	}
+	
+	
+	/**
+	 * 판매자페이지 - 상품 등록 폼으로 이동
+	 * 작성자: 안혜정
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value = "addProductForm")
+	public String addProductForm(Model model) {
+		List<Product> catList = ps.listCat();
+		System.out.println("ProductController catList size() : "+catList.size());
+		model.addAttribute("catList",catList);
+		
+		return "product/addProductForm";
+	}
+	
+	/**
+	 * 판매자페이지 - 상품 등록
+	 * 작성자: 안혜정
+	 * 
+	 * @param product
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value = "addProduct")
+	public String addProduct(Product product, Model model) {
+		System.out.println("ProductController addProduct Start..");
+		int result = ps.insert(product);
+		
+		if(result>0) return "redirect:soldList"; //합친 후에 리턴 확인하기
+		else {
+			model.addAttribute("msg","상품이 등록되지 않았습니다.");
+			return "addProductForm"; //리턴안됨 수정예정
+		}
+	}
+	
+	
+	/**
+	 * 상품 정렬
+	 * 작성자: 안혜정
+	 * 
+	 * @param product
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="sortProduct")
+	public String sortProduct(Product product, Model model) {
+		System.out.println("ProductController sortProduct Start..");
+		
+		//최신순 정렬
+		List<Product> sortNewProduct = ps.sortNewProduct(product);
+		model.addAttribute("sortNewProduct",sortNewProduct);
+		
+		//인기순 정렬
+		List<Product> sortPopularProduct = ps.sortPopularProduct(product);
+		model.addAttribute("sortPopularProduct",sortPopularProduct);
+		
+		//달성순 정렬
+		List<Product> sortGoalProduct = ps.sortGoalProduct(product);
+		model.addAttribute("sortGoalProduct",sortGoalProduct);
+		
+		return "product/fundingList";
+	}
+	
+	//펀딩예정/중/종료상품 상세보기 
+	@RequestMapping(value="fundingDetail")
+	public String fundingDetail(int p_num, int p_condition,HttpSession session, Model model) {
+		System.out.println("ProductController fundingDetail Start...");
+		System.out.println("p_num->"+p_num);
+		System.out.println("p_condition->"+p_condition);
+		// 상품상세보기
+		Product product = ps.productDetail(p_num);
+		//달성률 받아오기 
+		int attainment = ps.attainment(p_num);
+		//관련상품 받아오기 
+		List<Product> productList = ps.recommendProduct(p_condition);
+		
+		if(session.getAttribute("member")==null) {
+			product = ps.productDetail(p_num);
+			attainment = ps.attainment(p_num);
+			productList = ps.recommendProduct(p_condition);
+		}else {
+		//세션 객체 안에 있는 ID정보 저장
+		Member m1 = (Member) session.getAttribute("member");
+		Member member= new Member();
+		member.setId(m1.getId());
+		//로그인 후 상품 찜하기 했는지 확인하기
+		Dibs dibs = new Dibs();
+		dibs.setId(member.getId());
+		dibs.setP_num(String.valueOf(p_num));
+		int count= ps.dibsProduct(dibs);
+		model.addAttribute("count", count);
+		//로그인 후 상품 알림신청했는지 확인하기
+		Alarm alarm = new Alarm();
+		alarm.setP_num(String.valueOf(p_num));
+		alarm.setId(member.getId());
+		int alarmCount = ps.alarmProduct(alarm);
+		model.addAttribute("alarmCount", alarmCount);
+		}
+		model.addAttribute("product", product);
+		model.addAttribute("attainment", attainment);
+		model.addAttribute("productList", productList);
+		if(p_condition==1) {
+			return "product/beforeFundDetail";
+		}else {
+			return "product/fundingDetail";
+		}
+	}
+	
+	//상품검색 
+	@GetMapping(value="getSearchProduct")
+	private String getSearchProduct(@RequestParam("keyword") String keyword, Model model){
+		System.out.println("ProductController getSearchProduct Start...");
+		System.out.println("ProductController getSearchProduct keyword->"+keyword);
+		//펀딩 중 상품목록에서 카테고리 이름 정렬 가져오기
+		List<Cat> catList = ps.arrayCategory();
+		model.addAttribute("catList", catList);		
+		Product product = new Product();
+		product.setKeyword(keyword);
+		List<Product> productList = ps.getSearchList(product);
+		model.addAttribute("productList", productList);
+		return "product/fundingList";
+	}
+	
+	//찜하기 
+	@RequestMapping("/getDibsProduct")
+	@ResponseBody
+	public String getDibsProduct(String p_num, HttpSession session) {
+		System.out.println("ProductController getDibsProduct Start...");
+		//세션 객체 안에 있는 ID정보 저장 
+		Member m1 = (Member) session.getAttribute("member");
+		Member member= new Member();
+		member.setId(m1.getId());
+		
+		Dibs dibs = new Dibs();
+		dibs.setP_num(p_num);
+		dibs.setId(member.getId());
+		
+		int dibsNum = ps.pushDibs(dibs);
+		String dibsNumStr = Integer.toString(dibsNum);
+		return dibsNumStr;
+	}
+	
+	//찜하기 취소 
+	@RequestMapping("/cancleDibsProduct")
+	@ResponseBody
+	public String cancleDibsProduct(String p_num, HttpSession session) {
+		System.out.println("ProductController getDibsProduct Start...");
+		//세션 객체 안에 있는 ID정보 저장 
+		Member m1 = (Member) session.getAttribute("member");
+		Member member= new Member();
+		member.setId(m1.getId());
+		
+		Dibs dibs = new Dibs();
+		dibs.setP_num(p_num);
+		dibs.setId(member.getId());
+		
+		int dibsNum = ps.cancleDibs(dibs);
+		String dibsNumStr = Integer.toString(dibsNum);
+		return dibsNumStr;
+	}
+	
+	//알림신청하기
+	@RequestMapping("/plzAlarm")
+	@ResponseBody
+	public String plzAlarm(Alarm alarm, HttpSession session) {
+		System.out.println("ProductController getDibsProduct Start...");
+		//세션 객체 안에 있는 ID정보 저장 
+		Member m1 = (Member) session.getAttribute("member");
+		Member member= new Member();
+		member.setId(m1.getId());
+		
+		Alarm alarm1 = new Alarm();
+		alarm1.setP_num(alarm.getP_num());
+		alarm1.setA_date(alarm.getA_date());
+		alarm1.setId(member.getId());
+		
+		int alarmNum = ps.plzAlarmInsert(alarm1);
+		String alarmNumStr = Integer.toString(alarmNum);
+		return alarmNumStr;
+	}
+	
+	//알림신청 취소
+	@RequestMapping("/canclePlzAlarm")
+	@ResponseBody
+	public String canclePlzAlarm(String p_num, HttpSession session) {
+		System.out.println("ProductController canclePlzAlarm Start...");
+		//세션 객체 안에 있는 ID정보 저장 
+		Member m1 = (Member) session.getAttribute("member");
+		Member member= new Member();
+		member.setId(m1.getId());
+		
+		Alarm alarm = new Alarm();
+		alarm.setP_num(p_num);
+		alarm.setId(member.getId());
+		
+		int alarmNum = ps.plzAlarmDelete(alarm);
+		String alarmNumStr = Integer.toString(alarmNum);
+		return alarmNumStr;
+	}
+	
+	
+	//상품이름 다 가져오기
+	@RequestMapping("/optionWord")
+	@ResponseBody
+	public List<Pname> optionWord(){
+		System.out.println("ProductController optionWord Start...");
+		List<Pname> pNameTotal = ps.searchPName();
+		return pNameTotal;
+	}
+	
     
 }

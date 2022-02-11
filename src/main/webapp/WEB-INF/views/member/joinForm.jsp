@@ -32,10 +32,14 @@
 
 	//ID 중복체크
 	function memberIdConfirm() {
-		console.log($("#id").val())
+		var id = document.getElementById('id');
+		if(id.value.length == 0) {
+			alert("아이디를 입력하세요.");
+			return;
+		}
 
 		$.ajax({
-			url : "/memberIdConfirm",
+			url : "<%=request.getContextPath()%>/memberIdConfirm",
 			type : "post",
 			dataType : "json",
 			data : {//
@@ -62,7 +66,7 @@
 		var email = $('#email').val();
 
 		$.ajax({
-			url : "/mailConfirm",
+			url : "<%=request.getContextPath()%>/mailConfirm",
 			type : "post",
 			dataType : "json",
 			data : {//
@@ -89,8 +93,6 @@
 		}
 	}
 </script>
-
-
 
 <!--  -->
 <script
@@ -162,8 +164,6 @@
 					<div class="col">
 						<button class="memberIdConfirm" type="button" id="idDuplCheck"
 							onclick="memberIdConfirm();" value="N">중복확인</button>
-
-
 					</div>
 				</div>
 				<br>

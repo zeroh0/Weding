@@ -26,6 +26,9 @@ function pwCheck(){
 		document.memberPw.password_chk.value="";
 		document.memberPw.password.focus();
 		return false;
+	}else{
+		alert("비밀번호가 변경되었습니다.");
+		return true;
 	}
 	return true;
 }

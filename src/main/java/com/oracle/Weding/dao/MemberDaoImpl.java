@@ -1,6 +1,8 @@
 package com.oracle.Weding.dao;
 
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -152,6 +154,131 @@ public class MemberDaoImpl implements MemberDao {
 		}
 		
 		return memberDelete;
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public int total() {
+		int tot = 0;
+		System.out.println("MemberDaoImpl total Start..");
+	
+		try {
+			tot = session.selectOne("memberTotal");
+			System.out.println("MemberDaoImpl total tot : "+tot);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl total Exception : "+e.getMessage());
+		}
+		return tot;
+	}
+
+
+	@Override
+	public List<Member> memberList(Member member) {
+		List<Member> listMember = null;
+		try {
+			listMember = session.selectList("allMemberList",member);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl listMember Exception : " + e.getMessage());
+		}
+		return listMember;
+	}
+
+
+	@Override
+	public List<Member> catList(Member member) {
+		List<Member> listCat = null;
+		System.out.println("MemberDaoImpl catList Start..");
+		try {
+			listCat = session.selectList("memberCatList",member);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl catList Exception : "+e.getMessage());
+		}
+		return listCat;
+	}
+
+
+	@Override
+	public int update(Member member) {
+		System.out.println("MemberDaoImpl update Start..");
+		int kkk = 0;
+		try {
+			kkk = session.update("changeMemberLv", member);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl update Exception : "+e.getMessage());
+		}
+		return kkk;
+	}
+
+
+	@Override
+	public List<Member> changeMemberLv() {
+		List<Member> memberList = null;
+		System.out.println("MemberDaoImpl changeMemberLv Start..");
+		try {
+			memberList = session.selectList("changeMemberLv");
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl changeMemberLv Exception : " + e.getMessage());
+		}
+		System.out.println("MemberDaoImpl changeMemberLv memberList.size() : "+memberList.size());
+		return memberList;
+	}
+
+
+	@Override
+	public String findId(Member member) {
+		System.out.println("MemberDaoImpl findId Start..");
+		String idResultStr = "";
+		try {
+			idResultStr = session.selectOne("memberIdFind",member);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl findId Exception : " + e.getMessage());
+		}
+
+		return idResultStr;
+	}
+
+	@Override
+	public Member getMemberEmail(Member member) {
+		System.out.println("MemberDaoImpl getMemberEmail Start..");
+		Member pwFindMail = new Member();
+		System.out.println("MemberController pwFindAjax member.getId() : "+member.getId());
+		System.out.println("MemberController pwFindAjax member.getEmail() : "+member.getEmail());
+		try {
+			pwFindMail = session.selectOne("getMemberEmail", member); //(mapper ID,parameter)
+			System.out.println("MemberDaoImpl getMemberEmail pwFindMail.getEmail()"+pwFindMail.getEmail());
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl getMemberEmail Exception"+e.getMessage());
+
+		}
+		return pwFindMail;
+	}
+
+
+	@Override
+	public int findPw(Member member) {
+		System.out.println("MemberDaoImpl findPw Start..");
+		int findPw = 0;
+		try {
+			findPw = session.update("updatePw",member);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl findPw Exception"+e.getMessage());
+		}
+		return findPw;
+	}
+
+
+	@Override
+	public int randomPassword(Member member) {
+		System.out.println("MemberDaoImpl randomPassword Start..");
+		int randomPassword = 0;
+		try {
+			randomPassword = session.update("randomPassword", member);
+		} catch (Exception e) {
+			System.out.println("MemberDaoImpl randomPassword Exception"+e.getMessage());
+		}
+		return randomPassword;
 	}
 	
 }

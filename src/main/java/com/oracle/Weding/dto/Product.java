@@ -38,6 +38,9 @@ public class Product {
 	
 	// 주문한 사람 정보 
 	private int countOrders;   // 주문한 사람 수
+	
+	private int alarmingDate; //상품오픈까지 남은 시간 
+	private int countAlarm; //알림신청한 사람 수
 
 	
 }

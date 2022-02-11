@@ -28,7 +28,7 @@
                  <label class="sr-only" for="password">Password</label>
                  <input type="password" class="form-control" placeholder="Password" name="password" required>
               </div>
-              	<button class="btn btn-light" type="button" onclick="location.href='idFindForm'">아이디 비밀번호 찾기 찾기></button><p>
+            	<button class="btn btn-light" type="button" onclick="location.href='idpwFindForm'">아이디 비밀번호 찾기 찾기></button><p>
               	<button class="btn btn-success" type="submit" style="width: 300px; height: 40px;">로그인</button><br>
           	  	아직 계정이 없나요? <button class="btn btn-light" type="button" onclick="location.href='joinForm'">회원가입</button>
           </form>     

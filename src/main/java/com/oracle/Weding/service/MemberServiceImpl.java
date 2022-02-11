@@ -1,5 +1,7 @@
 package com.oracle.Weding.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired private MemberDao md;
 	
 	/**
-	 * 회원가입 서비스
-	 * 작성자 - 임채영
+	 * 회원가입
+	 * 작성자: 임채영
 	 */
 	@Override
 	public int join(Member member) {
@@ -24,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	/**
-	 * 로그인 서비스 
-	 * 작성자 - 임채영
+	 * 로그인 
+	 * 작성자: 임채영
 	 */
 	@Override
 	public Member login(Member member) {
@@ -38,8 +40,8 @@ public class MemberServiceImpl implements MemberService {
 
 
 	/**
-	 * 아이디 중복체크 서비스
-	 * 작성자 - 임채영
+	 * 아이디 중복체크
+	 * 작성자: 임채영
 	 */
 	@Override
 	public int memberIdConfirm(Member member) {
@@ -51,8 +53,8 @@ public class MemberServiceImpl implements MemberService {
 
 
 	/**
-	 * 이메일 인증 서비스
-	 * 작성자 - 임채영
+	 * 이메일 인증
+	 * 작성자: 임채영
 	 */
 	@Override
 	public String mailConfirm(Member member) {
@@ -63,9 +65,8 @@ public class MemberServiceImpl implements MemberService {
 	
 
 	/**
-	 * 회원정보 조회 서비스
-	 * 작성자 - 조소현
-	 * 목적 - 회원수정을 위한 정보 가져오기 
+	 * 회원정보 조회
+	 * 작성자: 조소현
 	 */
 	@Override
 	public Member readMember(String id) {
@@ -77,8 +78,8 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	/**
-	 * 회원정보 수정 서비스
-	 * 작성자 - 조소현
+	 * 회원정보 수정
+	 * 작성자: 조소현
 	 */
 	@Override
 	public int memberUpdate(Member member) {
@@ -91,8 +92,8 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	/**
-	 * 비밀번호 수정 서비스
-	 * 작성자 - 조소현
+	 * 비밀번호 수정
+	 * 작성자: 조소현
 	 */
 	@Override
 	public int pwUpdate(Member member) {
@@ -105,8 +106,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	/**
-	 * 회원 탈퇴 서비스
-	 * 작성자 - 김태근
+	 * 회원 탈퇴
+	 * 작성자: 김태근
 	 */
 	@Override
 	public int memberDelete(Member member) {
@@ -114,6 +115,127 @@ public class MemberServiceImpl implements MemberService {
 		memberDelete = md.memberDelete(member);
 		
 		return memberDelete;
+	}
+	
+	
+	/**
+	 * 전체 회원 수 조회
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public int total() {
+		System.out.println("MemberServiceImpl total Start..");
+		int totCnt = md.total();
+		System.out.println("MemberServiceImpl total totCnt : "+totCnt);
+		
+		return totCnt;
+	}
+
+	
+	/**
+	 * 전체 회원 조회
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public List<Member> memberList(Member member) {
+		System.out.println("MemberServiceImpl memberList Start..");
+		List<Member> listMember = md.memberList(member);
+		System.out.println("MemberServiceImpl memberList listMember.size() : "+listMember.size());
+		
+		return listMember;
+	}
+
+	
+	/**
+	 * 회원구분 조회
+	 * 작성자: 안혜정
+	 * 
+	 * 소비자, 판매자, 관리자
+	 */
+	@Override
+	public List<Member> catList(Member member) {
+		System.out.println("MemberServiceImpl catList Start..");
+		List<Member> catList = md.catList(member);
+		System.out.println("MemberServiceImpl catList catList size() : "+catList.size());
+		
+		return catList;
+	}
+
+
+	/**
+	 * 회원구분 전환
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public int update(Member member) {
+		System.out.println("MemberServiceImpl update..");
+		int kkk = md.update(member);
+		
+		return kkk;
+	}
+
+	
+	/**
+	 * 회원구분 전환
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public List<Member> changeMemberLv() {
+		System.out.println("MemberServiceImpl changeMemberLv Start..");
+		List<Member> memberList = md.changeMemberLv();
+		System.out.println("MemberServiceImpl changeMemberLv memberList.size() : "+memberList.size());
+		
+		return memberList;
+	}
+
+	
+	/**
+	 * 아이디 찾기
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public String findId(Member member) {
+		System.out.println("MemberServiceImpl findId Start.."); 
+		String idResult = md.findId(member);
+		
+		return idResult;
+	}
+
+
+	/**
+	 * 아이디, 이메일로 회원정보 가져오기
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public Member getMemberEmail(Member member) {
+		System.out.println("MemberServiceImpl getMemberEmail Start..");
+		Member pwFindMail = md.getMemberEmail(member);
+		
+		return pwFindMail;
+	}
+
+	
+	/**
+	 * 비밀번호 찾기
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public int findPw(Member member) {
+		System.out.println("MemberServiceImpl findPw Start..");
+		int findPw = md.findPw(member);
+		
+		return findPw;
+	}
+
+	
+	/**
+	 * 임시 비밀번호로 변경
+	 * 작성자: 안혜정
+	 */
+	@Override
+	public void tempPassword(Member member) {
+		System.out.println("MemberServiceImpl tempPassword Start..");
+		int randomPassword = md.randomPassword(member);		
 	}
 	
 }

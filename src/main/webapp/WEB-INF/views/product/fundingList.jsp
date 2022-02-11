@@ -21,37 +21,6 @@
         justify-content: center;
     }
 </style>
-<script>
-function getSearchList(){
-	alert($("form[name=search-form]").serialize());
-	$.ajax({
-		type: 'GET',
-		url: "/getSearchList",
-		data : $("form[name=search-form]").serialize(),
-		dataType:'json',
-		success : function(result){
-			alert(result.p_name);
-			$('.col').empty();
-			/* if(result.length>=1){
-			result.forEach(function(item){
-				alert("상품이름"+item.p_name);
-				str='<div class="card h-100">';
-                str+='<img src="http://placehold.it/100x100" class="card-img-top" alt="...">';
-                str+='<div class="card-body">';
-                str+="<h5 class='card-title'>"+item.p_name+"</h5>";
-                str+="<p class='card-text'>카테고리 | "+item.p_store+"</p>";
-                str+='<div class="progress"><div class="progress-bar w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0"aria-valuemax="100"></div></div><div class="row">';
-                str+="<div class='col-2'>50%</div>";
-                str+="<div class='col-6'>"+item.p_price+"원</div>";
-                str+="<div class='col-4'>12일 남음</div>";
-                str+="</div></div></div>";
-                $('.col').append(str);
-			}
-		}  */
-		}	
-	});
-}
-</script>
 <title>fundingList</title>
 </head>
 
@@ -88,9 +57,9 @@ function getSearchList(){
            	</div>
 
             <div class="col-2">
-                <form class="d-flex" name=search-form>
-                    <input class="form-control me-2" type="text" name="keyword" placeholder="검색" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit" onclick=getSearchList()><i class="bi bi-search"></i></button>
+                <form class="d-flex" action="getSearchProduct" method="get">
+                    <input class="form-control me-2" type="text" name="keyword" placeholder="검색" aria-label="Search" value="">
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div>
             <div class="col-1">
@@ -128,7 +97,7 @@ function getSearchList(){
                 <div class="card h-100">
                     <img src="http://placehold.it/100x100" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${product.p_name }</h5>
+                        <h5 class="card-title"><a href="fundingDetail?p_num=${product.p_num}&p_condition=${product.p_condition}">${product.p_name }</a></h5>
                         <p class="card-text">${product.mini_content} | ${product.p_store }</p>
                         <div class="progress">
                             <div class="progress-bar" style="width: ${product.attainment}%" role="progressbar" aria-valuenow="${product.attainment}"
