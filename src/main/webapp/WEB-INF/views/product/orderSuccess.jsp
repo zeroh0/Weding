@@ -15,10 +15,11 @@
     <div class="alert alert-success" role="alert">
         결제가 완료 되었습니다
     
-      <div>주문번호: ${orders.o_num }</div><p>
+      	<div>주문번호: ${orders.o_num }</div><p>
         <div>주문자: ${orders.id }</div><p>
         <div>주문 상품: ${orders.p_num }</div><p>
         <div>결제 금액: ${orders.o_sum }</div>
+        <div>결제 성공 여부: ${orders.success }</div>
         
     </div>
         <button type="button">메인페이지로 </button>

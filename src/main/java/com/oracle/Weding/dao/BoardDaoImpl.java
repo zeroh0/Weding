@@ -13,9 +13,13 @@ import lombok.extern.java.Log;
 @Repository
 @Log
 public class BoardDaoImpl implements BoardDao {
-	@Autowired
-	private SqlSession session;
 	
+	@Autowired private SqlSession session;
+	
+	
+	/**
+	 * 
+	 */
 	@Override
 	public int total(Board board) {
 		int tot = 0;
@@ -24,11 +28,15 @@ public class BoardDaoImpl implements BoardDao {
 			tot = session.selectOne("BoardTotal", board);
 		}catch (Exception e) {
 			System.out.println("BoardDaoImpl total Exception -> " + e.getMessage());
-			
 		}
+		
 		return tot;
 	}
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public List<Board> listBoard(Board board) {
 		List<Board> boardList = null;
@@ -38,10 +46,14 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl listBoard Exception -> " + e.getMessage());
 		}
+		
 		return boardList;
 	}
 	
 	
+	/**
+	 * 
+	 */
 	@Override
 	public Board detail(int b_num) {
 		System.out.println("BoardDaoImpl detail Start...");
@@ -49,14 +61,17 @@ public class BoardDaoImpl implements BoardDao {
 		try {
 			board = session.selectOne("BoardDetail", b_num);
 			System.out.println("noticeBoardDetail board" +board.toString());
-			
-		
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl detail Exception "+e.getMessage());
 		}
+		
 		return board;
 	}
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public int hit(int b_num) {
 		System.out.println("BoardDaoImpl hit Start...");
@@ -66,9 +81,14 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl hit Exception "+e.getMessage());
 		}
+		
 		return kkk;
 	}
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public int delete(int b_num) {
 		System.out.println("BoardDaoImpl delete Start...");
@@ -79,9 +99,14 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl delete Exception" +e.getMessage());
 		}
+		
 		return result;
 	}
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public int update(Board board) {
 		System.out.println("BoardDaoImpl update Start...");
@@ -91,11 +116,14 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl update Exception  "+e.getMessage());
 		}
+		
 		return kkk;
 	}
 	
 	
-
+	/**
+	 * 
+	 */
 	@Override
 	public int insert(Board board) {
 		int result = 0;
@@ -107,11 +135,15 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl insert Exception->"+e.getMessage());
 		}
+		
 		return result;
 	}
 	
 	
-	//1대1문의내역 목록(소비자)
+	/**
+	 * 1대1문의내역 목록(소비자)
+	 * 작성자: 송지훈
+	 */
 	@Override
 	public List<Board> qnaList(Board board) {
 		List<Board> qnaList = null;
@@ -121,10 +153,15 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl qnaList Exception->"+e.getMessage());
 		}
+		
 		return qnaList;
 	}
 
-	//1대1문의 내역 (핀매자)
+	
+	/**
+	 * 1대1문의 내역 (핀매자)
+	 * 작성자: 송지훈
+	 */
 	@Override
 	public List<Board> sellerQna(Board board) {
 		List<Board> sellerQna = null;
@@ -135,12 +172,16 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl sellerQnaAll Exception "+e.getMessage());
 		}
+		
 		return sellerQna;
 	}
 
 	
 	
-	//	답글
+	/**
+	 * 답글
+	 * 작성자: 임채영
+	 */
 	@Override
 	public Board replyForm(int b_num) {
 		Board replyForm = null;
@@ -154,19 +195,11 @@ public class BoardDaoImpl implements BoardDao {
 		return replyForm;
 	}
 
-//	@Override
-//	public int replyShape(Board board) {
-//		int result = 0;
-//		System.out.println("BoardDaoImpl replyShape start.. . ");
-//		try { //resukl
-//			result = session.update("replyShape", board);
-//		} catch(Exception e) {
-//			System.out.println("BoardDaoImpl replyShape Exception " + e.getMessage());
-//		}
-//		
-//		return result;
-//	}
 
+	/**
+	 * 답글 처리
+	 * 작성자: 임채영
+	 */
 	@Override
 	public int reply(Board board) {//글 작성. insert
 		int result1 = 0;
@@ -197,9 +230,11 @@ public class BoardDaoImpl implements BoardDao {
 		}catch (Exception e) {
 			System.out.println("qnaBoardListTotal Exception -> " + e.getMessage());
 		}
+		
 		return tot;
 	}
 
+	
 	/**
 	 * 관리자 qna
 	 */
@@ -212,9 +247,11 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			log.info("qnaBoardList(): " + e.getMessage());
 		}
+		
 		return qnaBoardList;
 	}
 
+	
 	/**
 	 * 리뷰 목록
 	 */
@@ -227,9 +264,11 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			log.info("reviewBoardList(): " + e.getMessage());
 		}
+		
 		return reviewBoardList;
 	}
 
+	
 	/**
 	 * 리뷰 작성
 	 */
@@ -241,9 +280,11 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			log.info("reviewBoardWrite(): " + e.getMessage());
 		}
+		
 		return result;
 	}
 
+	
 	/**
 	 * 리뷰 글 목록 갯수
 	 */
@@ -255,8 +296,10 @@ public class BoardDaoImpl implements BoardDao {
 		}catch (Exception e) {
 			System.out.println("reviewBoardListTotal Exception -> " + e.getMessage());
 		}
+		
 		return tot;
 	}
+	
 	
 	/**
 	 * 글 보기
@@ -269,15 +312,8 @@ public class BoardDaoImpl implements BoardDao {
 		} catch (Exception e) {
 			log.info("detail : " + e.getMessage());
 		}
+		
 		return board;
 	}
-	
-	
-	
-	
-	
-	
-	
 
-	
 }

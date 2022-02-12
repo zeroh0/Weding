@@ -18,11 +18,13 @@ import lombok.extern.java.Log;
 @Repository
 @Log
 public class ProductDaoImpl implements ProductDao {
-	@Autowired
-	private SqlSession session;
+	
+	@Autowired private SqlSession session;
+	
 	
 	/**
 	 * 펀딩 예정 목록 갯수
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int beforeFundListTotal() {
@@ -33,12 +35,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("beforeFundListTotal Exception -> " + e.getMessage());
 		}
+		
 		return tot;
 	}
 	
 	
 	/**
 	 * 펀딩중 목록 갯수
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int fundingListTotal(Product product) {
@@ -49,11 +53,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("fundingListTotal Exception -> " + e.getMessage());
 		}
+		
 		return tot;
 	}
 	
+	
 	/**
 	 * 펀딩 내역 갯수
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int payListTotal() {
@@ -64,13 +71,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("payListTotal Exception -> " + e.getMessage());
 		}
+		
 		return tot;
-
 	}
 
 
 	/**
 	 * 상품 목록 리스트 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Product> productList(Product product) {
@@ -81,11 +89,14 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl mainProduct Exception -> " + e.getMessage());
 		} 
+		
 		return productMain; 
 	}
 
+	
 	/**
 	 * 펀딩 내역 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Orders> payList(Orders orders) {
@@ -96,12 +107,14 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			log.info("payListDao: " + e.getMessage());
 		} 
+		
 		return payList;
 	}
 
 	
 	/**
 	 * 펀딩 취소
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int payDelete(Orders orders) {
@@ -111,12 +124,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("payDelete() : " + e.getMessage());
 		}
+		
 		return result;
 	}
 
 	
 	/**
 	 * 메인 랜덤상품 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Product> getRandomProduct() {
@@ -126,11 +141,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("getRandomProduct : " + e.getMessage());
 		}
+		
 		return randomProduct;
 	}
 
+	
 	/**
 	 * 메인 인기상품 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Product> getPopularProduct() {
@@ -140,11 +158,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("getPopularProduct : " + e.getMessage());
 		}
+		
 		return popularProduct;
 	}
 
+	
 	/**
 	 * 메인 오늘 당일 상품 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Product> getOpenProduct() {
@@ -154,11 +175,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("getOpenProduct : " + e.getMessage());
 		}
+		
 		return openProduct;
 	}
 
+	
 	/**
 	 * 메인 리뷰가 있는 상품 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Product> getReviewProduct() {
@@ -168,11 +192,15 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			log.info("getReviewProduct : " + e.getMessage());
 		}
+		
 		return reviewProduct;
 	} 
 
 	
-	//상품카테고리 이름 가져오기
+	/**
+	 * 상품카테고리 이름 가져오기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Cat> arrayCategory() {
 		System.out.println("ProductDaoImpl arrayCategory Start…");
@@ -182,12 +210,14 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl arrayCategory Exception -> " + e.getMessage());
 		}
+		
 		return catList;
 	}
 
 
 	/**
 	 * 주문
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int orders(Orders orders) {
@@ -204,7 +234,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 주문: 현재달성금액 증가
+	 * 주문 - 현재달성금액 증가
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int sumCurPrice(Orders orders) {
@@ -219,8 +250,10 @@ public class ProductDaoImpl implements ProductDao {
 		return result;
 	}
 
+	
 	/**
-	 * 주문: 현재달성금액 감소
+	 * 주문 - 현재달성금액 감소
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int subCurPrice(Orders orders) {
@@ -235,7 +268,11 @@ public class ProductDaoImpl implements ProductDao {
 		return result;
 	}
 	
-	// 마이페이지 - 찜목록 보기
+	
+	/**
+	 * 마이페이지 - 찜목록 보기
+	 * 작성자: 김태근
+	 */
 	@Override
 	public List<Product> dibsList(Product product) {
 		System.out.println("ProductDaoImpl listProduct Start...");
@@ -246,10 +283,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl listProduct Exception -> " + e.getMessage());
 		}
+		
 		return dibsList;
 	}
 	
-	// product total
+	
+	/**
+	 * product total
+	 * 작성자: 김태근
+	 */
 	@Override
 	public int total() {
 		int tot = 0;
@@ -260,10 +302,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl total Exception ->" + e.getMessage());
 		}
+		
 		return tot;
 	}
 	
-	// 관리자페이지 - 전체 상품관리List 보기
+	
+	/**
+	 * 관리자페이지 - 전체 상품관리List 보기
+	 * 작성자: 김태근
+	 */
 	@Override
 	public List<Product> allproductListAll(Product product) {
 		System.out.println("ProductDaoImpl allproductListAll Start...");
@@ -274,10 +321,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl allproductListAll Exception ->" + e.getMessage());
 		}
+		
 		return allproductListAll;
 	}
 	
-	// 관리자페이지 - 전체상품중 해당상품 UpdateForm (김태근)
+	
+	/**
+	 * 관리자페이지 - 전체상품중 해당상품 UpdateForm (김태근)
+	 * 작성자: 김태근
+	 */
 	@Override
 	public Product allProductUpdateForm(Product product) {
 		Product allProductUpdateForm = null;
@@ -287,10 +339,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl allProductUpdateForm Exception ->" + e.getMessage());
 		}
+		
 		return allProductUpdateForm;
 	}
 	
-	// 관리자페이지 - 전체상품중 해당상품 Update (김태근)
+	
+	/**
+	 * 관리자페이지 - 전체상품중 해당상품 Update (김태근)
+	 * 작성자: 김태근
+	 */
 	@Override
 	public int allProductUpdate(Product product) {
 		int allProductUpdate = 0;
@@ -300,10 +357,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl allProductUpdate Exception -> " + e.getMessage());
 		}
+		
 		return allProductUpdate;
 	}
 	
-	// 관리자페이지 - 전체상품중 해당상품 선택해서 Delete (김태근)
+	
+	/**
+	 * 관리자페이지 - 전체상품중 해당상품 선택해서 Delete (김태근)
+	 * 작성자: 김태근
+	 */
 	@Override
 	public int delete(String p_num) {
 		int rstSel1 = 0;
@@ -334,10 +396,14 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl delete Exception -> " + e.getMessage());
 		}
+		
 		return rstDel5;
 	}
 	
 	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Product> catList() {
 		List<Product> catList = null;
@@ -347,9 +413,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl listCat Exception : "+e.getMessage());
 		}
+		
 		return catList;
 	}
 
+	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public int insert(Product product) {
 		System.out.println("ProductDaoImpl insert Start..");
@@ -359,9 +430,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl insert Exception : "+e.getMessage());
 		}
+		
 		return result;
 	}
 
+	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Product> sortNewProduct(Product product) {
 		List<Product> sortNewProduct = null;
@@ -371,9 +447,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl sortNewProduct Exception : "+e.getMessage());
 		}
+		
 		return sortNewProduct;
 	}
 
+	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Product> sortPopularProduct(Product product) {
 		List<Product> sortPopularProduct = null;
@@ -383,9 +464,14 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl sortPopularProduct Exception : "+e.getMessage());
 		}
+		
 		return sortPopularProduct;
 	}
 
+	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Product> sortGoalProduct(Product product) {
 		List<Product> sortGoalProduct = null;
@@ -395,11 +481,15 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl sortGoalProduct Exception : "+e.getMessage());
 		}
+		
 		return sortGoalProduct;
 	}
 	
 	
-	//상품상세보기
+	/**
+	 * 상품상세보기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public Product productDetail(int p_num) {
 		System.out.println("ProductDaoImpl productDetail Start...");
@@ -409,10 +499,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("EmpDaoImpl detail Exception->"+e.getMessage());
 		}
+		
 		return product;
 	}
 
-	//상품상세보기 아래에 추천상품 나타내기
+	
+	/**
+	 * 상품상세보기 아래에 추천상품 나타내기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Product> recommendProduct(int p_condition) {
 		System.out.println("ProductDaoImpl recommendProduct Start...");
@@ -422,10 +517,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl recommendProduct Exception -> " + e.getMessage());
 		}
+		
 		return productList;
 	}
 
-	//상품검색
+	
+	/**
+	 * 상품검색
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Product> selectSearchList(Product product) {
 		System.out.println("ProductDaoImpl selectSearchList Start...");
@@ -436,10 +536,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl selectSearchList Exception -> " + e.getMessage());
 		}
+		
 		return productSearchList;
 	}
 
-	//상품찜하기 
+	
+	/**
+	 * 상품찜하기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int pushDibs(Dibs dibs) {
 		System.out.println("ProductDaoImpl pushDibs Start...");
@@ -450,10 +555,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl pushDibs Exception -> " + e.getMessage());
 		}
+		
 		return dibsNum;
 	}
 
-	//달성률 받아오기 
+	
+	/**
+	 * 달성률 받아오기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int attainment(int p_num) {
 		System.out.println("ProductDaoImpl attainment Start...");
@@ -464,10 +574,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl attainment Exception -> " + e.getMessage());
 		}
+		
 		return attainment;
 	}
 
-	//로그인 후 상품 찜하기 했는지 확인하기
+	
+	/**
+	 * 로그인 후 상품 찜하기 했는지 확인하기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int dibsProduct(Dibs dibs) {
 		System.out.println("ProductDaoImpl dibsProduct Start...");
@@ -478,10 +593,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl mainProduct Exception -> " + e.getMessage());
 		} 
+		
 		return count;
 	}
 
-	//찜하기 취소 
+	
+	/**
+	 * 찜하기 취소
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int cancleDibs(Dibs dibs) {
 		System.out.println("ProductDaoImpl cancleDibs Start...");
@@ -492,10 +612,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl cancleDibs Exception -> " + e.getMessage());
 		}
+		
 		return dibsNum;
 	}
 
-	//알림신청하기 
+	
+	/**
+	 * 알림신청하기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int plzAlarmInsert(Alarm alarm1) {
 		System.out.println("ProductDaoImpl plzAlarmInsert Start...");
@@ -506,10 +631,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl plzAlarmInsert Exception -> " + e.getMessage());
 		}
+		
 		return alarmNum;
 	}
 
-	//로그인 후 상품 알림신청했는지 확인하기
+	
+	/**
+	 * 로그인 후 상품 알림신청했는지 확인하기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int alarmProduct(Alarm alarm) {
 		System.out.println("ProductDaoImpl alarmProduct Start...");
@@ -520,10 +650,15 @@ public class ProductDaoImpl implements ProductDao {
 		}catch (Exception e) {
 			System.out.println("ProductDaoImpl alarmProduct Exception -> " + e.getMessage());
 		} 
+		
 		return alarmCount;
 	}
 
-	//알림신청 취소하기
+	
+	/**
+	 * 알림신청 취소하기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int plzAlarmDelete(Alarm alarm) {
 		System.out.println("ProductDaoImpl plzAlarmDelete Start...");
@@ -534,10 +669,14 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl plzAlarmDelete Exception -> " + e.getMessage());
 		}
+		
 		return alarmNum;
 	}
 
-	//알림신청한 이메일 받아오기 
+	/**
+	 * 알림신청한 이메일 받아오기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Alarm> getEmailList(String p_num) {
 		System.out.println("ProductDaoImpl getEmailList Start...");
@@ -552,7 +691,10 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	
-	//상품이름 다 가져오기
+	/**
+	 * 상품이름 다 가져오기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Pname> searchPName() {
 		System.out.println("ProductDaoImpl searchPName Start...");
@@ -562,15 +704,14 @@ public class ProductDaoImpl implements ProductDao {
 		}catch(Exception e) {
 			System.out.println("ProductDaoImpl getEmailList Exception -> " + e.getMessage());
 		}
+		
 		return pNameTotal;
 	}
+	
 	
 	/**
 	 * 판매자 상품 목록
 	 * 작성자: 송지훈
-	 * 
-	 * @param product
-	 * @return
 	 */
 	@Override
 	public List<Product> soldList(Product product) {
@@ -581,8 +722,8 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl soldList Exception "+e.getMessage());
 		}
+		
 		return productSoldList;
 	}
 	
-
 }

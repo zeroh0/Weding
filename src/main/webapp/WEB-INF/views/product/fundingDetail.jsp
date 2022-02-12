@@ -127,11 +127,16 @@ function cancleDibsProduct(p_num){
 				<div>${product.p_currentprice}원 펀딩</div>
 				<div>${product.countOrders}명의 서포터</div>
 				<div align="right">
-					<form action="orders">
-						<input type="number" name="qty" value="0" class="col-md-2">
-					</form>
+					<form action="orderForm" method="post">
+						<input type="number" name="o_qty" value="0" class="col-md-2">
+					
 					<h5 style="margin-top: 5px;"><p>${product.p_price}원<p></h5>
-				<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
+					
+						<input type="hidden" name="p_num" value="${product.p_num}">
+						<input type="hidden" name="p_price" value="${product.p_price}">
+				
+					<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
+				</form>
 				</div>
 				<div class="row d-grid gap-2 col-12 mx-auto" style="margin-top: 10px;" align="center">
 					<p>

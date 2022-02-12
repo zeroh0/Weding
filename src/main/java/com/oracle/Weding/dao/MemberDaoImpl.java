@@ -13,6 +13,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Autowired private SqlSession session;
 	
+	
 	/**
 	 * 회원가입 서비스
 	 * 작성자 - 임채영
@@ -105,6 +106,7 @@ public class MemberDaoImpl implements MemberDao {
 		return member;
 	}
 
+	
 	/**
 	 * 회원정보 수정 서비스
 	 * 작성자 - 조소현
@@ -122,6 +124,7 @@ public class MemberDaoImpl implements MemberDao {
 		return update;
 	}
 
+	
 	/**
 	 * 비밀번호 수정 서비스
 	 * 작성자 - 조소현
@@ -138,6 +141,7 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return result;
 	}
+	
 	
 	/**
 	 * 회원 탈퇴 서비스
@@ -156,24 +160,28 @@ public class MemberDaoImpl implements MemberDao {
 		return memberDelete;
 	}
 	
+	
 	/**
-	 * 
+	 * 작성자: 안혜정
 	 */
 	@Override
 	public int total() {
 		int tot = 0;
 		System.out.println("MemberDaoImpl total Start..");
-	
 		try {
 			tot = session.selectOne("memberTotal");
 			System.out.println("MemberDaoImpl total tot : "+tot);
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl total Exception : "+e.getMessage());
 		}
+		
 		return tot;
 	}
 
-
+	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Member> memberList(Member member) {
 		List<Member> listMember = null;
@@ -182,10 +190,14 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl listMember Exception : " + e.getMessage());
 		}
+		
 		return listMember;
 	}
 
 
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Member> catList(Member member) {
 		List<Member> listCat = null;
@@ -195,10 +207,14 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl catList Exception : "+e.getMessage());
 		}
+		
 		return listCat;
 	}
 
 
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public int update(Member member) {
 		System.out.println("MemberDaoImpl update Start..");
@@ -208,10 +224,14 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl update Exception : "+e.getMessage());
 		}
+		
 		return kkk;
 	}
 
 
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public List<Member> changeMemberLv() {
 		List<Member> memberList = null;
@@ -222,10 +242,14 @@ public class MemberDaoImpl implements MemberDao {
 			System.out.println("MemberDaoImpl changeMemberLv Exception : " + e.getMessage());
 		}
 		System.out.println("MemberDaoImpl changeMemberLv memberList.size() : "+memberList.size());
+		
 		return memberList;
 	}
 
 
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public String findId(Member member) {
 		System.out.println("MemberDaoImpl findId Start..");
@@ -239,6 +263,10 @@ public class MemberDaoImpl implements MemberDao {
 		return idResultStr;
 	}
 
+	
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public Member getMemberEmail(Member member) {
 		System.out.println("MemberDaoImpl getMemberEmail Start..");
@@ -252,10 +280,14 @@ public class MemberDaoImpl implements MemberDao {
 			System.out.println("MemberDaoImpl getMemberEmail Exception"+e.getMessage());
 
 		}
+		
 		return pwFindMail;
 	}
 
 
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public int findPw(Member member) {
 		System.out.println("MemberDaoImpl findPw Start..");
@@ -265,10 +297,14 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl findPw Exception"+e.getMessage());
 		}
+		
 		return findPw;
 	}
 
 
+	/**
+	 * 작성자: 안혜정
+	 */
 	@Override
 	public int randomPassword(Member member) {
 		System.out.println("MemberDaoImpl randomPassword Start..");
@@ -278,6 +314,7 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl randomPassword Exception"+e.getMessage());
 		}
+		
 		return randomPassword;
 	}
 	

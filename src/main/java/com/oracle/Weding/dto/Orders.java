@@ -26,4 +26,6 @@ public class Orders {
 	private int end;
 	
 	private String success;
+	
+	private int p_price;
 }

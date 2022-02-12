@@ -1,6 +1,6 @@
 package com.oracle.Weding.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import javax.servlet.http.HttpSession;
 
@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.Weding.dto.Alarm;
-import com.oracle.Weding.dto.Board;
 import com.oracle.Weding.dto.Cat;
 import com.oracle.Weding.dto.Dibs;
 import com.oracle.Weding.dto.Member;
 import com.oracle.Weding.dto.Orders;
 import com.oracle.Weding.dto.Pname;
 import com.oracle.Weding.dto.Product;
-import com.oracle.Weding.service.BoardService;
 import com.oracle.Weding.service.Paging;
 import com.oracle.Weding.service.ProductService;
 
@@ -32,7 +30,6 @@ import lombok.extern.java.Log;
 public class ProductController {
 	
 	@Autowired private ProductService ps;
-	@Autowired private BoardService bs;
 	
 	
 	/**
@@ -234,19 +231,7 @@ public class ProductController {
 		
 		return "redirect:payList";
 	}
-	
-	
-	/**
-	 * 펀딩중, 펀딩종료 상품 상세보기
-	 * 작성자: 장동호
-	 * 
-	 * @param model
-	 * @param board
-	 * @param currentPage
-	 * @return
-	 */
 
-	
 	
 	/**
 	 * 펀딩예정 상품 상세보기
@@ -263,7 +248,12 @@ public class ProductController {
      * 작성자: 장동호
      */
     @RequestMapping(value = "orderForm")
-    public String orderForm() {
+    public String orderForm(Orders orders, Product product, Model model) {
+    	Product orderProduct = ps.allProductUpdateForm(product);
+    	orders.setO_sum(orders.getO_qty() * orders.getP_price());
+    	model.addAttribute("orderProduct", orderProduct);
+    	model.addAttribute("orders", orders);
+    	
     	return "/product/orderForm";
     }
     

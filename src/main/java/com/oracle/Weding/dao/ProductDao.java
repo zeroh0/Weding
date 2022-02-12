@@ -36,18 +36,17 @@ public interface ProductDao {
 	List<Product> 	sortPopularProduct(Product product);
 	List<Product> 	sortGoalProduct(Product product);
 	
-	Product productDetail(int p_num);
-	List<Product> recommendProduct(int p_condition);
-	List<Product> selectSearchList(Product product);
-	int pushDibs(Dibs dibs);
-	int attainment(int p_num);
-	int dibsProduct(Dibs dibs);
-	int cancleDibs(Dibs dibs);
-	int plzAlarmInsert(Alarm alarm1);
-	int alarmProduct(Alarm alarm);
-	int plzAlarmDelete(Alarm alarm);
-	List<Alarm> getEmailList(String p_num);
-	List<Pname> searchPName();
-	
+	Product 		productDetail(int p_num);
+	List<Product> 	recommendProduct(int p_condition);
+	List<Product> 	selectSearchList(Product product);
+	int 			pushDibs(Dibs dibs);
+	int 			attainment(int p_num);
+	int 			dibsProduct(Dibs dibs);
+	int 			cancleDibs(Dibs dibs);
+	int 			plzAlarmInsert(Alarm alarm1);
+	int 			alarmProduct(Alarm alarm);
+	int 			plzAlarmDelete(Alarm alarm);
+	List<Alarm> 	getEmailList(String p_num);
+	List<Pname> 	searchPName();
 	List<Product> 	soldList(Product product);
 }
