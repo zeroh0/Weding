@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,18 +36,20 @@
         <h2>문의내역­</h2><br>
             <table colspan="2">
                 <tr><th>번호</th><th>제목</th><th>작성일</th><th>조회수</th><th>답변여부</th></tr>
-                <c:forEach var="board" items="${listBoard}">
+                <c:forEach var="board" items="${qnaList}">
                     <tr>
                         <td>${board.b_num}</td>
                         <td>${board.b_title}</td>
                         <td>${board.b_date}</td>
                         <td>${board.b_hit}</td>
                         <td>
-                        <c:when test=${board.b_step == 0}>N</c:when>
-                        <c:otherwise>Y</c:otherwise>
+                        <c:choose>
+	                        <c:when test="${board.b_step eq 0}">N</c:when>
+	                        <c:otherwise>Y</c:otherwise>
+                        </c:choose>
                         </td>  
                     </tr>
-                    <c:set var="num" value="${num-1}"></c:set>
+                    <%-- <c:set var="num" value="${num-1}"></c:set> --%>
                 </c:forEach>
             </table><br>
         

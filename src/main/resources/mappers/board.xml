@@ -65,7 +65,7 @@
 	    where rn between 1 AND 300
 	    and b.main_cat = 300
         and b.mini_cat = 300
-	     and id = 'hong001'
+	    and id = 'hong001'
 	    order by b_Group desc, b_Step asc
      </select>  
 	    

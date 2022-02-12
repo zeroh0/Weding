@@ -72,7 +72,7 @@
                     </tr>
                  </table>  
                 <c:forEach var="member" items="${memberList}">
-             	  <form action="update" method="post" >
+             	  <form action="updateMember" method="post" >
              	     <input type="hidden" name="id" value="${member.id}">
  
              	    <table width="800" style="text-align: center;">

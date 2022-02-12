@@ -1,6 +1,6 @@
 package com.oracle.Weding.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -20,11 +20,22 @@ import com.oracle.Weding.service.ProductService;
 
 @Controller
 public class MailController {
-	@Autowired
-	private ProductService ps;
-	@Autowired
-	private JavaMailSender mailSender;
 	
+	@Autowired private ProductService ps;
+	@Autowired private JavaMailSender mailSender;
+	
+	
+	/**
+	 * 관리자 - 알림 메일 전송
+	 * 작성자: 조소현
+	 * 
+	 * 알림 신청한 소비자에게 메일 전송
+	 * 
+	 * @param p_num
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="mailTransport")
 	public String mailTransport(String p_num, HttpServletRequest request, Model model) {
 		//상품알림신청한 사람 구해오기
@@ -32,7 +43,7 @@ public class MailController {
 		
 		System.out.println("mailSending...");
 		String tomail = null;		//받는 사람 이메일 
-		String setFrom = "boccioni1900@gamil.com";
+		String setFrom = "wedingfunding@gamil.com";
 		String title="[Weding]상품오픈알림입니다.";			//제목 
 		for(int i=0; i<emailList.size(); i++) {
 			System.out.println(i+"번째 사람"+emailList.get(i).getName()+"이메일="+emailList.get(i).getEmail());
@@ -59,4 +70,5 @@ public class MailController {
 		}
 		return "mailResult";
 	}
+	
 }

@@ -27,6 +27,7 @@ public class MemberController {
 	@Autowired private MemberService ms;
 	@Autowired private JavaMailSender mailSender;
 	
+	
 	/**
 	 * 회원가입 폼으로 이동
 	 * 작성자: 임채영
@@ -321,7 +322,7 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "update")
+	@RequestMapping(value = "updateMember")
 	public String update(Member member, Model model) {
 		System.out.println("MemberController update Start..");
 		System.out.println("MemberController update member.getMini_cat()->"+member.getMini_cat());

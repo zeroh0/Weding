@@ -20,14 +20,12 @@
 	
 	<dependencies>
 	
-		<!-- 내장 톰캣 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- 테스트 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -76,24 +74,26 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- jsp변경 -->
+		<!-- JSTL -->
 		<dependency> 
 			<groupId>javax.servlet</groupId> 
 			<artifactId>jstl</artifactId> 
 		</dependency> 
+		
+		<!-- Tomcat Embed Jasper -->
 		<dependency> 
 			<groupId>org.apache.tomcat.embed</groupId> 
 			<artifactId>tomcat-embed-jasper</artifactId> 
 		</dependency>
 		
-		<!-- json simple  -->
+		<!-- JSON.simple  -->
 		<dependency>
 		  <groupId>com.googlecode.json-simple</groupId>
 		  <artifactId>json-simple</artifactId>
 		  <version>1.1.1</version>
 		</dependency>
 		
-		<!-- Sql Log --> 
+		<!-- SQL Log --> 
 	    <dependency>
 	        <groupId>org.lazyluke</groupId>
 	        <artifactId>log4jdbc-remix</artifactId>

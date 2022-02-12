@@ -60,7 +60,7 @@
 		      from (select o.O_NUM, o.O_PAYDAY, p.p_name, o.O_SUM, p.P_CONDITION, o.O_SHIPSTATUS, o.id, o.p_num
 		            from ORDERS o, PRODUCT p
 		            where o.P_NUM = p.P_NUM
-		            and o.ID = 'hong006'
+		            and o.ID = #{id}
 		            order by O_NUM desc, O_PAYDAY desc) a
 		      )
 		where rn between #{start} and #{end}
@@ -176,7 +176,7 @@
 				   round((p.p_currentprice /p.p_goalprice)*100,2) attainment, 
 				   (case when round(to_date(p_end)-sysdate,0)<0 then '판매종료' else  to_char(round(to_date(p_end)-sysdate,0))||'일 남음' end) leftdate,
 			       p.*
-			FROM  (SELECT * FROM member WHERE id = 'hong001') m,
+			FROM  (SELECT * FROM member WHERE id = #{consumer_id}) m,
 			      product p, 
 			      (SELECT * FROM cat WHERE mini_cat = '999') c1, 
 			      (SELECT * FROM cat WHERE mini_cat <> '999') c2,
@@ -411,5 +411,18 @@
 		select p_name from product where p_condition in (2,3)
 	</select> 
 	
+	<!-- <![CDATA[ -> <>를 사용하기위한 명령문 -->
+	<select id = "soldListAll" parameterType="Product" resultType="Product">
+		<![CDATA[
+		select p.*,round((p.p_currentprice/p.p_goalprice)*100,0)attainment,c2.c_content mini_content
+			from (SELECT rownum rn, a.*FROM (SELECT * FROM product order by P_NUM) a) p,
+		    (select * from cat where mini_cat= 999)c1,
+		    (select * from cat where mini_cat <> 999)c2
+		WHERE rn between #{start} AND #{end}
+		and   p.main_cat = c1.main_cat
+		and   p.main_cat = c2.main_cat
+		and   p.mini_cat = c2.mini_cat
+		]]>
+	</select>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.oracle.Weding.service;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,8 @@ import lombok.extern.java.Log;
 @Log
 public class ProductServiceImpl implements ProductService {
 	
-	@Autowired private ProductDao	pd;
+	@Autowired private ProductDao pd;
+	
 	
 	/**
 	 * 펀딩 예정 목록 개수 조회
@@ -350,105 +351,178 @@ public class ProductServiceImpl implements ProductService {
 		return sortGoalProduct;
 	}
 	
-	//상품상세보기 
+	
+	/**
+	 * 상품상세보기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public Product productDetail(int p_num) {
 		System.out.println("ProductServiceImpl productDetail Start...");
 		Product product = pd.productDetail(p_num);
+		
 		return product;
 	}
 	
-	//상품상세보기 아래에 추천상품 나타내기
+	
+	/**
+	 * 상품상세보기 아래에 추천상품 나타내기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Product> recommendProduct(int p_condition){ 
 		System.out.println("ProductServiceImpl recommendProduct Start...");
 		List<Product> productList = pd.recommendProduct(p_condition);
+		
 		return productList;
 	}
+	
 
-	//상품검색
+	/**
+	 * 상품검색
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Product> getSearchList(Product product) {
 		System.out.println("ProductServiceImpl getSearchList Start...");
 //			System.out.println("ProductServiceImpl getSearchList product.getKeyword()->"+product.getKeyword());
 		List<Product> searchList = pd.selectSearchList(product);
+		
 		return searchList;
 	}
 
-	//상품찜하기
+	
+	/**
+	 * 상품찜하기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int pushDibs(Dibs dibs) {
 		System.out.println("ProductServiceImpl pushDibs Start...");
 		int dibsNum = 0;
 		dibsNum = pd.pushDibs(dibs);
+		
 		return dibsNum;
 	}
 
-	//달성률 받아오기
+	
+	/**
+	 * 달성률 받아오기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int attainment(int p_num) {
 		System.out.println("ProductServiceImpl attainment Start...");
 		int attainment = pd.attainment(p_num);
+		
 		return attainment;
 	}
 	
-	//로그인 후 상품 찜하기 했는지 확인하기 
+	
+	/**
+	 * 로그인 후 상품 찜하기 했는지 확인하기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int dibsProduct(Dibs dibs) {
 		System.out.println("ProductServiceImpl dibsProduct Start...");
 		int count = pd.dibsProduct(dibs);
+		
 		return count;
 	}
-	//찜하기 취소
+	
+	
+	/**
+	 * 찜하기 취소
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int cancleDibs(Dibs dibs) {
 		System.out.println("ProductServiceImpl cancleDibs Start...");
 		int dibsNum = 0;
 		dibsNum = pd.cancleDibs(dibs);
+		
 		return dibsNum;
 	}
 
-	//알림신청하기 
+	
+	/**
+	 * 알림신청하기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int plzAlarmInsert(Alarm alarm1) {
 		System.out.println("ProductServiceImpl plzAlarmInsert Start...");
 		int alarmNum = 0;
 		alarmNum = pd.plzAlarmInsert(alarm1);
+		
 		return alarmNum;
 	}
 
-	//로그인 후 상품 알림신청했는지 확인하기
+	
+	/**
+	 * 로그인 후 상품 알림신청했는지 확인하기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public int alarmProduct(Alarm alarm) {
 		System.out.println("ProductServiceImpl alarmProduct Start...");
 		int alarmCount = pd.alarmProduct(alarm);
+		
 		return alarmCount;
 	}
 
-	//알림신청 취소하기 
+	
+	/**
+	 * 알림신청 취소하기
+	 * 작성자: 조소현 
+	 */
 	@Override
 	public int plzAlarmDelete(Alarm alarm) {
 		System.out.println("ProductServiceImpl plzAlarmDelete Start...");
 		int alarmNum = 0;
 		alarmNum = pd.plzAlarmDelete(alarm);
+		
 		return alarmNum;
 	}
 
-	//알림신청한 이메일 가져오기
+	
+	/**
+	 * 알림신청한 이메일 가져오기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Alarm> getEmailList(String p_num) {
 		System.out.println("ProductServiceImpl getEmailList Start...");
 		List<Alarm> emailList = pd.getEmailList(p_num);
+		
 		return emailList;
 	}
 
 	
-	//상품이름 다 가져오기
+	/**
+	 * 상품이름 다 가져오기
+	 * 작성자: 조소현
+	 */
 	@Override
 	public List<Pname> searchPName() {
 		System.out.println("ProductServiceImpl searchPName Start...");
+		
 		return pd.searchPName();
 	}
 	
+
+	/**
+	 * 판매자 상품 목록
+	 * 작성자: 송지훈
+	 */
+	@Override
+	public List<Product> soldList(Product product) {
+		List<Product> productSoldList = null;
+		System.out.println("ProductServiceImpl soldList Start...");
+		productSoldList = pd.soldList(product);
+		
+		return productSoldList;
+	}
 	
 }

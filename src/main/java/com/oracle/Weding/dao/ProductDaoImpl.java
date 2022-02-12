@@ -1,6 +1,6 @@
 package com.oracle.Weding.dao;
 
-import java.util.List;  
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -565,7 +565,24 @@ public class ProductDaoImpl implements ProductDao {
 		return pNameTotal;
 	}
 	
-	
+	/**
+	 * 판매자 상품 목록
+	 * 작성자: 송지훈
+	 * 
+	 * @param product
+	 * @return
+	 */
+	@Override
+	public List<Product> soldList(Product product) {
+		List<Product> productSoldList = null;
+		System.out.println("ProductDaoImpl soldList Start..... ");
+		try {
+			productSoldList = session.selectList("soldListAll",product);
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl soldList Exception "+e.getMessage());
+		}
+		return productSoldList;
+	}
 	
 
 }

@@ -48,4 +48,6 @@ public interface ProductDao {
 	int plzAlarmDelete(Alarm alarm);
 	List<Alarm> getEmailList(String p_num);
 	List<Pname> searchPName();
+	
+	List<Product> 	soldList(Product product);
 }

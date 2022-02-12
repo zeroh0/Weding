@@ -34,6 +34,7 @@ public class ProductController {
 	@Autowired private ProductService ps;
 	@Autowired private BoardService bs;
 	
+	
 	/**
 	 * 메인페이지 이동
 	 * 작성자: 장동호
@@ -192,10 +193,14 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(value = "payList")
-	public String payList(Orders orders,
+	public String payList(HttpSession session,
+						  Orders orders,
 						  Product product,
 						  @RequestParam(value = "currentPage", defaultValue = "1" ) String currentPage, 
 						  Model model) {
+		Member member = (Member) session.getAttribute("member");
+		orders.setId(member.getId());
+		
 		int total = ps.payListTotal();
 		Paging pg = new Paging(total, currentPage);
 		orders.setStart(pg.getStart());
@@ -310,8 +315,12 @@ public class ProductController {
      * @return
      */
  	@RequestMapping(value = "dibsList")
- 	public String dibsList(Product product, Model model) {
+ 	public String dibsList(Product product, Model model, HttpSession session) {
  		// product + 찜목록 가져옴
+ 		
+ 		Member member = (Member) session.getAttribute("member");
+ 		product.setConsumer_id(member.getId());
+ 		
  		System.out.println("ProductController dibsList Start...");
  		List<Product> dibsList = ps.dibsList(product);
  		System.out.println("ProductController dibsList listProduct.size() ->" + dibsList.size());
@@ -422,7 +431,7 @@ public class ProductController {
 	
 	/**
 	 * 판매자페이지 - 상품 등록 폼으로 이동
-	 * 작성자: 안혜정
+	 * 작성자: 안혜정, 송지훈
 	 * 
 	 * @param model
 	 * @return
@@ -438,7 +447,7 @@ public class ProductController {
 	
 	/**
 	 * 판매자페이지 - 상품 등록
-	 * 작성자: 안혜정
+	 * 작성자: 안혜정, 송지훈
 	 * 
 	 * @param product
 	 * @param model
@@ -484,7 +493,16 @@ public class ProductController {
 		return "product/fundingList";
 	}
 	
-	//펀딩예정/중/종료상품 상세보기 
+	/**
+	 * 펀딩예정/중/종료상품 상세보기
+	 * 작성자: 조소현
+	 *  
+	 * @param p_num
+	 * @param p_condition
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="fundingDetail")
 	public String fundingDetail(int p_num, int p_condition,HttpSession session, Model model) {
 		System.out.println("ProductController fundingDetail Start...");
@@ -529,7 +547,15 @@ public class ProductController {
 		}
 	}
 	
-	//상품검색 
+	
+	/**
+	 * 상품검색
+	 * 작성자: 조소현
+	 *  
+	 * @param keyword
+	 * @param model
+	 * @return
+	 */
 	@GetMapping(value="getSearchProduct")
 	private String getSearchProduct(@RequestParam("keyword") String keyword, Model model){
 		System.out.println("ProductController getSearchProduct Start...");
@@ -544,7 +570,15 @@ public class ProductController {
 		return "product/fundingList";
 	}
 	
-	//찜하기 
+	
+	/**
+	 * 찜하기
+	 * 작성자: 조소현
+	 *  
+	 * @param p_num
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/getDibsProduct")
 	@ResponseBody
 	public String getDibsProduct(String p_num, HttpSession session) {
@@ -563,7 +597,15 @@ public class ProductController {
 		return dibsNumStr;
 	}
 	
-	//찜하기 취소 
+	
+	/**
+	 * 찜하기 취소
+	 * 작성자: 조소현
+	 *  
+	 * @param p_num
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/cancleDibsProduct")
 	@ResponseBody
 	public String cancleDibsProduct(String p_num, HttpSession session) {
@@ -582,7 +624,15 @@ public class ProductController {
 		return dibsNumStr;
 	}
 	
-	//알림신청하기
+	
+	/**
+	 * 알림신청하기
+	 * 작성자: 조소현
+	 * 
+	 * @param alarm
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/plzAlarm")
 	@ResponseBody
 	public String plzAlarm(Alarm alarm, HttpSession session) {
@@ -602,7 +652,15 @@ public class ProductController {
 		return alarmNumStr;
 	}
 	
-	//알림신청 취소
+	
+	/**
+	 * 알림신청 취소
+	 * 작성자: 조소현
+	 * 
+	 * @param p_num
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/canclePlzAlarm")
 	@ResponseBody
 	public String canclePlzAlarm(String p_num, HttpSession session) {
@@ -622,7 +680,12 @@ public class ProductController {
 	}
 	
 	
-	//상품이름 다 가져오기
+	/**
+	 * 상품이름 다 가져오기
+	 * 작성자: 조소현
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/optionWord")
 	@ResponseBody
 	public List<Pname> optionWord(){
@@ -631,5 +694,33 @@ public class ProductController {
 		return pNameTotal;
 	}
 	
-    
+	
+	/**
+	 * 판매자용 판매 상품관리 목록
+	 * 작성자: 송지훈
+	 * 
+	 * @param product
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
+	
+	@GetMapping(value = "soldList")
+	public String soldList(Product product, String currentPage, Model model) {
+		System.out.println("ProductController soldList Start... ");
+		int total  = ps.total();
+		System.out.println("ProductController total ->"+total);
+		System.out.println("currentPage - >"+currentPage);
+		
+		Paging pg = new Paging(total,currentPage);
+		product.setStart(pg.getStart());
+		product.setEnd(pg.getEnd());
+		List<Product> soldList = ps.soldList(product);
+		System.out.println("ProductController soldList.size()-> "+soldList.size());
+		model.addAttribute("soldList",soldList);
+		model.addAttribute("pg",pg);
+		model.addAttribute("total",total);
+		return "/mypage/soldList";
+	}
+	
 }

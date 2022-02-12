@@ -77,18 +77,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		return totCnt;
 	}
-
-	
-	/**
-	 * 글 보기
-	 * 작성자: 장동호
-	 */
-	@Override
-	public Board detail(String b_num) {
-		Board board = bd.detail(b_num);
-		
-		return board;
-	}
 	
 	
 	/**
@@ -118,7 +106,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
-
+	/**
+	 * 해당 게시글 조회
+	 * 작성자: 송지훈, 임채영
+	 */
 	@Override
 	public Board detail(int b_num) {
 		System.out.println("BoardServiceImpl detail ");
@@ -129,6 +120,11 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 
+	
+	/**
+	 * 해당 게시글 삭제
+	 * 작성자: 송지훈, 임채영
+	 */
 	@Override
 	public int delete(int b_num) {
 		System.out.println("BoardServiceImpl  delete Start...");
@@ -137,53 +133,66 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+	/**
+	 * 해당 글 수정
+	 * 작성자: 송지훈, 임채영
+	 */
 	@Override
 	public int update(Board board) {
 		System.out.println("BoardServiceImpl update....");
 		int kkk=0;
 		kkk =bd.update(board);
+		
 		return kkk;
 	}
 
-	/*@Override
-	public List<Board> boardSelect() {
-		List<Board> boardList  = null;
-		System.out.println("BoardServiceImpl boardSelect Start...");
-		boardList = bd.boardSelect();
-		System.out.println("BoardServiceImpl boardSelect boardList.size()-> "+boardList.size());
-		return boardList;
-	}*/
 
+	/**
+	 * 글 작성
+	 * 작성자: 송지훈, 임채영
+	 */
 	@Override
 	public int insert(Board board) {
 		int result = 0;
 		System.out.println("BoardServiceImpl insert Start..." );
 		result = bd.insert(board);
+		
 		return result;
 	}
 	
-	//1대1문의내역 (소비자)
+	
+	/**
+	 * 1대1문의내역 (소비자)
+	 * 작성자: 송지훈
+	 */
 	@Override
 	public List<Board> qnaList(Board board) {
 		List<Board> qnaList = null;
 		System.out.println("BoardServiceImpl qnaList Start... ");
 		qnaList = bd.qnaList(board);
+		
 		return qnaList;
 	}
 
-	//1대1문의 내역 답변(판매자)
+	
+	/**
+	 * 1대1문의 내역 답변(판매자)
+	 * 작성자: 송지훈
+	 */
 	@Override
 	public List<Board> sellerQna(Board board) {
 		List<Board> sellerQna = null;
 		System.out.println("BoardServiceImpl sellerQna start...");
 		sellerQna = bd.sellerQna(board);
+		
 		return sellerQna;
 	}
 
 	
-	
-	
-	//답글
+	/**
+	 * 답글 폼
+	 * 작성자: 임채영
+	 */
 	@Override
 	public Board replyForm(int b_num) {
 		Board replyForm=null;
@@ -193,6 +202,11 @@ public class BoardServiceImpl implements BoardService {
 		return replyForm;
 	}
 
+	
+	/**
+	 * 답글 
+	 * 작성자: 임채영
+	 */
 	@Override
 	public int reply(Board board) {
 		int result1 = bd.reply(board);
@@ -201,6 +215,6 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("BoardServiceImpl reply start . .... .");
 	
 		return result1;
-		
 	}
+	
 }

@@ -10,7 +10,6 @@ import com.oracle.Weding.dto.Board;
 
 import lombok.extern.java.Log;
 
-
 @Repository
 @Log
 public class BoardDaoImpl implements BoardDao {
@@ -22,7 +21,7 @@ public class BoardDaoImpl implements BoardDao {
 		int tot = 0;
 		System.out.println("BoardDaoImpl total Start...");
 		try {
-			tot = session.selectOne("BoardTotal",board);
+			tot = session.selectOne("BoardTotal", board);
 		}catch (Exception e) {
 			System.out.println("BoardDaoImpl total Exception -> " + e.getMessage());
 			
