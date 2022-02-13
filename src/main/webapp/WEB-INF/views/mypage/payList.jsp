@@ -28,32 +28,14 @@
                 <div class="row">
                     <div class="col" style="text-align: center;"> 펀딩내역</div>
                 </div>
-            
             </div>
+            
+
 
             <div class="row">
-                          
-                <div class="col-2">
-                    <div class="row">
-                        <div class="col">홍길동님</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">찜목록</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">펀딩내역</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">문의내역</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">회원수정</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">비밀번호변경</div>
-                    </div>
-                </div>
-
+            
+                <%@include file = "menu.jsp"%>
+                
                 <div class="col-10">
                     <table width="800" style="text-align: center;">
                         <tr>

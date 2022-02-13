@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file = "../header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,18 +81,7 @@
     </div>
     <div class="container">
         <div class="side-menu">
-            <ul>
-                <!-- 현재 접속한 회원의 이름 -->
-                <li>판매자님</li>
-                <li><a href="#">찜목록</a></li>
-                <li><a href="#">펀딩내역</a></li>
-                <li><a href="#">문의내역</a></li>
-                <li><a href="#">문의내역</a></li>
-                <li><a href="#">회원수정</a></li>
-                <li><a href="#">비밀번호변경</a></li>
-                <li><a href="#">1:1문의답변</a></li>
-                <li><a href="#">판매자상품관리</a></li>
-            </ul>
+              <%@include file = "menu.jsp"%>
         </div>
         <table class="table table-bordered">
             <tr>
@@ -189,7 +179,7 @@
     </div>
 
     <footer>
-        <div class="footer">copyright</div>
+    	<%@include file = "../footer.jsp"%>
     </footer>
 </body>
 </html>

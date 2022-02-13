@@ -23,7 +23,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 펀딩 예정 목록 갯수
+	 * 펀딩 예정 목록 개수 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -41,7 +41,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 펀딩중 목록 갯수
+	 * 펀딩중, 펀딩종료 목록 개수 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -59,7 +59,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 펀딩 내역 갯수
+	 * 펀딩 내역 개수 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -77,7 +77,7 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	/**
-	 * 상품 목록 리스트 조회
+	 * 상품 목록 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -95,7 +95,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 펀딩 내역 조회
+	 * 펀딩내역 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -113,7 +113,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 펀딩 취소
+	 * 펀딩취소
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -130,7 +130,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 메인 랜덤상품 조회
+	 * 메인 - 랜덤상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -147,7 +147,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 메인 인기상품 조회
+	 * 메인 - 인기상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -164,7 +164,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 메인 오늘 당일 상품 조회
+	 * 메인 - 당일 오픈 상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -181,7 +181,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 메인 리뷰가 있는 상품 조회
+	 * 메인 - 리뷰가 있는 상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -198,7 +198,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 상품카테고리 이름 가져오기
+	 * 상품 카테고리 이름 조회
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -216,7 +216,7 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	/**
-	 * 주문
+	 * 주문(결제)
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -270,7 +270,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 마이페이지 - 찜목록 보기
+	 * 마이페이지 - 찜목록 조회
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -289,7 +289,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * product total
+	 * 관리자 - 등록된 전체 상품 개수 조회
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -308,7 +308,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 관리자페이지 - 전체 상품관리List 보기
+	 * 관리자 - 등록된 전체 상품 조회
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -327,7 +327,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 관리자페이지 - 전체상품중 해당상품 UpdateForm (김태근)
+	 * 관리자 - 해당 상품 정보 가져오기
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -345,7 +345,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 관리자페이지 - 전체상품중 해당상품 Update (김태근)
+	 * 관리자 - 상품 수정
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -363,7 +363,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 관리자페이지 - 전체상품중 해당상품 선택해서 Delete (김태근)
+	 * 관리자 - 상품 삭제
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -402,7 +402,8 @@ public class ProductDaoImpl implements ProductDao {
 	
 	
 	/**
-	 * 작성자: 안혜정
+	 * 상품 카테고리 이름 조회
+	 * 작성자: 조소현
 	 */
 	@Override
 	public List<Product> catList() {
@@ -419,6 +420,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
+	 * 판매자 - 상품 등록
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -436,6 +438,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
+	 * 상품 최신순 정렬
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -453,6 +456,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
+	 * 상품 인기순 정렬
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -470,6 +474,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
+	 * 상품 달성순 정렬
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -488,7 +493,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	/**
 	 * 상품상세보기
-	 * 작성자: 조소현
+	 * 작성자: 조소현 
 	 */
 	@Override
 	public Product productDetail(int p_num) {
@@ -505,7 +510,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 상품상세보기 아래에 추천상품 나타내기
+	 * 상품상세보기 추천상품
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -523,7 +528,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 상품검색
+	 * 상품 검색
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -542,8 +547,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 상품찜하기
-	 * 작성자: 조소현 
+	 * 상품 찜하기
+	 * 작성자: 조소현
 	 */
 	@Override
 	public int pushDibs(Dibs dibs) {
@@ -562,7 +567,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	/**
 	 * 달성률 받아오기
-	 * 작성자: 조소현 
+	 * 작성자: 조소현
 	 */
 	@Override
 	public int attainment(int p_num) {
@@ -637,7 +642,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 로그인 후 상품 알림신청했는지 확인하기
+	 * 로그인 후 상품 알림신청했는지 확인
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -656,7 +661,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	
 	/**
-	 * 알림신청 취소하기
+	 * 알림신청 취소
 	 * 작성자: 조소현
 	 */
 	@Override

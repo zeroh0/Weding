@@ -12,7 +12,6 @@ public interface BoardDao {
 	int 			reviewBoardWrite(Board board);
 	int 			qnaBoardListTotal();
 	int 			reviewBoardListTotal();
-	Board 			detail(String b_num);
 	
 	Board 			detail(int b_num);
 	int 			hit(int b_num);

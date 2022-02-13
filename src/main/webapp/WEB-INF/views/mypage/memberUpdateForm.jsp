@@ -22,7 +22,38 @@
 	word-break: break-all;
 }
 </style>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function sample6_execDaumPostcode() {//daum주소 사용
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						var fullAddr = '';
+						var extraAddr = '';
+						if (data.userSelectedType === 'R') {
+							fullAddr = data.roadAddress;
+						} else { 
+							fullAddr = data.jibunAddress;
+						}
+						if (data.userSelectedType === 'R') {
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+							if (data.buildingName !== '') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							fullAddr += (extraAddr !== '' ? ' (' + extraAddr
+									+ ')' : '');
+						}
+						document.getElementById('zipCode').value = data.zonecode;
+						document.getElementById('roadAddress').value = fullAddr;
+						document.getElementById('detailAddress').focus();
+					}
+				}).open();
+	}
+</script>
 <title>memberUpdateForm</title>
 </head>
 <body>
@@ -33,9 +64,10 @@
 		</div>
 	</div>
 	
-	<%@include file="menu.jsp"%>
-	
 		<div class="col-6">
+		
+		<%@include file="menu.jsp"%>
+		
 			<form action="memberUpdate" method="post">
 				<div class="row">
 					<div class="col-3">이름</div>
@@ -72,10 +104,10 @@
 				<div class="row">
 					<div class="col-3">주소</div>
 					<div class="col">
-						<input type="text"   size="15" name="zipCode" id="zipCode" placeholder="우편번호"> 
+						<input type="text"   size="15" name="zipCode" id="zipCode" placeholder="우편번호" value="${member.zipCode }"> 
 						<input type="button" onclick="sample6_execDaumPostcode()" value="주소검색"> 
-						<input type="text"   size="40" name="roadAddress" id="roadAddress" placeholder="도로명주소"> 
-						<input type="text"   size="40" name="detailAddress" id="detailAddress" placeholder="상세주소">
+						<input type="text"   size="40" name="roadAddress" id="roadAddress" placeholder="도로명주소" value="${member.roadAddress }"> 
+						<input type="text"   size="40" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${member.detailAddress }">
 					</div>
 				</div>
 				

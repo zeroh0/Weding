@@ -100,7 +100,6 @@ function cancleDibsProduct(p_num){
 					<div class="col" style="background-color: rgb(230, 226, 208);">
 						<div>
 							<div class="col">목표금액 ${product.p_goalprice}원</div>
-							
 							<!-- 펀딩기간 -->
 							<c:set var="start" value="${product.p_start}"/>
 							<c:set var="end" value="${product.p_end}"/>
@@ -127,16 +126,11 @@ function cancleDibsProduct(p_num){
 				<div>${product.p_currentprice}원 펀딩</div>
 				<div>${product.countOrders}명의 서포터</div>
 				<div align="right">
-					<form action="orderForm" method="post">
-						<input type="number" name="o_qty" value="0" class="col-md-2">
-					
+					<form action="orders">
+						<input type="number" name="qty" value="0" class="col-md-2">
+					</form>
 					<h5 style="margin-top: 5px;"><p>${product.p_price}원<p></h5>
-					
-						<input type="hidden" name="p_num" value="${product.p_num}">
-						<input type="hidden" name="p_price" value="${product.p_price}">
-				
-					<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
-				</form>
+				<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
 				</div>
 				<div class="row d-grid gap-2 col-12 mx-auto" style="margin-top: 10px;" align="center">
 					<p>

@@ -15,8 +15,8 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	/**
-	 * 회원가입 서비스
-	 * 작성자 - 임채영
+	 * 회원가입
+	 * 작성자: 임채영
 	 */
 	@Override
 	public int join(Member member) {//가입
@@ -35,8 +35,8 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
-	 * 로그인 서비스 
-	 * 작성자 - 임채영
+	 * 로그인 
+	 * 작성자: 임채영
 	 */
 	@Override
 	public Member login(Member member) {//로그인
@@ -54,8 +54,8 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
-	 * 아이디 중복체크 서비스
-	 * 작성자 - 임채영
+	 * 아이디 중복체크
+	 * 작성자: 임채영
 	 */
 	@Override
 	public int memberIdConfirm(Member member) {//아이디중복확인
@@ -74,8 +74,8 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
-	 * 이메일 인증 서비스
-	 * 작성자 - 임채영
+	 * 이메일 인증
+	 * 작성자: 임채영
 	 */
 	@Override
 	public String mailConfirm(Member member) {//메일확인
@@ -88,9 +88,8 @@ public class MemberDaoImpl implements MemberDao {
 
 	
 	/**
-	 * 회원정보 조회 서비스
-	 * 작성자 - 조소현
-	 * 목적 - 회원수정을 위한 정보 가져오기 
+	 * 회원정보 조회
+	 * 작성자: 조소현
 	 */
 	@Override
 	public Member readMember(String id) {
@@ -108,8 +107,8 @@ public class MemberDaoImpl implements MemberDao {
 
 	
 	/**
-	 * 회원정보 수정 서비스
-	 * 작성자 - 조소현
+	 * 회원정보 수정
+	 * 작성자: 조소현
 	 */
 	@Override
 	public int memberUpdate(Member member) {
@@ -126,8 +125,8 @@ public class MemberDaoImpl implements MemberDao {
 
 	
 	/**
-	 * 비밀번호 수정 서비스
-	 * 작성자 - 조소현
+	 * 비밀번호 수정
+	 * 작성자: 조소현
 	 */
 	@Override
 	public int pwUpdate(Member member) {
@@ -144,8 +143,8 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	/**
-	 * 회원 탈퇴 서비스
-	 * 작성자 - 김태근
+	 * 회원 탈퇴
+	 * 작성자: 김태근
 	 */
 	@Override
 	public int memberDelete(Member member) {
@@ -162,6 +161,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	/**
+	 * 전체 회원 수 조회
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -180,6 +180,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	
 	/**
+	 * 전체 회원 조회
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -196,7 +197,10 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
+	 * 회원구분 조회
 	 * 작성자: 안혜정
+	 * 
+	 * 소비자, 판매자, 관리자
 	 */
 	@Override
 	public List<Member> catList(Member member) {
@@ -213,6 +217,7 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
+	 * 회원구분 전환
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -230,6 +235,7 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
+	 * 회원구분 전환
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -248,6 +254,7 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
+	 * 아이디 찾기
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -265,6 +272,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	
 	/**
+	 * 아이디, 이메일로 회원정보 가져오기
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -286,6 +294,7 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
+	 * 비밀번호 찾기
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -303,6 +312,7 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	/**
+	 * 임시 비밀번호로 변경
 	 * 작성자: 안혜정
 	 */
 	@Override

@@ -45,33 +45,13 @@ function pwCheck(){
 			<div class="row">
 				<div class="col" style="text-align: center;">비밀번호변경</div>
 			</div>
-
 		</div>
+		
+		
 
 		<div class="row">
 			<div class="col-2">
-				<div class="row">
-					<div class="col">홍길동님</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col">찜목록</div>
-				</div>
-				<div class="row">
-					<div class="col">펀딩내역</div>
-				</div>
-				<div class="row">
-					<div class="col">QnA 문의내역</div>
-				</div>
-				<div class="row">
-					<div class="col">1:1 문의내역</div>
-				</div>
-				<div class="row">
-					<div class="col">회원수정</div>
-				</div>
-				<div class="row">
-					<div class="col">비밀번호변경</div>
-				</div>
+				<%@include file = "menu.jsp"%>
 			</div>
 			<div class="col-2"></div>
 

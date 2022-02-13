@@ -19,7 +19,7 @@
 <div class="container">
 <p>상품등록</p>
 <hr> 
-<form name="addProduct" id="addProduct" action="addProduct" method="post" class="form-horizontal">
+<form name="addProduct" id="addProduct" action="addProduct" method="post" class="form-horizontal" enctype="multipart/form-data">
     <div class="form-group row">
        <label class="col-sm-2">카테고리</label>
        <div class="col-sm-3">
@@ -50,16 +50,16 @@
        </div>
    </div>
    <div class="form-group row">
-      <label class="col-sm-2">대표이미지</label>
+      <label class="col-sm-2" for="p_image1">대표이미지</label>
        <div class="col-sm-5">
-         <input type="file" name="p_image1" class="form-control">
+         <input type="file" id="p_image1" name="file1" class="form-control">
        </div>
    </div>
    
    <div class="form-group row">
-      <label class="col-sm-2">상세이미지</label>
+      <label class="col-sm-2" for="p_image2">상세이미지</label>
        <div class="col-sm-5">
-         <input type="file" name="p_image2" class="form-control">
+         <input type="file" id="p_image2" name="file2" class="form-control">
        </div>
    </div>
    </div>
@@ -90,10 +90,11 @@
        <div class="col-sm-offset-2 col-sm-10">
          <input type="button" value="목록" class="btn btn-primary" onclick="location.href='soldList.jsp'">
          <input type="reset" value="취소" class="btn btn-primary" onclick="location.href='soldList.jsp'">
-         <input type="submit" value="등록" class="btn btn-primary"  onclick="dateSet()">
+         <input type="submit" value="등록" class="btn btn-primary" >
        </div>
    </div>
   </form>
+  <!-- <iframe name="myBatisFrame"></iframe> -->
 </div>
 <%@ include file="../footer.jsp" %>
 </body>

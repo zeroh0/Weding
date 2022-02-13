@@ -81,7 +81,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	/**
 	 * 전체 게시글 수 조회
-	 * 작성자: 임채영
+	 * 작성자: 임채영, 송지훈
 	 */
 	@Override
 	public int total(Board board) {
@@ -94,7 +94,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	/**
 	 * 전체 게시글 조회
-	 * 작성자: 임채영
+	 * 작성자: 임채영, 송지훈
 	 */
 	@Override
 	public List<Board> listBoard(Board board) {
@@ -162,7 +162,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	/**
-	 * 1대1문의내역 (소비자)
+	 * 소비자 - 1대1 문의내역 목록
 	 * 작성자: 송지훈
 	 */
 	@Override
@@ -176,7 +176,7 @@ public class BoardServiceImpl implements BoardService {
 
 	
 	/**
-	 * 1대1문의 내역 답변(판매자)
+	 * 소비자 - Q&A 문의내역 목록
 	 * 작성자: 송지훈
 	 */
 	@Override
@@ -204,7 +204,7 @@ public class BoardServiceImpl implements BoardService {
 
 	
 	/**
-	 * 답글 
+	 * 답글 처리
 	 * 작성자: 임채영
 	 */
 	@Override

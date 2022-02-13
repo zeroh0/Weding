@@ -49,8 +49,8 @@
 	            <li>${member.name}님</li>
 	            <li><a href="<c:url value='dibsList'/>">찜목록</a></li>
 	            <li><a href="<c:url value='payList'/>">펀딩내역</a></li>
-	            <li><a href="<c:url value='#'/>">Q&A문의내역</a></li>
-	            <li><a href="<c:url value='#'/>">1:1문의내역</a></li>
+	            <li><a href="<c:url value='sellerQna'/>">Q&A문의내역</a></li>
+	            <li><a href="<c:url value='qnaList'/>">1:1문의내역</a></li>
 	            <li><a href="<c:url value='memberUpdateForm'/>">회원수정</a></li>
 	            <li><a href="<c:url value='pwChangeForm'/>">비밀번호변경</a></li>
 	        </ul>
@@ -63,8 +63,8 @@
 	            <li>${member.name}님</li>
 	            <li><a href="<c:url value='dibsList'/>">찜목록</a></li>
 	            <li><a href="<c:url value='payList'/>">펀딩내역</a></li>
-	            <li><a href="<c:url value='#'/>">Q&A문의내역</a></li>
-	            <li><a href="<c:url value='#'/>">1:1문의내역</a></li>
+	            <li><a href="<c:url value='sellerQna'/>">Q&A문의내역</a></li>
+	            <li><a href="<c:url value='qnaList'/>">1:1문의내역</a></li>
 	            <li><a href="<c:url value='memberUpdateForm'/>">회원수정</a></li>
 	            <li><a href="<c:url value='pwChangeForm'/>">비밀번호변경</a></li>
 	            <li><a href="<c:url value='#'/>">1:1문의답변</a></li>

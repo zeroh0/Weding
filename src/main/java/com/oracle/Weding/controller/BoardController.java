@@ -259,7 +259,7 @@ public class BoardController {
 	
 	
 	/**
-	 * 답글작성
+	 * 답글 작성 처리
 	 * 작성자: 임채영
 	 * 
 	 * @param board

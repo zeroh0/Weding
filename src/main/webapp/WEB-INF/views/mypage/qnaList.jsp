@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file = "../header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +35,9 @@
 	<%@include file = "../header.jsp"%>
     <div class="container">
         <h2>문의내역­</h2><br>
+        
+        <%@include file = "menu.jsp"%>
+        
             <table colspan="2">
                 <tr><th>번호</th><th>제목</th><th>작성일</th><th>조회수</th><th>답변여부</th></tr>
                 <c:forEach var="board" items="${qnaList}">

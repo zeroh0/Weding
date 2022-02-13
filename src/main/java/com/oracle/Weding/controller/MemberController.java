@@ -149,7 +149,7 @@ public class MemberController {
 		System.out.println("mailSending...");
 		String tomail = request.getParameter("email");   // 받는 사람 이메일
 		System.out.println("tomail " + tomail);
-		String setfrom = "boccioni1900@gmail.com";
+		String setfrom = "wedingfunding@gmail.com";
 		String title = "mailConfirm 입니다";                 // 제목
 		String tempPassword = "";
 		try {

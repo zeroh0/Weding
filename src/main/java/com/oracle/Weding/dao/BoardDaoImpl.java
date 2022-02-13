@@ -18,7 +18,8 @@ public class BoardDaoImpl implements BoardDao {
 	
 	
 	/**
-	 * 
+	 * 전체 게시글 수 조회
+	 * 작성자: 임채영, 송지훈
 	 */
 	@Override
 	public int total(Board board) {
@@ -35,7 +36,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 
+	 * 전체 게시글 조회
+	 * 작성자: 임채영, 송지훈
 	 */
 	@Override
 	public List<Board> listBoard(Board board) {
@@ -52,7 +54,8 @@ public class BoardDaoImpl implements BoardDao {
 	
 	
 	/**
-	 * 
+	 * 해당 게시글 조회
+	 * 작성자: 송지훈, 임채영
 	 */
 	@Override
 	public Board detail(int b_num) {
@@ -70,7 +73,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 
+	 * 게시글 조회 수 증가
+	 * 작성자: 송지훈
 	 */
 	@Override
 	public int hit(int b_num) {
@@ -87,7 +91,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 
+	 * 해당 게시글 삭제
+	 * 작성자: 송지훈, 임채영
 	 */
 	@Override
 	public int delete(int b_num) {
@@ -105,7 +110,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 
+	 * 해당 글 수정
+	 * 작성자: 송지훈, 임채영
 	 */
 	@Override
 	public int update(Board board) {
@@ -122,7 +128,8 @@ public class BoardDaoImpl implements BoardDao {
 	
 	
 	/**
-	 * 
+	 * 글 작성
+	 * 작성자: 송지훈, 임채영
 	 */
 	@Override
 	public int insert(Board board) {
@@ -141,7 +148,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	
 	/**
-	 * 1대1문의내역 목록(소비자)
+	 * 소비자 - 1대1 문의내역 목록
 	 * 작성자: 송지훈
 	 */
 	@Override
@@ -159,7 +166,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 1대1문의 내역 (핀매자)
+	 * 소비자 - Q&A 문의내역 목록
 	 * 작성자: 송지훈
 	 */
 	@Override
@@ -179,7 +186,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	
 	/**
-	 * 답글
+	 * 답글 폼
 	 * 작성자: 임채영
 	 */
 	@Override
@@ -220,7 +227,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 관리자 qna 목록 갯수
+	 * Q&A 전체 게시글 수
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int qnaBoardListTotal() {
@@ -236,7 +244,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 관리자 qna
+	 * 관리자 - Q&A 게시글 전체 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Board> qnaBoardList(Board board) {
@@ -253,7 +262,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 리뷰 목록
+	 * 리뷰 목록 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public List<Board> reviewBoardList(Board board) {
@@ -271,6 +281,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	/**
 	 * 리뷰 작성
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int reviewBoardWrite(Board board) {
@@ -286,7 +297,8 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 	/**
-	 * 리뷰 글 목록 갯수
+	 * 리뷰 게시글 수 조회
+	 * 작성자: 장동호
 	 */
 	@Override
 	public int reviewBoardListTotal() {
@@ -298,22 +310,6 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		
 		return tot;
-	}
-	
-	
-	/**
-	 * 글 보기
-	 */
-	@Override
-	public Board detail(String b_num) {
-		Board board = null;
-		try {
-			board = session.selectOne("boardDetailView", b_num);
-		} catch (Exception e) {
-			log.info("detail : " + e.getMessage());
-		}
-		
-		return board;
 	}
 
 }

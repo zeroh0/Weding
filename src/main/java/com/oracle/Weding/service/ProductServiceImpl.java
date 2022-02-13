@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 상품 목록 조회 서비스
+	 * 상품 목록 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -98,7 +98,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 랜덤상품 조회
+	 * 메인 - 랜덤상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 인기상품 조회
+	 * 메인 - 인기상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 당일 상품 조회
+	 * 메인 - 당일 오픈 상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -134,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 리뷰가 있는 상품 조회
+	 * 메인 - 리뷰가 있는 상품 조회
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -171,7 +171,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 현재달성금액 증가
+	 * 주문 - 현재달성금액 증가
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -183,7 +183,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 현재달성금액 감소
+	 * 주문 - 현재달성금액 감소
 	 * 작성자: 장동호
 	 */
 	@Override
@@ -195,7 +195,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 찜목록 조회
+	 * 마이페이지 - 찜목록 조회
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -210,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 등록된 전체 상품 개수 조회
+	 * 관리자 - 등록된 전체 상품 개수 조회
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -224,7 +224,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 등록된 전체 상품 조회
+	 * 관리자 - 등록된 전체 상품 조회
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -239,7 +239,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 해당 상품 정보 조회
+	 * 관리자 - 해당 상품 정보 가져오기
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -254,7 +254,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 상품 수정
+	 * 관리자 - 상품 수정
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -269,7 +269,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 상품 삭제
+	 * 관리자 - 상품 삭제
 	 * 작성자: 김태근
 	 */
 	@Override
@@ -284,7 +284,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	/**
 	 * 상품 카테고리 이름 조회
-	 * 작성자: 안혜정
+	 * 작성자: 조소현
 	 */
 	@Override
 	public List<Product> listCat() {
@@ -297,7 +297,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 상품 등록
+	 * 판매자 - 상품 등록
 	 * 작성자: 안혜정
 	 */
 	@Override
@@ -366,7 +366,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 상품상세보기 아래에 추천상품 나타내기
+	 * 상품상세보기 추천상품
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -379,7 +379,7 @@ public class ProductServiceImpl implements ProductService {
 	
 
 	/**
-	 * 상품검색
+	 * 상품 검색
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -393,7 +393,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 상품찜하기
+	 * 상품 찜하기
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -420,7 +420,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	/**
-	 * 로그인 후 상품 찜하기 했는지 확인하기
+	 * 로그인 후 상품 찜하기 했는지 확인
 	 * 작성자: 조소현 
 	 */
 	@Override
@@ -461,7 +461,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 로그인 후 상품 알림신청했는지 확인하기
+	 * 로그인 후 상품 알림신청했는지 확인
 	 * 작성자: 조소현
 	 */
 	@Override
@@ -474,7 +474,7 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	/**
-	 * 알림신청 취소하기
+	 * 알림신청 취소
 	 * 작성자: 조소현 
 	 */
 	@Override

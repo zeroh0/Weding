@@ -85,8 +85,8 @@
                         <td>${member.current_content}</td>
                         <td>
                            	<select name="mini_cat"  id="mini_cat" onchange="selectBoxChange(this.value);">
-                           		<c:forEach var="member" items="${catList}">
-                           			<option value="${member.mini_cat}" >${member.mini_content}</option>
+                           		<c:forEach var="member" items="${catList}"> 
+                           			<option value="${member.mini_cat}" >${member.mini_content}</option> 
                            		</c:forEach>
                            	</select>
                         </td>

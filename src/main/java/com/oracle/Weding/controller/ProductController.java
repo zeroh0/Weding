@@ -1,17 +1,22 @@
 package com.oracle.Weding.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oracle.Weding.dto.Alarm;
 import com.oracle.Weding.dto.Cat;
@@ -233,14 +238,14 @@ public class ProductController {
 	}
 
 	
-	/**
-	 * 펀딩예정 상품 상세보기
-	 * @return
-	 */
-	@RequestMapping(value = "beforeFundDetail") 
-	public String beforeFundDetail() {
-		return "/product/beforeFundDetail";
-	}
+//	/**
+//	 * 펀딩예정 상품 상세보기
+//	 * @return
+//	 */
+//	@RequestMapping(value = "beforeFundDetail") 
+//	public String beforeFundDetail() {
+//		return "/product/beforeFundDetail";
+//	}
 	
 	
 	/**
@@ -421,7 +426,7 @@ public class ProductController {
 	
 	/**
 	 * 판매자페이지 - 상품 등록 폼으로 이동
-	 * 작성자: 안혜정, 송지훈
+	 * 작성자: 안혜정
 	 * 
 	 * @param model
 	 * @return
@@ -435,25 +440,77 @@ public class ProductController {
 		return "product/addProductForm";
 	}
 	
+	
 	/**
 	 * 판매자페이지 - 상품 등록
-	 * 작성자: 안혜정, 송지훈
+	 * 작성자: 안혜정
 	 * 
 	 * @param product
 	 * @param model
 	 * @return
 	 */
 	@PostMapping(value = "addProduct")
-	public String addProduct(Product product, Model model) {
+	public String addProduct(Product product, HttpServletRequest request, HttpSession session,
+							MultipartFile file1, MultipartFile file2, Model model) 
+							throws Exception {
 		System.out.println("ProductController addProduct Start..");
+//		System.out.println("prodduct.getP_image1()->"+product.getP_image1());
+//		System.out.println("p_image1->"+p_image1);
+//		System.out.println("p_image2->"+p_image2);
+		System.out.println("file1->"+file1);
+		System.out.println("file2->"+file2);
+		
+		//상품사진업로드
+		String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+		System.out.println("uploadForm POST Start");
+		log.info("originalName: " + file1.getOriginalFilename());
+		log.info("size: " + file1.getSize());
+		log.info("contentType: " + file1.getContentType());
+		log.info("uploadPath: " + uploadPath);
+	    
+	    String p_image11 = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+	    String p_image22 = uploadFile(file2.getOriginalFilename(), file2.getBytes(), uploadPath);
+		
+	    System.out.println("업로드한 p_image11->"+p_image11);
+	    System.out.println("업로드한 p_image22->"+p_image22);
+		
+	    //DB에 상품 insert 
+	    product.setP_image1(p_image11);
+	    product.setP_image2(p_image22);
+	    
+		Member m1 = (Member) session.getAttribute("member");
+		product.setId(m1.getId());
+		System.out.println("product.getId()->"+product.getId());
+		
 		int result = ps.insert(product);
 		
-		if(result>0) return "redirect:soldList"; //합친 후에 리턴 확인하기
+		
+		if(result>0) return "redirect:fundingList"; //합친 후에 리턴 확인하기
 		else {
 			model.addAttribute("msg","상품이 등록되지 않았습니다.");
 			return "addProductForm"; //리턴안됨 수정예정
 		}
 	}
+	
+	private String uploadFile(String originalName, byte[] fileData , String uploadPath) 
+			  throws Exception {
+		UUID uid = UUID.randomUUID();
+	   // requestPath = requestPath + "/resources/image";
+	    System.out.println("uploadPath->"+uploadPath);
+	    // Directory 생성 
+		File fileDirectory = new File(uploadPath);
+		if (!fileDirectory.exists()) {
+			fileDirectory.mkdirs();
+			System.out.println("업로드용 폴더 생성 : " + uploadPath);
+		}
+
+	    String savedName = originalName;
+	    log.info("savedName: " + savedName);
+	    File target = new File(uploadPath, savedName);
+	    FileCopyUtils.copy(fileData, target);   // org.springframework.util.FileCopyUtils
+	    
+	    return savedName;
+	 }	
 	
 	
 	/**
@@ -483,6 +540,7 @@ public class ProductController {
 		return "product/fundingList";
 	}
 	
+	
 	/**
 	 * 펀딩예정/중/종료상품 상세보기
 	 * 작성자: 조소현
@@ -494,7 +552,7 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(value="fundingDetail")
-	public String fundingDetail(int p_num, int p_condition,HttpSession session, Model model) {
+	public String fundingDetail(int p_num, int p_condition, HttpSession session, Model model) {
 		System.out.println("ProductController fundingDetail Start...");
 		System.out.println("p_num->"+p_num);
 		System.out.println("p_condition->"+p_condition);
