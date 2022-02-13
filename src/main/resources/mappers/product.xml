@@ -302,7 +302,7 @@
 		p_description,p_start,p_end,p_goalprice,id,main_cat,p_condition,p_num)
 		values 
 		(#{mini_cat},#{p_store},#{p_name},#{p_price},#{p_image1},#{p_image2},
-		#{p_description},#{p_start},#{p_end},#{p_goalprice},#{id},'200','1',PRODUCT_SEQ.nextval)
+		#{p_description},to_char(to_date(#{p_start}), 'yy/MM/dd'), to_char(to_date(#{p_end}), 'yy/MM/dd'),#{p_goalprice},#{id},'200','1',PRODUCT_SEQ.nextval)
 	</insert>
 	
 	

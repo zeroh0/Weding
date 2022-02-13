@@ -143,7 +143,7 @@
 		<div class="col-3"></div>
 		<div class="col-6">
 
-			<form action="/join" method="post" name="joinForm" onsubmit="check()">
+			<form action="join" method="post" name="joinForm" onsubmit="check()">
 
 				<div class="row">
 					<div class="col-3">이름</div>

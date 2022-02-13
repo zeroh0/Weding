@@ -144,7 +144,7 @@ function clip(){
 		<div class="row" style="margin-top: 30px">
 			<div class="col-1"></div>
 			<div class="col-10">
-				<img src="http://placehold.it/1200x1200"
+				<img src="${pageContext.request.contextPath}/upload/${product.p_image2}"
 					class="figure-img img-fluid rounded" alt="상품상세"
 					style="max-width: 100%; height: auto;">
 			</div>

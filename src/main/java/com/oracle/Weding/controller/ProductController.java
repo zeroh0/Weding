@@ -1,6 +1,7 @@
 package com.oracle.Weding.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -238,16 +239,6 @@ public class ProductController {
 	}
 
 	
-//	/**
-//	 * 펀딩예정 상품 상세보기
-//	 * @return
-//	 */
-//	@RequestMapping(value = "beforeFundDetail") 
-//	public String beforeFundDetail() {
-//		return "/product/beforeFundDetail";
-//	}
-	
-	
 	/**
      * 주문 정보 입력 폼 이동
      * 작성자: 장동호
@@ -481,9 +472,8 @@ public class ProductController {
 		Member m1 = (Member) session.getAttribute("member");
 		product.setId(m1.getId());
 		System.out.println("product.getId()->"+product.getId());
-		
+
 		int result = ps.insert(product);
-		
 		
 		if(result>0) return "redirect:fundingList"; //합친 후에 리턴 확인하기
 		else {
@@ -572,6 +562,11 @@ public class ProductController {
 		Member m1 = (Member) session.getAttribute("member");
 		Member member= new Member();
 		member.setId(m1.getId());
+		
+		//로그인한 아이디 확인
+		String loginId = m1.getId();
+		model.addAttribute("loginId", loginId);
+		
 		//로그인 후 상품 찜하기 했는지 확인하기
 		Dibs dibs = new Dibs();
 		dibs.setId(member.getId());
