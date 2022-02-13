@@ -23,6 +23,7 @@
 		<form action="orderSuccess" method="post" name="orderForm">
           	<input type="text" name="id" id="order-id">
           	<input type="text" name="p_num" id="order-p_num">
+          	<input type="text" name="p_name" id="order-p_name">
           	<input type="text" name="o_num" id="order-o_num">
           	<input type="text" name="o_qty" id="order-o_qty">
           	<input type="text" name="o_sum" id="order-o_sum">
@@ -212,8 +213,20 @@
                     	$('#order-success').attr("value", "1"); 
                     	console.log($('#order-success').val()); 
                     } else { 
+                    	$('#order-success').attr("value", "0");
                     	console.log($('#order-success').val()); 
                     } 
+                     
+                    $('#order-id').attr("value", id); 
+                    $('#order-p_num').attr("value", p_num); 
+                    $('#order-p_name').attr("value", rsp.name); 
+                    $('#order-o_num').attr("value", rsp.pg_tid); 
+                    $('#order-o_qty').attr("value", o_qty); 
+                    $('#order-o_sum').attr("value", rsp.paid_amount); 
+                    $('#order-o_phone').attr("value", rsp.buyer_tel); 
+                    $('#order-o_zipcode').attr("value", rsp.buyer_postcode); 
+                    $('#order-o_roadAddress').attr("value", rsp.buyer_addr); 
+                    $('#order-o_detailAddress').attr("value", rsp.buyer_address); 
                     
                     document.orderForm.submit();
                 }); 
