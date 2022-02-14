@@ -14,12 +14,27 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-
+	function defaultShipping() {
+		var member = $('#member').val();
+		
+		$.ajax({
+			url: "<%=request.getContextPath()%>/defaultShipping",
+			data: {id:member},
+			success:function(data){
+				$('#o_name').attr("value", data.name);
+				$('#o_zipcode').attr("value", data.zipCode);
+				$('#o_roadAddress').attr("value", data.roadAddress);
+				$('#o_detailAddress').attr("value", data.detailAddress);
+				$('#o_phone').attr("value", data.phone);
+			},
+		});
+	}
 </script>
 
 </head>
 <body>
     <body>
+    <input type="hidden" name="member" id="member" value="${member.id}" readonly>
 		<form action="orderSuccess" method="post" name="orderForm">
           	<input type="text" name="id" id="order-id">
           	<input type="text" name="p_num" id="order-p_num">
@@ -48,7 +63,7 @@
         </div>
         <table>
             <tr>
-                <td><input type="radio" id="shipping" name="shipping">기본배송지</td>
+                <td><input type="radio" id="shipping" name="shipping" onclick="defaultShipping()">기본배송지</td>
             </tr>
             
             <tr>

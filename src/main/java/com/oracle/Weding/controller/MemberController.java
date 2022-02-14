@@ -396,7 +396,7 @@ public class MemberController {
 		System.out.println("MemberController 비밀번호 찾기 메일 전송..");
 		
 		String tomail = getMemberEmail.getEmail(); //받는사람 이메일
-		String setfrom = "boccioni1900@gmail.com"; //보내는 사람 이메일
+		String setfrom = "wedingfunding@gmail.com"; //보내는 사람 이메일
 		String title = "[We_ding] 임시 비밀번호입니다."; //제목
 		
 		try {
@@ -421,6 +421,18 @@ public class MemberController {
 		}
 	
 		return "member/idpwFindForm";
+	}
+	
+	
+	/**
+	 * 기본 배송지
+	 * 작성자: 장동호
+	 */
+	@RequestMapping(value = "defaultShipping")
+	@ResponseBody
+	public Member defaultShipping(String id) {
+		Member member = ms.readMember(id);
+		return member;
 	}
 	
 }
