@@ -110,7 +110,7 @@ function clip(){
 				<div class="row">
 					<div class="col" style="background-color: rgb(230, 226, 208);">
 						<div>
-							<div class="col">${product.p_goalprice}원</div>
+							<div class="col"><fmt:formatNumber value="${product.p_goalprice}" />원</div>
 							<c:set var="start" value="${product.p_start}"/>
 							<c:set var="end" value="${product.p_end}"/>
 							<fmt:parseDate var="startDate" value="${start}" pattern="yy/MM/dd" /> 

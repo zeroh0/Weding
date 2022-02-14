@@ -13,18 +13,16 @@
 </head>
 <body>
 	<c:choose>
-		<!-- 결제 성공 -->
 		<c:when test="${orders.success == 1}">
 			<div class="alert alert-success" role="alert">
 	        	결제가 완료 되었습니다
 		      	<div>주문번호: ${orders.o_num }</div><p>
 		        <div>주문자: ${orders.id }</div><p>
 		        <div>주문 상품: ${orders.p_num }</div><p>
-		        <div>결제 금액: ${orders.o_sum }</div>
+		        <div>결제 금액:<fmt:formatNumber value="${orders.o_sum }" />원</div>
 	    	</div>
         	<button type="button" onclick="location.href='main'">메인페이지로 </button>
 		</c:when>
-		<!-- 결제 실패 -->
 		<c:otherwise>
 			<div class="alert alert-danger" role="alert">
 	        	결제를 실패했습니다

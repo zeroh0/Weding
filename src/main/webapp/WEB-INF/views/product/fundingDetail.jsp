@@ -139,11 +139,11 @@ function orderFormChk() {
 				<div align="right">
 					<form action="orderForm" method="post" onsubmit="return orderFormChk()">
 					
-						<input type="number" name="qty" id="qty" value="1" class="col-md-2">
+						<input type="number" name="o_qty" id="qty" value="1" class="col-md-2">
 						<input type="hidden" name="p_num" value="${product.p_num }">
 						<input type="hidden" name="p_price" value="${product.p_price }">
 					
-					<h5 style="margin-top: 5px;"><p>${product.p_price}원<p></h5>
+					<h5 style="margin-top: 5px;"><p><fmt:formatNumber value="${product.p_price}" />원<p></h5>
 					<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
 				</form>
 				</div>

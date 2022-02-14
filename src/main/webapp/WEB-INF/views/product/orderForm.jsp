@@ -111,7 +111,7 @@
                              	결제 금액
                             </div>
                             <div class="col-7">
-                            	${orders.o_sum }
+                            	<fmt:formatNumber value="${orders.o_sum }" />원
                              </div>
                         </div>  
                             
@@ -121,7 +121,7 @@
                              	상품금액
                             </div>
                             <div class="col-7">
-                            	${orders.p_price }
+                            	<fmt:formatNumber value="${orders.p_price }" />원
                              </div>
                         </div>
                         <div class="row">
@@ -139,7 +139,7 @@
                             </div>
                             <div class="col-7">
                             	<input type="hidden" name="o_sum" id="o_sum" value="${orders.o_sum }">
-                            	${orders.o_sum }
+                            	<fmt:formatNumber value="${orders.o_sum }" />원
                              </div>
                         </div>
                          <div class="row">
