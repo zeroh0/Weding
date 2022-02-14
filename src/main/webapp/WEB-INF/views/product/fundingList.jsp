@@ -78,10 +78,12 @@
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        인기순
+                        정렬
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">조회순</a></li>
+                     	<li><a class="dropdown-item" href="sortProduct?sort=newSort">최신순</a></li>
+                        <li><a class="dropdown-item" href="sortProduct?sort=popularSort">조회순</a></li>
+                        <li><a class="dropdown-item" href="sortProduct?sort=goalSort">달성순</a></li>
 
                     </ul>
                 </div>

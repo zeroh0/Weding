@@ -301,10 +301,10 @@ public class BoardDaoImpl implements BoardDao {
 	 * 작성자: 장동호
 	 */
 	@Override
-	public int reviewBoardListTotal() {
+	public int reviewBoardListTotal(Board board) {
 		int tot = 0;
 		try {
-			tot = session.selectOne("reviewBoardListTotal");
+			tot = session.selectOne("reviewBoardListTotal", board);
 		}catch (Exception e) {
 			System.out.println("reviewBoardListTotal Exception -> " + e.getMessage());
 		}
@@ -312,4 +312,17 @@ public class BoardDaoImpl implements BoardDao {
 		return tot;
 	}
 
+
+	@Override
+	public int replyCount(Board board) {
+		int result = 0;
+		try {
+			result = session.selectOne("replyCount", board);
+		}catch (Exception e) {
+			System.out.println("replyCount Exception -> " + e.getMessage());
+		}
+		
+		return result;
+	}
+	
 }

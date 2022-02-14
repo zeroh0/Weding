@@ -41,6 +41,8 @@ public class Product {
 	
 	private int alarmingDate; //상품오픈까지 남은 시간 
 	private int countAlarm; //알림신청한 사람 수
+	
+	private String sort; // 정렬
 
 	
 }

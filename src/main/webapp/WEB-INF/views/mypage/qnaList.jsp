@@ -11,6 +11,7 @@
     <title>Document</title>
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 <style>
     body{text-align: center;}
     table {
@@ -31,6 +32,22 @@
   }
   
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	function reply() {
+		let b_num = $('#b_num').val();
+		console.log(b_num);
+		
+		$.ajax({
+			url: "<%=request.getContextPath()%>/replyCount",
+			data: {b_num:b_num},
+			success : function(data) {
+				console.log("data" + data);
+				$('#replyCount').attr("value", data);
+			}
+		});		
+	}
+</script>
 <body>
 	<%@include file = "../header.jsp"%>
     <div class="container">
@@ -42,15 +59,15 @@
                 <tr><th>번호</th><th>제목</th><th>작성일</th><th>조회수</th><th>답변여부</th></tr>
                 <c:forEach var="board" items="${qnaList}">
                     <tr>
-                        <td>${board.b_num}</td>
+                        <td>
+                        	<input type="hidden" id="b_num" value="${board.b_num}">
+                        	${board.b_num}
+                       	</td>
                         <td>${board.b_title}</td>
                         <td>${board.b_date}</td>
                         <td>${board.b_hit}</td>
                         <td>
-                        <c:choose>
-	                        <c:when test="${board.b_step eq 0}">N</c:when>
-	                        <c:otherwise>Y</c:otherwise>
-                        </c:choose>
+                        	<input type="text" id="replyCount">
                         </td>  
                     </tr>
                     <%-- <c:set var="num" value="${num-1}"></c:set> --%>

@@ -11,7 +11,7 @@ public interface BoardDao {
 	List<Board>		reviewBoardList(Board board);
 	int 			reviewBoardWrite(Board board);
 	int 			qnaBoardListTotal();
-	int 			reviewBoardListTotal();
+	int 			reviewBoardListTotal(Board board);
 	
 	Board 			detail(int b_num);
 	int 			hit(int b_num);
@@ -26,5 +26,6 @@ public interface BoardDao {
 	
 	Board       	replyForm(int b_num);
 	int         	reply(Board board);
+	int 			replyCount(Board board);
 
 }

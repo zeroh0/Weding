@@ -315,7 +315,7 @@ public class BoardController {
 	@ResponseBody
 	public List<Board> reviewBoardList(Model model, Board board, String currentPage) {
 		log.info("reviewBoardList()");
-		int total = bs.reviewBoardListTotal();
+		int total = bs.reviewBoardListTotal(board);
 		Paging pg = new Paging(total, currentPage);
 		board.setStart(pg.getStart());
 		board.setEnd(pg.getEnd());
@@ -339,6 +339,20 @@ public class BoardController {
 	public int reviewBoardWrite(Board board) {
 		log.info("reviewBoardWrite()");
 		int result = bs.reviewBoardWrite(board);
+		
+		return result;
+	}
+	
+	
+	/**
+	 * 답변 여부
+	 * 작성자: 장동호 
+	 */
+	@RequestMapping(value = "replyCount")
+	@ResponseBody
+	public int replyCount(Board board) {
+		log.info("replyCount()");
+		int result = bs.replyCount(board);
 		
 		return result;
 	}

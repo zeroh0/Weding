@@ -28,6 +28,75 @@
 </style>
 
 <script type="text/javascript">
+
+
+function listReview() {
+	var p_num = $('#p_num').val();
+	$.ajax({
+		url: "<%=request.getContextPath()%>/reviewBoardList",
+		type: 'POST',
+		data: {p_num: p_num},
+		dataType: 'JSON',
+		success: function(data) {
+			var html = "";
+			if(data.length > 0) {
+				$(data).each(function(){
+					html += "<tr>";
+					
+					html += "<td>";
+					html += this.b_num;
+					html += "</td>";
+					
+					html += "<td>";
+					html += this.b_content;
+					html += "</td>";
+					
+					html += "<td>";
+					html += this.b_date;
+					html += "</td>";
+					
+					html += "<td>";
+					html += this.id;
+					html += "</td>";
+					
+					html += "</tr>";
+				});
+			}
+			
+			$("#commentList").html(html);
+			console.log("review List");
+		}
+	});
+}
+
+$(function(){
+    listReview();
+    $('#writeReview').click(function() {
+   		var reviewContent = $('#b_content').val();
+    	var id = $('#member').val();
+    	var p_num = $('#p_num').val();
+
+        $.ajax({
+            url: "<%=request.getContextPath()%>/reviewBoardWrite",
+            type: 'POST',
+            data: {b_content : reviewContent,
+            	   p_num: p_num,
+            	   id: id},
+            dataType: 'text',
+            success: function(data) {
+            	if(data == '1') {
+            		$('#b_content').val("");
+                    listReview();
+            	}
+            }, error: function(error) {
+                alert("error"+error);
+            }
+        });
+    });
+});
+</script>
+
+<script type="text/javascript">
 var contextPath='${pageContext.request.contextPath}';
 var src='${pageContext.request.contextPath}/images/';
 var contextPath='${pageContext.request.contextPath}';
@@ -95,7 +164,8 @@ function orderFormChk() {
 <%@ include file="../header.jsp" %>
 
 <div class="container">
-		<input type="hidden" name="member" id="member" value="${member}" readonly>
+		<input type="hidden" name="member" id="member" value="${member.id}" readonly>
+		<input type="hidden" name="p_num" id="p_num" value="${product.p_num}" readonly>
 		<div class="p-3 mb-2 bg-secondary text-white">
 			<div class="row">
 				<div class="col" style="text-align: center;">${product.mini_content}</div>
@@ -193,6 +263,43 @@ function orderFormChk() {
 			<div class="col-1"></div>
 		</div>
 	</div>
+	
+	<!--  review -->
+	<c:if test="${product.p_condition == 3 }">
+	<form>
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>내용</th>
+				<th>작성일</th>
+				<th>작성자</th>
+			</tr>
+			<tbody id="commentList">
+				<!--  review Contents -->
+			</tbody>
+			<!-- 여기까지 반복 -->
+			<tr>
+				<td colspan="2">
+					<c:if test="${pg.startPage > pg.pageBlock}">
+	            		<a href="fundingDetail?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
+			        </c:if>
+			        <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+			            <a href="fundingDetail?currentPage=${i}">[${i}]</a>
+			        </c:forEach>
+			        <c:if test="${pg.endPage < pg.totalPage}">
+			            <a href="fundingDetail?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
+			        </c:if>
+		        </td>
+	        <tr>
+			<tr>
+				<td colspan="4">
+					<input type="text" name="b_content" id="b_content">
+					<input type="button" value="리뷰작성" id="writeReview">
+				</td>
+			</tr>
+		</table>
+	</form>
+	</c:if>
 	
 	<!-- Related items section-->
         <section class="py-5 bg-light">

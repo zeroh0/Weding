@@ -71,8 +71,8 @@ public class BoardServiceImpl implements BoardService {
 	 * 작성자: 장동호
 	 */
 	@Override
-	public int reviewBoardListTotal() {
-		int totCnt = bd.reviewBoardListTotal();
+	public int reviewBoardListTotal(Board board) {
+		int totCnt = bd.reviewBoardListTotal(board);
 		log.info("reviewBoardListTotal totCnt: " + totCnt);
 		
 		return totCnt;
@@ -215,6 +215,16 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("BoardServiceImpl reply start . .... .");
 	
 		return result1;
+	}
+
+
+	/**
+	 * 답변 여부
+	 */
+	@Override
+	public int replyCount(Board board) {
+		int result = bd.replyCount(board);
+		return result;
 	}
 	
 }

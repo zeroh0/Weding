@@ -319,15 +319,21 @@
 	
 	
 	<!-- 정렬:최신순 -->
-	<select id="sortNewProduct">
-		select * from product 
-		where p_condition = 2
-		order by p_start desc
+	<select id="sortNewProduct" resultType="Product">
+		<![CDATA[
+		select  p.*,
+		        round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
+		        (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
+		from (select *
+		      from product
+		      where p_condition = 2
+		      order by p_start desc) p
+       ]]>
 	</select>
 	
 	
 	<!-- 정렬:인기순 -->
-	<select id="sortPopularProduct">
+	<select id="sortPopularProduct" resultType="Product">
 		select *
 		from (select p_num,count(id) from dibs
 				group by p_num
@@ -338,12 +344,17 @@
 	
 	
 	<!-- 정렬:달성순 -->
-	<select id="sortGoalProduct">
-		select p.* ,
-				round((p_currntprice /p_goalprice)*100,2) attainment
-		from product p
-		where p.p_condition=2
-		order by attainment desc
+	<select id="sortGoalProduct" resultType="Product">
+		<![CDATA[
+		select  a.*,
+		        round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
+		        (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
+		from (select p.* ,
+		             round((P_CURRENTPRICE /p_goalprice)*100,2) attainment
+		      from product p
+		      where p.p_condition = 2
+		      order by attainment desc) a
+       ]]>
 	</select>
 	
 	

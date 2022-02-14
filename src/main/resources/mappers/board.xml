@@ -105,6 +105,7 @@
 			 		 #{b_step}+1, #{b_level}+1 )
 	</insert>
 	
+	
 	<select id="boardList" parameterType="Board"   resultType="Board"> <!-- mapping id 바꿔주세요 -->
 		SELECT *
 		FROM (
@@ -113,6 +114,7 @@
 		     )
 		WHERE rn between #{start} AND  #{end}
 	</select>
+	
 	
 	<select id="qnaBoardList" resultType="Board">
 		select *
@@ -126,23 +128,26 @@
 		where rn between #{start} and #{end}
 	</select>
 	
-	<select id="reviewBoardList" resultType="Board">
+	
+	<select id="reviewBoardList" resultType="Board" parameterType="Board">
 		select *
 		from (select ROWNUM rn, a.*
 		      from (select *
 		            from BOARD
 		            where MINI_CAT = '400'
-		            and P_NUM = '38'
+		            and P_NUM = #{p_num}
 		            order by B_NUM desc) a
 		      )
 		where rn between #{start} and #{end}
 	</select>
 	
+	
 	<insert id="reviewBoardWrite" parameterType="Product">
 		insert into
 		BOARD (B_NUM, MAIN_CAT, MINI_CAT, ID, B_TITLE, B_CONTENT, B_DATE, B_GROUP, B_STEP, B_LEVEL, P_NUM)
-		values (BOARD_SEQ.nextval, '300', '400', 'hong001', #{b_content}, #{b_content}, sysdate, BOARD_SEQ.nextval, 0, 0, '38')
+		values (BOARD_SEQ.nextval, '300', '400', #{id}, #{b_content}, #{b_content}, sysdate, BOARD_SEQ.nextval, 0, 0, #{p_num})
 	</insert>
+	
 	
 	<select id="qnaBoardListTotal" resultType="int">
 		select count(*)
@@ -150,12 +155,14 @@
 		where MINI_CAT = '200'
 	</select>
 	
-	<select id="reviewBoardListTotal" resultType="int">
+	
+	<select id="reviewBoardListTotal" resultType="int" parameterType="Board">
 		select count(*)
 		from BOARD
 		where MINI_CAT = '400'
-		and P_NUM = '38'
+		and P_NUM = #{p_num}
 	</select>
+	
 	
 	<select id="boardDetailView" resultType="Board">
 		select *
@@ -163,4 +170,11 @@
 		where B_NUM = #{b_num}
 	</select>
 	
+	
+	<select id="replyCount" resultType="int" parameterType="Board">
+		select count(*)
+		from board
+		where mini_cat = '200'
+		and b_group = #{b_num}
+	</select>
 </mapper>

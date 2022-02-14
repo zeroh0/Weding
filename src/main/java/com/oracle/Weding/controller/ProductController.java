@@ -528,17 +528,28 @@ public class ProductController {
 	public String sortProduct(Product product, Model model) {
 		System.out.println("ProductController sortProduct Start..");
 		
+		String sort = product.getSort();
+		
 		//최신순 정렬
-		List<Product> sortNewProduct = ps.sortNewProduct(product);
-		model.addAttribute("sortNewProduct",sortNewProduct);
+		if(sort.equals("newSort")) {
+			log.info("newSort");
+			List<Product> sortNewProduct = ps.sortNewProduct(product);
+			model.addAttribute("productList",sortNewProduct);
+		}
 		
 		//인기순 정렬
-		List<Product> sortPopularProduct = ps.sortPopularProduct(product);
-		model.addAttribute("sortPopularProduct",sortPopularProduct);
+		if(sort.equals("popularSort")) {
+			log.info("popularSort");
+			List<Product> sortPopularProduct = ps.sortPopularProduct(product);
+			model.addAttribute("productList",sortPopularProduct);
+		}
 		
 		//달성순 정렬
-		List<Product> sortGoalProduct = ps.sortGoalProduct(product);
-		model.addAttribute("sortGoalProduct",sortGoalProduct);
+		if(sort.equals("goalSort")) {
+			log.info("goalSort");
+			List<Product> sortGoalProduct = ps.sortGoalProduct(product);
+			model.addAttribute("productList",sortGoalProduct);
+		}
 		
 		return "product/fundingList";
 	}
@@ -565,6 +576,11 @@ public class ProductController {
 		int attainment = ps.attainment(p_num);
 		//관련상품 받아오기 
 		List<Product> productList = ps.recommendProduct(p_condition);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String now = sdf.format(date);
+		model.addAttribute("now", now);
 		
 		if(session.getAttribute("member")==null) {
 			product = ps.productDetail(p_num);
