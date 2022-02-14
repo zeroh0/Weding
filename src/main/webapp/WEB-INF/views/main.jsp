@@ -203,12 +203,10 @@
 	    
 			<!-- 반복 여기서부터 -->
 			<c:forEach var="random" items="${randomProduct }">
-				<div class="random-prod">
-				    <a href="#">
-				        <img src="http://placehold.it/250x250">
-				    </a>
-				        <div class="random-prod-title">${random.p_name}</div> 
-				        <div class="random-prod-title">달성률 | ${random.mini_cat}</div> 
+				<div class="random-prod" onclick="location.href='fundingDetail?p_num=${random.p_num}&p_condition=${random.p_condition }'" style="cursor: pointer">
+					<img src="http://placehold.it/250x250">
+			        <div class="random-prod-title">${random.p_name}</div> 
+			        <div class="random-prod-title">달성률 ${random.attainment}% | ${random.mini_cat}</div> 
 				</div> 
 			</c:forEach>
 			<!-- 여기까지 반복 -->
@@ -221,10 +219,10 @@
 	    <div class="heritage">
 			<!-- 반복 여기서부터 -->
 			<c:forEach var="popular" items="${popularProduct }">
-			<div class="popular-prod">
+			<div class="popular-prod" onclick="location.href='fundingDetail?p_num=${popular.p_num}&p_condition=${popular.p_condition }'" style="cursor: pointer">
 			    <div class="popular-prod-text">
 			        <div class="random-prod-title">${popular.p_name}</div> 
-				        <div class="random-prod-title">달성률 | ${popular.mini_cat}</div> 
+				        <div class="random-prod-title">달성률 ${popular.attainment}% | ${popular.mini_cat}</div> 
 			    </div>
 			    <div class="popular-prod-img">
 			        <img src="http://placehold.it/100x100">
@@ -242,13 +240,13 @@
 	    <div class="open-prod-wrap">
   		<!-- 반복 여기서부터 -->
   			<c:forEach var="open" items="${openProduct }">
-			<div class="open-prod">
+			<div class="open-prod" onclick="location.href='fundingDetail?p_num=${open.p_num}&p_condition=${open.p_condition }'" style="cursor: pointer">
 				<div class="open-prod-img">
 				    <img src="http://placehold.it/165x165">
 				</div>
 				<div class="open-prod-text">
 					<div class="open-prod-title">${open.p_name }</div>
-					<div class="open-prod-title">달성률 | ${open.mini_cat }</div>
+					<div class="open-prod-title">달성률 ${open.attainment}% | ${open.mini_cat }</div>
 				</div>
 			</div>
 			</c:forEach>
@@ -262,13 +260,13 @@
 	    <div class="open-prod-wrap">
 	    <!-- 반복 여기서부터 -->
 	        <c:forEach var="review" items="${reviewProduct }">
-			<div class="open-prod">
+			<div class="open-prod" onclick="location.href='fundingDetail?p_num=${review.p_num}&p_condition=${review.p_condition }'" style="cursor: pointer">
 			    <div class="open-prod-img">
 			        <img src="http://placehold.it/165x165">
 			    </div>
 			    <div class="open-prod-text">
 			        <div class="open-prod-title">${review.p_name }</div>
-			        <div class="open-prod-title">달성률 | ${review.mini_cat }</div>
+			        <div class="open-prod-title">달성률 ${review.attainment}% | ${review.mini_cat }</div>
 			    </div>
 			</div>
 			</c:forEach>
