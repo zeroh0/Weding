@@ -443,5 +443,15 @@
 		and   p.mini_cat = c2.mini_cat
 		]]>
 	</select>
+	
+	
+	<!-- 소비자의 상품 구매 내역 확인 (주문했던 상품은 주문 불가)
+	 	 작성자: 장동호 -->
+	 <select id="orderCheck" parameterType="Product" resultType="int">
+	 	select count(*)
+		from ORDERS
+		where P_NUM = #{p_num}
+		and ID = #{consumer_id}
+	 </select>
 
 </mapper>

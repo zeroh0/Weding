@@ -730,5 +730,22 @@ public class ProductDaoImpl implements ProductDao {
 		
 		return productSoldList;
 	}
+
+
+	/**
+	 *  소비자의 상품 구매 내역 확인 (주문했던 상품은 주문 불가)
+	 *  작성자: 장동호 
+	 */
+	@Override
+	public int orderCheck(Product orderProduct) {
+		int orderCheck = 0;
+		try {
+			orderCheck = session.selectOne("orderCheck", orderProduct);
+		} catch(Exception e) {
+			log.info("orderCheck Exception: " + e.getMessage());
+		}
+		
+		return orderCheck;
+	}
 	
 }

@@ -524,5 +524,16 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productSoldList;
 	}
+
+
+	/**
+	 *  소비자의 상품 구매 내역 확인 (주문했던 상품은 주문 불가)
+	 *  작성자: 장동호
+	 */
+	@Override
+	public int orderCheck(Product orderProduct) {
+		int orderCheck = pd.orderCheck(orderProduct);
+		return orderCheck;
+	}
 	
 }

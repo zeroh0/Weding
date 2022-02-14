@@ -85,8 +85,9 @@ function orderFormChk() {
 		location.href="login";
 		return false;
 	}
-	
 }
+
+
 </script>
 <title>상품 상세보기</title>
 </head>
@@ -154,7 +155,14 @@ function orderFormChk() {
 						<input type="hidden" name="p_price" value="${product.p_price }">
 					
 					<h5 style="margin-top: 5px;"><p><fmt:formatNumber value="${product.p_price}" />원<p></h5>
-					<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
+					<c:choose>
+						<c:when test="${orderCheck eq 0 || orderCheck eq null}">
+							<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
+						</c:when>
+						<c:otherwise>
+							<input type="button" class="btn btn-secondary col-md-12"  value="펀딩완료" disabled>
+						</c:otherwise>
+					</c:choose>
 				</form>
 				</div>
 				<div class="row d-grid gap-2 col-12 mx-auto" style="margin-top: 10px;" align="center">

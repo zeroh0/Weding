@@ -49,4 +49,5 @@ public interface ProductDao {
 	List<Alarm> 	getEmailList(String p_num);
 	List<Pname> 	searchPName();
 	List<Product> 	soldList(Product product);
+	int orderCheck(Product orderProduct);
 }

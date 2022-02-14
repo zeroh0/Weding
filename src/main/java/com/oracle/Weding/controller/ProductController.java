@@ -557,6 +557,7 @@ public class ProductController {
 			product = ps.productDetail(p_num);
 			attainment = ps.attainment(p_num);
 			productList = ps.recommendProduct(p_condition);
+			
 		}else {
 		//세션 객체 안에 있는 ID정보 저장
 		Member m1 = (Member) session.getAttribute("member");
@@ -566,6 +567,14 @@ public class ProductController {
 		//로그인한 아이디 확인
 		String loginId = m1.getId();
 		model.addAttribute("loginId", loginId);
+		
+		// 소비자의 상품 구매 내역 확인 (주문했던 상품은 주문 불가)
+		Product orderProduct = new Product();
+		orderProduct.setP_num(String.valueOf(p_num));
+		orderProduct.setConsumer_id(loginId);
+		int orderCheck = ps.orderCheck(orderProduct);
+		log.info("orderCheck: " + orderCheck);
+		model.addAttribute("orderCheck", orderCheck);
 		
 		//로그인 후 상품 찜하기 했는지 확인하기
 		Dibs dibs = new Dibs();

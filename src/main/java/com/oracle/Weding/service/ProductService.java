@@ -50,5 +50,6 @@ public interface ProductService {
 	List<Pname> searchPName();
 	
 	List<Product> 	soldList(Product product);
+	int orderCheck(Product orderProduct);
 
 }
