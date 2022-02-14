@@ -73,7 +73,7 @@
    <div class="form-group row">
        <label class="col-sm-2">펀딩기간</label>
        <div class="col-sm-3">
-        <input type="date" name="p_start" class="form-control" required>
+        <input type="date" name="p_start" class="form-control" min="${now }" required>
         ~<input type="date" name="p_end" class="form-control" required>
        </div>
    </div>

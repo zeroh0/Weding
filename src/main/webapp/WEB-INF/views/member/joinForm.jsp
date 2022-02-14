@@ -149,7 +149,7 @@
 					<div class="col-3">이름</div>
 					<div class="col">
 						<input type="text" name="name" id="name" size=30
-							placeholder="이름입력">
+							placeholder="이름입력" required>
 					</div>
 				</div>
 				<br>
@@ -158,7 +158,7 @@
 				<div class="row">
 					<div class="col-3">아이디</div>
 					<div class="col">
-						<input type="text" name="id" id="id" size=30 placeholder="아이디입력">
+						<input type="text" name="id" id="id" size=30 placeholder="아이디입력" required>
 
 					</div>
 					<div class="col">
@@ -172,7 +172,7 @@
 					<div class="col-3">비밀번호</div>
 					<div class="col">
 						<input type="password" name="password" id="password" size=30
-							placeholder="비밀번호입력">
+							placeholder="비밀번호입력" required>
 					</div>
 				</div>
 				<br>
@@ -180,7 +180,7 @@
 					<div class="col-3">비밀번호확인</div>
 					<div class="col">
 						<input type="password" name="password_check" id="password_check"
-							size=30 placeholder="비밀번호확인입력">
+							size=30 placeholder="비밀번호확인입력" required>
 					</div>
 				</div>
 				<!--  연락처 -->
@@ -188,7 +188,7 @@
 				<div class="row">
 					<div class="col-3">연락처</div>
 					<div class="col">
-						<input type="text" name="phone" id="phone" name=size=30	placeholder="연락처 입력">
+						<input type="text" name="phone" id="phone" name=size=30	placeholder="연락처 입력" required>
 					</div>
 				</div>
 
@@ -211,10 +211,10 @@
 				<div class="row">
 					<div class="col-3">주소</div>
 					<div class="col">
-						<input type="text" name="zipCode" size="10" id="sample6_postcode" placeholder="우편번호"> 
+						<input type="text" name="zipCode" size="10" id="sample6_postcode" placeholder="우편번호" required> 
 						<input type="button" class="btn btn-primary btn-sm" value="우편번호찾기" onclick="sample6_execDaumPostcode()">
 							 <br> 
-						<input type="text" name="roadAddress" size="30" id="sample6_address" placeholder="주소"> 
+						<input type="text" name="roadAddress" size="30" id="sample6_address" placeholder="주소" required> 
 							<br> 
 						<input type="text" name="detailAddress" size="30" id="sample6_address2"	placeholder="상세주소">
 					</div>

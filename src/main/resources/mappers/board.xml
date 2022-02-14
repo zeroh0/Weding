@@ -58,7 +58,6 @@
 	
 	
 	<!--  -->
-	
 	<select id="qnaListAll" parameterType="Board" resultType="Board">
 	   select b.* 
 	   	from (SELECT rownum rn, a.*FROM (SELECT * FROM board order by b_num) a) b

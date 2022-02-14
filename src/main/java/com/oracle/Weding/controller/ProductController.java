@@ -2,6 +2,8 @@ package com.oracle.Weding.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -426,6 +428,17 @@ public class ProductController {
 	public String addProductForm(Model model) {
 		List<Product> catList = ps.listCat();
 		System.out.println("ProductController catList size() : "+catList.size());
+		
+		// 등록 최소 날짜
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, 1);
+        date = c.getTime();
+		String now = sdf.format(date);
+		
+		model.addAttribute("now", now);
 		model.addAttribute("catList",catList);
 		
 		return "product/addProductForm";
