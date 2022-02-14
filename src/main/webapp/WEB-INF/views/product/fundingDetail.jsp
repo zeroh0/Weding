@@ -67,6 +67,17 @@ function cancleDibsProduct(p_num){
 		}
 	});
 }
+
+// 수량이 0이하면 주문 불가
+function orderFormChk() {
+	let qty = $('#qty').val();
+	if(qty > 0) {
+		return true;
+	} else {
+		alert('수량을 확인해주세요.');
+		return false;
+	}
+}
 </script>
 <title>상품 상세보기</title>
 </head>
@@ -126,11 +137,15 @@ function cancleDibsProduct(p_num){
 				<div>${product.p_currentprice}원 펀딩</div>
 				<div>${product.countOrders}명의 서포터</div>
 				<div align="right">
-					<form action="orders">
-						<input type="number" name="qty" value="0" class="col-md-2">
-					</form>
+					<form action="orderForm" method="post" onsubmit="return orderFormChk()">
+					
+						<input type="number" name="qty" id="qty" value="1" class="col-md-2">
+						<input type="hidden" name="p_num" value="${product.p_num }">
+						<input type="hidden" name="p_price" value="${product.p_price }">
+					
 					<h5 style="margin-top: 5px;"><p>${product.p_price}원<p></h5>
-				<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
+					<input type="submit" class="btn btn-secondary col-md-12"  value="주문하기">
+				</form>
 				</div>
 				<div class="row d-grid gap-2 col-12 mx-auto" style="margin-top: 10px;" align="center">
 					<p>
