@@ -71,12 +71,21 @@ function cancleDibsProduct(p_num){
 // 수량이 0이하면 주문 불가
 function orderFormChk() {
 	let qty = $('#qty').val();
-	if(qty > 0) {
-		return true;
+	const member = document.getElementById('member');
+	
+	if(member.value.length != 0) {
+		if(qty > 0) {
+			return true;
+		} else {
+			alert('수량을 확인해주세요.');
+			return false;
+		}
 	} else {
-		alert('수량을 확인해주세요.');
+		alert('로그인을 해주세요.');
+		location.href="login";
 		return false;
 	}
+	
 }
 </script>
 <title>상품 상세보기</title>
@@ -85,6 +94,7 @@ function orderFormChk() {
 <%@ include file="../header.jsp" %>
 
 <div class="container">
+		<input type="hidden" name="member" id="member" value="${member}" readonly>
 		<div class="p-3 mb-2 bg-secondary text-white">
 			<div class="row">
 				<div class="col" style="text-align: center;">${product.mini_content}</div>
