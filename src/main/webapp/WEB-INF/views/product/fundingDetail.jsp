@@ -195,8 +195,8 @@ function orderFormChk() {
 							<!-- 펀딩기간 -->
 							<c:set var="start" value="${product.p_start}"/>
 							<c:set var="end" value="${product.p_end}"/>
-							<fmt:parseDate var="startDate" value="${start}" pattern="yy/MM/dd" /> 
-							<fmt:parseDate var="endDate" value="${end}" pattern="yy/MM/dd" /> 
+							<fmt:parseDate var="startDate" value="${start}" pattern="yyyy-MM-dd" /> 
+							<fmt:parseDate var="endDate" value="${end}" pattern="yyyy-MM-dd" /> 
 							<div class="col">펀딩기간 <fmt:formatDate value="${startDate}" pattern="yyyy.MM.dd" />~<fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd" /></div>
 							<div class="col">100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100%
 								모이지 않으면 결제가 진행되지 않습니다.</div>

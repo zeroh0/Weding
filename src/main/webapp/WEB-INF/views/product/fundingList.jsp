@@ -97,7 +97,7 @@
 			<c:forEach var="product" items="${productList}">
             <div class="col">
                 <div class="card h-100">
-                    <img src="http://placehold.it/100x100" class="card-img-top" alt="...">
+                    <img src="${pageContext.request.contextPath}/upload/${product.p_image1}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><a href="fundingDetail?p_num=${product.p_num}&p_condition=${product.p_condition}">${product.p_name }</a></h5>
                         <p class="card-text">${product.mini_content} | ${product.p_store }</p>

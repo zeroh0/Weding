@@ -110,11 +110,11 @@
 <div id="page-container">
 <!-- 베너 시작 -->
 <section class="box-challenge" style="border: 1px solid; border-left: 1px solid;"> 
-<div style="width: 1520px; margin: 0 auto;">
+<div style="width: 100%; margin: 0 auto;">
 
     <div id="carousel-example-generic" class="carousel slide" >
    
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators" style="margin: 0 auto;">
             <!-- 이미지 갯수만큼 갯수 늘리기 -->
             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
@@ -204,7 +204,7 @@
 			<!-- 반복 여기서부터 -->
 			<c:forEach var="random" items="${randomProduct }">
 				<div class="random-prod" onclick="location.href='fundingDetail?p_num=${random.p_num}&p_condition=${random.p_condition }'" style="cursor: pointer">
-					<img src="http://placehold.it/250x250">
+					<img src="${pageContext.request.contextPath}/upload/${random.p_image1}">
 			        <div class="random-prod-title">${random.p_name}</div> 
 			        <div class="random-prod-title">달성률 ${random.attainment}% | ${random.mini_cat}</div> 
 				</div> 
@@ -225,7 +225,7 @@
 				        <div class="random-prod-title">달성률 ${popular.attainment}% | ${popular.mini_cat}</div> 
 			    </div>
 			    <div class="popular-prod-img">
-			        <img src="http://placehold.it/100x100">
+			        <img src="${pageContext.request.contextPath}/upload/${popular.p_image1}">
 			    </div>
 			</div>
 			</c:forEach>
@@ -242,7 +242,7 @@
   			<c:forEach var="open" items="${openProduct }">
 			<div class="open-prod" onclick="location.href='fundingDetail?p_num=${open.p_num}&p_condition=${open.p_condition }'" style="cursor: pointer">
 				<div class="open-prod-img">
-				    <img src="http://placehold.it/165x165">
+				    <img src="${pageContext.request.contextPath}/upload/${open.p_image1}">
 				</div>
 				<div class="open-prod-text">
 					<div class="open-prod-title">${open.p_name }</div>
@@ -262,7 +262,7 @@
 	        <c:forEach var="review" items="${reviewProduct }">
 			<div class="open-prod" onclick="location.href='fundingDetail?p_num=${review.p_num}&p_condition=${review.p_condition }'" style="cursor: pointer">
 			    <div class="open-prod-img">
-			        <img src="http://placehold.it/165x165">
+			        <img src="${pageContext.request.contextPath}/upload/${review.p_image1}">
 			    </div>
 			    <div class="open-prod-text">
 			        <div class="open-prod-title">${review.p_name }</div>
