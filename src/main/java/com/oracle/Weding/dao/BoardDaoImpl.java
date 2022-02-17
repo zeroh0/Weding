@@ -175,7 +175,6 @@ public class BoardDaoImpl implements BoardDao {
 		System.out.println("BoardDaoImpl sellerQna start...");
 		try {
 			sellerQna = session.selectList("sellerQnaAll",board);
-			
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl sellerQnaAll Exception "+e.getMessage());
 		}
@@ -324,5 +323,23 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return result;
 	}
+
+
+	/**
+	 * Q&A 문의내역 갯수 
+	 */
+	@Override
+	public int sellerQnaTotal(Board board) {
+		int total = 0;
+		try {
+			total = session.selectOne("sellerQnaTotal", board);
+		}catch (Exception e) {
+			System.out.println("sellerQnaTotal Exception -> " + e.getMessage());
+		}
+		
+		return total;
+	}
+	
+	
 	
 }

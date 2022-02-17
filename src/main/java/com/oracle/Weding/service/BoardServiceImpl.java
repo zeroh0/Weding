@@ -182,7 +182,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<Board> sellerQna(Board board) {
 		List<Board> sellerQna = null;
-		System.out.println("BoardServiceImpl sellerQna start...");
 		sellerQna = bd.sellerQna(board);
 		
 		return sellerQna;
@@ -225,6 +224,17 @@ public class BoardServiceImpl implements BoardService {
 	public int replyCount(Board board) {
 		int result = bd.replyCount(board);
 		return result;
+	}
+
+	
+	/**
+	 * Q&A 문의내역 갯수 
+	 */
+	@Override
+	public int sellerQnaTotal(Board board) {
+		int total = bd.sellerQnaTotal(board);
+		
+		return total;
 	}
 	
 }

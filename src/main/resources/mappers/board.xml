@@ -69,13 +69,12 @@
      </select>  
 	    
 	<select id = "sellerQnaAll" parameterType="Board" resultType="Board">
-		select * 
-		from board
-		where mini_cat = 300
-		and p_num in(select p_num
-					 from  product
-					 where id ='seller001')
-		order by p_num desc			 
+		select *
+		from BOARD
+		where MINI_CAT = '200'
+		and id = #{id}
+		and b_step = 0
+		order by B_NUM
 	</select>
 	
 	
@@ -177,4 +176,14 @@
 		where mini_cat = '200'
 		and b_group = #{b_num}
 	</select>
+	
+	
+	<!-- Q&A 문의내역 갯수 -->
+	 <select id="sellerQnaTotal" resultType="int" parameterType="Board">
+		 select count(*)
+		 from BOARD
+		 where MINI_CAT = '200'
+	     and id = #{id}
+	 </select>
+	 
 </mapper>

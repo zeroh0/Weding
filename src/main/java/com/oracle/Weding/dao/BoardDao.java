@@ -27,5 +27,6 @@ public interface BoardDao {
 	Board       	replyForm(int b_num);
 	int         	reply(Board board);
 	int 			replyCount(Board board);
+	int	 			sellerQnaTotal(Board board);
 
 }

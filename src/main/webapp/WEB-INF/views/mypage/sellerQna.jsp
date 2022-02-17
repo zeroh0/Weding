@@ -33,19 +33,23 @@
 		<table class="table table-bordered" style="width: 80%;">
 			<tr>
 				<th>번호</th>
+				<th>글카테고리</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
 				<th>답변여부</th>
 			</tr>
 			<!-- 반복 여기서부터 -->
+			<c:forEach var="board" items="${sellerQna }">
 			<tr>
-				<td>1</td>
-				<td><a href="boardDetail">제목</a></td>
-				<td>홍길동</td>
-				<td>2022-01-22</td>
-				<td>N</td>
+				<td>${board.b_num }</td>
+				<td>${board.b_category }</td>
+				<td><a href="boardDetail?b_num=${board.b_num }">${board.b_title }</a></td>
+				<td>${board.id }</td>
+				<td>${board.b_date }</td>
+				<td></td>
 			</tr>
+			</c:forEach>
 			<!-- 여기까지 반복 -->
 
 		</table>

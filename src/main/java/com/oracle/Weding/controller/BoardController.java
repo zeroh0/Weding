@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.Weding.dto.Board;
+import com.oracle.Weding.dto.Member;
 import com.oracle.Weding.service.BoardService;
 import com.oracle.Weding.service.Paging;
 
@@ -221,14 +222,23 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(value = "sellerQna")
-	public String sellerQna(Board board, String currentPage, Model model) {
-		int total = 0;
-
+	public String sellerQna(Board board, String currentPage, HttpSession session, Model model) {
+		// 현재 접속한 세션 얻기
+		Member member = (Member)session.getAttribute("member");
+		board.setId(member.getId());
+		
+		// 접속한 세션에 대한 게시글 수 얻어오기
+		int total = bs.sellerQnaTotal(board);
+		
+		// 페이징 처리
 		Paging pg = new Paging(total, currentPage);
 		board.setStart(pg.getStart());
 		board.setEnd(pg.getEnd());
+		
+		// 게시글 얻어오기
 		List<Board> sellerQna = bs.sellerQna(board);
 		System.out.println("BoardController sellerQna.size()->" + sellerQna.size());
+		
 		model.addAttribute("sellerQna", sellerQna);
 		model.addAttribute("pg", pg);
 		model.addAttribute("total", total);
