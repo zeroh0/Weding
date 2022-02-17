@@ -339,6 +339,24 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return total;
 	}
+
+	
+	/**
+	 * 1대1 문의내역 갯수
+	 */
+	@Override
+	public int qnaListTotal(Board board) {
+		int total = 0;
+		try {
+			total = session.selectOne("qnaListTotal", board);
+		}catch (Exception e) {
+			System.out.println("qnaListTotal Exception -> " + e.getMessage());
+		}
+		
+		return total;
+	}
+	
+	
 	
 	
 	

@@ -26,4 +26,5 @@ public interface BoardService {
 	int                 reply(Board board);
 	int					replyCount(Board board);
 	int 				sellerQnaTotal(Board board);
+	int 				qnaListTotal(Board board);
 }

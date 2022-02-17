@@ -191,19 +191,24 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(value = "qnaList")
-	public String qnaList(Board board, String currentPage, Model model) {
-		System.out.println("BoardController qnaList Start... ");
-		board.setMain_cat("300");
-		board.setMini_cat("300");
-		int total = bs.total(board);
-		System.out.println("BoardController total->" + total);
-		System.out.println("currentPage->" + currentPage);
+	public String qnaList(Board board, String currentPage, HttpSession session, Model model) {
+		// 현재 접속한 세션 얻기
+		Member member = (Member)session.getAttribute("member");
+		board.setId(member.getId());
+		
+		// 접속한 세션에 대한 게시글 수 얻어오기
+		int total = bs.qnaListTotal(board);
+		log.info("qnaListTotal: " + total);
 
+		// 페이징 처리
 		Paging pg = new Paging(total, currentPage);
 		board.setStart(pg.getStart());
 		board.setEnd(pg.getEnd());
+		
+		// 게시글 얻어오기
 		List<Board> qnaList = bs.qnaList(board);
 		System.out.println("BoardController qnaList.size()->" + qnaList.size());
+		
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("pg", pg);
 		model.addAttribute("total", total);

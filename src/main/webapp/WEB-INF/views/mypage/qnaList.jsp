@@ -72,9 +72,10 @@ a:link {
 			<h2 class="sub-title">1:1 문의내역</h2>
 		</div>
 		<%@include file="menu.jsp"%>
-		<table colspan="2">
+		<table>
 			<tr>
 				<th>번호</th>
+				<th>상품명</th>
 				<th>제목</th>
 				<th>작성일</th>
 				<th>조회수</th>
@@ -82,25 +83,24 @@ a:link {
 			</tr>
 			<c:forEach var="board" items="${qnaList}">
 				<tr>
-					<td><input type="hidden" id="b_num" value="${board.b_num}">
-						${board.b_num}</td>
-					<td>${board.b_title}</td>
+					<td>${board.b_num}</td>
+					<td>상품명</td>
+					<td><a href="boardDetail?b_num=${board.b_num}">${board.b_title}</a></td>
 					<td>${board.b_date}</td>
 					<td>${board.b_hit}</td>
-					<td><input type="text" id="replyCount"></td>
+					<td></td>
 				</tr>
-				<%-- <c:set var="num" value="${num-1}"></c:set> --%>
 			</c:forEach>
 		</table>
 		<br>
 		<c:if test="${pg.startPage > pg.pageBlock}">
-			<a href="list?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
+			<a href="qnaList?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
 		</c:if>
 		<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-			<a href="list?currentPage=${i}">[${i}]</a>
+			<a href="qnaList?currentPage=${i}">[${i}]</a>
 		</c:forEach>
 		<c:if test="${pg.endPage < pg.totalPage}">
-			<a href="list?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
+			<a href="qnaList?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
 		</c:if>
 	</div>
 	<%@include file="../footer.jsp"%>

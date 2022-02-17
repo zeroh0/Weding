@@ -236,5 +236,16 @@ public class BoardServiceImpl implements BoardService {
 		
 		return total;
 	}
+
+
+	/**
+	 * 1대1 문의내역 갯수
+	 */
+	@Override
+	public int qnaListTotal(Board board) {
+		int total = bd.qnaListTotal(board);
+		
+		return total;
+	}
 	
 }
