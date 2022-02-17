@@ -81,15 +81,15 @@
 		 작성자 - 장동호 -->
 	<select id="getRandomProduct" resultType="Product">
 		<![CDATA[
-		select p.*,
-        round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
-        (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
-		from (select *
-      		from (select *
-            	from PRODUCT
-           	 	where P_CONDITION = '2'
-            	order by DBMS_RANDOM.VALUE())
-      		where ROWNUM <= '6') p
+		select p.*, c.c_content mini_content
+		from cat c,
+			 (select *
+		      from PRODUCT
+		      where P_CONDITION = '2'
+		      order by DBMS_RANDOM.VALUE()) p
+		where ROWNUM <= 6
+		and   c.main_cat = p.main_cat
+		and   c.mini_cat = p.mini_cat
 		]]>
 	</select>
 	
@@ -98,18 +98,15 @@
 		 작성자 - 장동호 -->
 	<select id="getPopularProduct" resultType="Product">
 		<![CDATA[
-		select p.*,
-        	   round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
-        	   (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
-		from (select *
-     		  from PRODUCT
-     		  where P_NUM in (select P_NUM
-                  			  from (select p.P_NUM, count(p.P_NUM)
-                        			from PRODUCT p, DIBS d
-                        			where p.P_NUM = d.P_NUM
-                        			group by p.P_NUM
-                        			order by count(p.P_NUM) desc, P_NUM)
-             				  where ROWNUM <= 5)) p	
+		select *
+		from PRODUCT
+		where P_NUM in (select P_NUM
+		                from (select p.P_NUM, count(p.P_NUM)
+		                      from PRODUCT p, DIBS d
+		                      where p.P_NUM = d.P_NUM
+		                      group by p.P_NUM
+		                      order by count(p.P_NUM) desc, P_NUM)
+		                where ROWNUM <= 5)
 		]]>
 	</select>
 	
@@ -118,13 +115,12 @@
 		 작성자 - 장동호 -->
 	<select id="getOpenProduct" resultType="Product">
 		<![CDATA[
-			select p.*,
-       			   round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
-       			   (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
-			from (select *
-      			  from PRODUCT
-      			  where P_START = (select to_char(sysdate, 'yy/mm/dd') from dual)
-      		and ROWNUM <= 6) p
+			select *
+			from PRODUCT
+			where P_START = (select to_char(sysdate, 'yy/mm/dd') from dual)
+			and ROWNUM <= 6
+			and   c.main_cat = p.main_cat
+			and   c.mini_cat = p.mini_cat
 		]]>
 	</select>
 	
@@ -133,16 +129,15 @@
 		 작성자 - 장동호 -->
 	<select id="getReviewProduct" resultType="Product">
 		<![CDATA[
-			select p.*,
-			       round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
-			       (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
-			from (select *
-			      from PRODUCT
-			      where P_NUM in (select distinct (P_NUM)
-			                      from BOARD
-			                      where MAIN_CAT = '300'
-			                      and MINI_CAT = '400')
-			      and ROWNUM <= 6) p
+			select p.*, c.c_content mini_content
+			from PRODUCT p, cat c
+			where P_NUM in (select distinct (P_NUM)
+			                from BOARD
+			                where MAIN_CAT = '300'
+			                and MINI_CAT = '400')
+			and ROWNUM <= 6
+			and   c.main_cat = p.main_cat
+			and   c.mini_cat = p.mini_cat
 		]]>
 	</select>
 	
@@ -320,41 +315,51 @@
 	
 	<!-- 정렬:최신순 -->
 	<select id="sortNewProduct" resultType="Product">
-		<![CDATA[
-		select  p.*,
-		        round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
-		        (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
-		from (select *
-		      from product
-		      where p_condition = 2
-		      order by p_start desc) p
-       ]]>
+		<![CDATA[SELECT p.*, c1.c_content main_content, c2.c_content mini_content,
+				round((p_currentprice /p_goalprice)*100,0) attainment,
+				(case when round(to_date(p_end,'YYYY-MM-DD')-sysdate,0)<0 then '판매종료' else  to_char(round(to_date(p_end,'YYYY-MM-DD')-sysdate,0))||'일 남음' end) leftdate
+		FROM product p,
+			(select * from cat where mini_cat='999') c1, 
+  		    (select * from cat where mini_cat<>'999') c2
+				 WHERE p.main_cat = c1.main_cat
+				 and   p.main_cat = c2.main_cat
+				 and   p.mini_cat = c2.mini_cat
+				 and   p.p_condition=2
+				 order by p_start desc]]>
 	</select>
 	
 	
 	<!-- 정렬:인기순 -->
 	<select id="sortPopularProduct" resultType="Product">
-		select *
-		from (select p_num,count(id) from dibs
-				group by p_num
-				order by count(id) desc) d, product p
-		where d.p_num = p.p_num
-		and p.p_condition=2
+	<![CDATA[SELECT d.p_num, d.pop, p.*, c1.c_content main_content, c2.c_content mini_content,
+				round((p_currentprice /p_goalprice)*100,0) attainment,
+				(case when round(to_date(p_end)-sysdate,0)<0 then '판매종료' else  to_char(round(to_date(p_end)-sysdate,0))||'일 남음' end) leftdate
+		FROM (select p_num, count(id) pop from dibs group by p_num) d,
+	 		 product p,
+			 (select * from cat where mini_cat='999') c1, 
+  		     (select * from cat where mini_cat<>'999') c2
+				 WHERE d.p_num = p.p_num
+				 and   p.p_condition=2
+				 and   p.main_cat = c1.main_cat
+				 and   p.main_cat = c2.main_cat
+				 and   p.mini_cat = c2.mini_cat
+				 order by d.pop desc]]>
 	</select>
 	
 	
 	<!-- 정렬:달성순 -->
 	<select id="sortGoalProduct" resultType="Product">
-		<![CDATA[
-		select  a.*,
-		        round((P_CURRENTPRICE / P_GOALPRICE) * 100, 2) ATTAINMENT,
-		        (case when round(to_date(P_END) - sysdate, 0) < 0 then '판매종료' else to_char(round(to_date(P_END) - sysdate, 0)) || '일 남음' end) LEFTDATE
-		from (select p.* ,
-		             round((P_CURRENTPRICE /p_goalprice)*100,2) attainment
-		      from product p
-		      where p.p_condition = 2
-		      order by attainment desc) a
-       ]]>
+		<![CDATA[SELECT p.*, c1.c_content main_content, c2.c_content mini_content,
+				round((p_currentprice /p_goalprice)*100,0) attainment,
+				(case when round(to_date(p_end,'YYYY-MM-DD')-sysdate,0)<0 then '판매종료' else  to_char(round(to_date(p_end,'YYYY-MM-DD')-sysdate,0))||'일 남음' end) leftdate
+				FROM  product p,
+					 (select * from cat where mini_cat='999') c1, 
+  		   			  (select * from cat where mini_cat<>'999') c2
+				 WHERE p.p_condition=2
+				 and   p.main_cat = c1.main_cat
+				 and   p.main_cat = c2.main_cat
+				 and   p.mini_cat = c2.mini_cat
+				 order by attainment desc]]>
 	</select>
 	
 	

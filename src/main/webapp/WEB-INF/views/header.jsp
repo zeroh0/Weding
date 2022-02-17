@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <style>
-	*{
+	header {
 		font-family: 'Noto Sans KR', sans-serif;
 		font-family: 'Roboto', sans-serif;
 		font-size: 15px;
@@ -44,7 +44,7 @@
 	    			<a href="<c:url value='allProductList'/>" class="nav-link px-2 link-dark">마이페이지</a>
 	    		</c:if>
 	    		<c:if test="${member.mini_cat <= 299}">
-	    			<a href="<c:url value='dibsList'/>" class="nav-link px-2 link-dark">마이페이지</a>
+	    			<a href="<c:url value='memberUpdateForm'/>" class="nav-link px-2 link-dark">마이페이지</a>
 	    		</c:if>
 		    	<a href="<c:url value='logout'/>" class="nav-link px-2 link-dark">로그아웃</a>
 	    	</div>

@@ -527,7 +527,9 @@ public class ProductController {
 	@RequestMapping(value="sortProduct")
 	public String sortProduct(Product product, Model model) {
 		System.out.println("ProductController sortProduct Start..");
-		
+		//펀딩 중 상품목록에서 카테고리 이름 정렬 가져오기
+		List<Cat> catList = ps.arrayCategory();
+		model.addAttribute("catList", catList);
 		String sort = product.getSort();
 		
 		//최신순 정렬
