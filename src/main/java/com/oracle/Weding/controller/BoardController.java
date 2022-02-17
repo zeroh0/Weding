@@ -222,10 +222,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "sellerQna")
 	public String sellerQna(Board board, String currentPage, Model model) {
-		System.out.println("BoardController sellerQna Start...");
-		int total = bs.total(board);
-		System.out.println("BoardController sellerQna total->" + total);
-		System.out.println("currentPage->" + currentPage);
+		int total = 0;
 
 		Paging pg = new Paging(total, currentPage);
 		board.setStart(pg.getStart());
