@@ -64,9 +64,9 @@
 	            <!-- 현재 접속한 회원의 이름 -->
 	            <li>${member.name}님</li>
 	            <li><a href="<c:url value='memberUpdateForm'/>">회원수정</a></li>
-	            <li><a href="<c:url value='pwChangeForm'/>">비밀번호변경</a></li>\
+	            <li><a href="<c:url value='pwChangeForm'/>">비밀번호변경</a></li>
                 <li><a href="<c:url value='sellerQna?main_cat=300&mini_cat=200'/>">Q&A문의내역</a></li>
-	            <li><a href="<c:url value='#'/>">1:1문의답변</a></li>
+	            <li><a href="<c:url value='qnaList?main_cat=300&mini_cat=300'/>">1:1문의답변</a></li>
 	            <li><a href="<c:url value='soldList'/>">판매자상품관리</a></li>
 	        </ul>
 		</c:if>

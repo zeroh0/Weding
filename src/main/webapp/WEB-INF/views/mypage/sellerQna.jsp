@@ -30,7 +30,7 @@
 	</div>
 	<div class="container">
 		<%@include file="menu.jsp"%>
-		<table class="table table-bordered" style="width: 80%;">
+		<table style="width: 80%;">
 			<tr>
 				<th>번호</th>
 				<th>글카테고리</th>

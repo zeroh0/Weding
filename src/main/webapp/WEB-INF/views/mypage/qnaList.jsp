@@ -84,7 +84,7 @@ a:link {
 			<c:forEach var="board" items="${qnaList}">
 				<tr>
 					<td>${board.b_num}</td>
-					<td>상품명</td>
+					<td>${board.p_name}</td>
 					<td><a href="boardDetail?b_num=${board.b_num}">${board.b_title}</a></td>
 					<td>${board.b_date}</td>
 					<td>${board.b_hit}</td>

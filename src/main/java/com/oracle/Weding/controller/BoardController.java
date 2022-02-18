@@ -196,6 +196,9 @@ public class BoardController {
 		Member member = (Member)session.getAttribute("member");
 		board.setId(member.getId());
 		
+		// 소비자 판매자 구분 (100, 200)
+		board.setMember_mini_cat(member.getMini_cat());	
+		
 		// 접속한 세션에 대한 게시글 수 얻어오기
 		int total = bs.qnaListTotal(board);
 		log.info("qnaListTotal: " + total);
