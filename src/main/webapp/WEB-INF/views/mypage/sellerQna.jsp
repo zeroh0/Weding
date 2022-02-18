@@ -47,7 +47,7 @@
 				<td><a href="boardDetail?b_num=${board.b_num }">${board.b_title }</a></td>
 				<td>${board.id }</td>
 				<td>${board.b_date }</td>
-				<td></td>
+				<td>${board.answer}</td>
 			</tr>
 			</c:forEach>
 			<!-- 여기까지 반복 -->

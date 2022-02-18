@@ -88,7 +88,7 @@ a:link {
 					<td><a href="boardDetail?b_num=${board.b_num}">${board.b_title}</a></td>
 					<td>${board.b_date}</td>
 					<td>${board.b_hit}</td>
-					<td></td>
+					<td>${board.answer}</td>
 				</tr>
 			</c:forEach>
 		</table>

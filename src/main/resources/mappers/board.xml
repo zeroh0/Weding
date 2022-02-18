@@ -63,7 +63,7 @@
 			<when test="member_mini_cat == 100">
 			    select *
 				from (select ROWNUM rn, a.*
-				      from (select b.B_NUM, p.P_NAME, b.B_TITLE, b.B_DATE, b.B_HIT
+				      from (select b.B_NUM, p.P_NAME, b.B_TITLE, b.B_DATE, b.B_HIT, chk_reply3(b.b_group, b.mini_cat) answer
 				            from BOARD b, PRODUCT p
 				            where b.MINI_CAT = '300'
 				              and b.ID = #{id}
@@ -74,7 +74,7 @@
 	    	<otherwise>
 	    		select *
 				from (select ROWNUM rn, a.*
-				      from (select b.B_NUM, p.P_NAME, b.b_title, b.B_DATE, b.B_HIT
+				      from (select b.B_NUM, p.P_NAME, b.b_title, b.B_DATE, b.B_HIT, chk_reply3(b.b_group, b.mini_cat) answer
 				            from BOARD b, (select *
 				                           from PRODUCT
 				                           where ID = #{id}) p
@@ -116,7 +116,7 @@
 	    
 	<select id = "sellerQnaAll" parameterType="Board" resultType="Board">
 		select *
-		from (select ROWNUM rn, a.*
+		from (select ROWNUM rn, a.*, chk_reply3(a.b_group, a.mini_cat) answer
 		      from (select * from BOARD) a
 		      where MINI_CAT = '200'
 		      and id = #{id}
@@ -223,6 +223,7 @@
 		where mini_cat = '200'
 		and b_group = #{b_num}
 	</select>
+	
 	
 	
 </mapper>
