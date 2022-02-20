@@ -18,7 +18,7 @@
 </style>
 <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-3 border-bottom">
-      <a href="<c:url value='main'/>" class="main"><img src="http://placehold.it/150x50"></a>
+      <a href="<c:url value='main'/>" class="main"><img src="images/logo.png"></a>
 
       <ul class="nav">
         <li><a href="<c:url value='beforeFundList'/>" class="nav-link px-2 link-dark">펀딩예정</a></li>

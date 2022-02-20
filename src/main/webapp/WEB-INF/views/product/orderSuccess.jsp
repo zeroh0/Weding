@@ -42,7 +42,7 @@
               <h5>결제가 완료 되었습니다</h5>
               <span>주문번호: ${orders.o_num }</span>
               <span>주문자: ${orders.id }</span>
-              <span>주문 상품: ${orders.p_num }</span>
+              <span>주문 상품: ${orders.p_name }</span>
               <span>결제 금액: <fmt:formatNumber value="${orders.o_sum }" />원</span>
             </div>
             <button type="button" class="btn btn-primary" onclick="location.href='main'">메인페이지</button>
