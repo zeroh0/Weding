@@ -22,6 +22,7 @@
 .b {
 	word-break: break-all;
 }
+
 .sub-banner {
 	width: 100vw;
 	margin-left: calc(-50vw + 50%);
@@ -33,6 +34,11 @@
 
 .sub-title {
 	line-height: 100px;
+}
+
+.mypageContent {
+	width: 80%;
+	margin: 0 auto;
 }
 </style>
 <script
@@ -76,66 +82,67 @@
 		<div class="col-6">
 			<%@include file="menu.jsp"%>
 			<form action="memberUpdate" method="post">
-				<div class="row">
-					<div class="col-3">이름</div>
-					<div class="col">
-						<input type="text" name="name" size=30 placeholder="아이디입력"
-							value="${member.name}">
+				<div class="mypageContent">
+					<div class="row">
+						<div class="col-3">이름</div>
+						<div class="col">
+							<input type="text" name="name" size=30 placeholder="아이디입력"
+								value="${member.name}">
+						</div>
 					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-3">연락처</div>
-					<div class="col">
-						<input type="text" name="phone" size=30 placeholder="연락처입력"
-							value="${member.phone}">
+					<br>
+					<div class="row">
+						<div class="col-3">연락처</div>
+						<div class="col">
+							<input type="text" name="phone" size=30 placeholder="연락처입력"
+								value="${member.phone}">
+						</div>
 					</div>
-				</div>
-				<br>
-				<c:set var="email1" value="${member.email.split('@')[0]}" />
-				<c:set var="email2" value="${member.email.split('@')[1]}" />
-				<div class="row">
-					<div class="col-3">이메일</div>
-					<div class="col">
-						<input type="text" name="email1" size=30 placeholder="이메일 입력"
-							value="${email1}">@ <select name="email2" required>
-							<option value="naver.com"
-								<c:if test="${email1.equals('naver.com')}"><c:out value="selected"/></c:if>>naver.com</option>
-							<option value="gmail.com"
-								<c:if test="${email1.equals('gmail.com')}"><c:out value="selected"/></c:if>>gmail.com</option>
-							<option value="daum.net"
-								<c:if test="${email1.equals('daum.net')}"><c:out value="selected"/></c:if>>daum.net</option>
-							<option value="nate.com"
-								<c:if test="${email1.equals('nate.com')}"><c:out value="selected"/></c:if>>nate.com</option>
-						</select>
+					<br>
+					<c:set var="email1" value="${member.email.split('@')[0]}" />
+					<c:set var="email2" value="${member.email.split('@')[1]}" />
+					<div class="row">
+						<div class="col-3">이메일</div>
+						<div class="col">
+							<input type="text" name="email1" size=30 placeholder="이메일 입력"
+								value="${email1}">@ <select name="email2" required>
+								<option value="naver.com"
+									<c:if test="${email1.equals('naver.com')}"><c:out value="selected"/></c:if>>naver.com</option>
+								<option value="gmail.com"
+									<c:if test="${email1.equals('gmail.com')}"><c:out value="selected"/></c:if>>gmail.com</option>
+								<option value="daum.net"
+									<c:if test="${email1.equals('daum.net')}"><c:out value="selected"/></c:if>>daum.net</option>
+								<option value="nate.com"
+									<c:if test="${email1.equals('nate.com')}"><c:out value="selected"/></c:if>>nate.com</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-3">주소</div>
-					<div class="col">
-						<input type="text" size="15" name="zipCode" id="zipCode"
-							placeholder="우편번호" value="${member.zipCode }"> <input
-							type="button" onclick="sample6_execDaumPostcode()" value="주소검색">
-						<input type="text" size="40" name="roadAddress" id="roadAddress"
-							placeholder="도로명주소" value="${member.roadAddress }"> <input
-							type="text" size="40" name="detailAddress" id="detailAddress"
-							placeholder="상세주소" value="${member.detailAddress }">
+					<br>
+					<div class="row">
+						<div class="col-3">주소</div>
+						<div class="col">
+							<input type="text" size="15" name="zipCode" id="zipCode"
+								placeholder="우편번호" value="${member.zipCode }"> <input
+								type="button" onclick="sample6_execDaumPostcode()" value="주소검색">
+							<input type="text" size="40" name="roadAddress" id="roadAddress"
+								placeholder="도로명주소" value="${member.roadAddress }"> <input
+								type="text" size="40" name="detailAddress" id="detailAddress"
+								placeholder="상세주소" value="${member.detailAddress }">
+						</div>
 					</div>
-				</div>
-				<div class="row" style="margin-top: 10%">
-					<div class="col-8 d-grid gap-2">
-						<input type="submit" class="btn btn-secondary" value="회원수정">
-						<!-- submit button-->
-					</div>
-					<div id="memberDelete" class="col-4 d-grid gap-2">
-						<button type="button" class="btn btn-light"
-							onclick="location.href='memberDelete?id=${member.id}'">탈퇴</button>
+					<div class="row" style="margin-top: 10%">
+						<div class="col-8 d-grid gap-2">
+							<input type="submit" class="btn btn-secondary" value="회원수정">
+							<!-- submit button-->
+						</div>
+						<div id="memberDelete" class="col-4 d-grid gap-2">
+							<button type="button" class="btn btn-light"
+								onclick="location.href='memberDelete?id=${member.id}'">탈퇴</button>
+						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-	</div>
 	</div>
 	<div class="col-3"></div>
 	<!-- JavaScript Bundle with Popper -->

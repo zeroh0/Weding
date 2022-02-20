@@ -6,14 +6,6 @@
 <meta charset="UTF-8">
 <title>메인 페이지</title>
 <%@ include file="header.jsp"%>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/fonts.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script
@@ -157,8 +149,7 @@
 <body>
 	<div id="page-container">
 		<!-- 베너 시작 -->
-		<section class="box-challenge"
-			style="border: 1px solid; border-left: 1px solid;">
+		<section class="box-challenge">
 			<div style="width: 100%; margin: 0 auto;">
 
 				<div id="carousel-example-generic" class="carousel slide">
@@ -220,7 +211,7 @@
 	    $('#carousel-example-generic').carousel({
 		    // 슬리아딩 자동 순환 지연 시간
 		    // false면 자동 순환하지 않는다. 1/1000 초
-		    interval: 4500,
+		    interval: 2500,
 		    // hover를 설정하면 마우스를 가져대면 자동 순환이 멈춘다.
 		    pause: "hover",
 		    // 순환 설정, true면 1 -> 2가면 다시 1로 돌아가서 반복
@@ -266,10 +257,8 @@
 							style="cursor: pointer">
 							<div class="popular-prod-text">
 								<div class="random-prod-title">${popular.p_name}</div>
-								<div class="random-prod-title">
-									달성률 ${popular.attainment}% |
-									<fmt:formatNumber value="${popular.p_price}" />
-								</div>
+								<div class="rasndom-prod-title">달성률 ${popular.attainment}%
+									| ${popular.mini_content}</div>
 							</div>
 							<div class="popular-prod-img">
 								<img

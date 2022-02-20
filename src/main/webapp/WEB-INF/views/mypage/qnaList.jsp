@@ -72,7 +72,7 @@ a:link {
 			<h2 class="sub-title">1:1 문의내역</h2>
 		</div>
 		<%@include file="menu.jsp"%>
-		<table>
+		<table style="width:80%;">
 			<tr>
 				<th>번호</th>
 				<th>상품명</th>

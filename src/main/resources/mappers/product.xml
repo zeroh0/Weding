@@ -98,8 +98,8 @@
 		 작성자 - 장동호 -->
 	<select id="getPopularProduct" resultType="Product">
 		<![CDATA[
-		select *
-		from PRODUCT
+		select p1.*, c1.c_content mini_content
+		from PRODUCT p1, CAT c1
 		where P_NUM in (select P_NUM
 		                from (select p.P_NUM, count(p.P_NUM)
 		                      from PRODUCT p, DIBS d
@@ -107,6 +107,8 @@
 		                      group by p.P_NUM
 		                      order by count(p.P_NUM) desc, P_NUM)
 		                where ROWNUM <= 5)
+		and p1.MAIN_CAT = c1.MAIN_CAT
+		and p1.MINI_CAT = c1.MINI_CAT
 		]]>
 	</select>
 	
@@ -116,7 +118,7 @@
 	<select id="getOpenProduct" resultType="Product">
 		<![CDATA[
 			select *
-			from PRODUCT
+			from PRODUCT p, CAT c
 			where P_START = (select to_char(sysdate, 'yy/mm/dd') from dual)
 			and ROWNUM <= 6
 			and   c.main_cat = p.main_cat
