@@ -22,6 +22,7 @@
 .pagination {
 	justify-content: center;
 }
+
 </style>
 
 <title>beforeFundList</title>
@@ -44,8 +45,8 @@
             <div class="item active">
               <a href="fundingDetail?p_num=27&p_condition=1">
                 <img src="${pageContext.request.contextPath}/upload/food015-1.jpg" style="margin: auto; height: 350px; width:50%;">
-                <div class="carousel-caption" style="text-align: left; color: black;">
-                    24년 노하우를 가득 담은 국물쫄면<br>
+                <div class="carousel-caption" style="text-align: left; color: #2F3A8F;">
+                    <h2>24년 노하우를 가득 담은 국물쫄면</h2>
                     교동 온쫄면, 냉쫄면
                 </div>
               </a>    
@@ -54,8 +55,9 @@
             <div class="item">
               <a href="fundingDetail?p_num=20&p_condition=1">
                 <img src="${pageContext.request.contextPath}/upload/food008-1.jpg" style="margin: auto; height: 350px; width:50%;">
-                <div class="carousel-caption" style="text-align: left; color: black;">
-                    설탕보다 300배 이상 단 스테비아와 건강하고 꾸덕한 그릭요거트의 만남!<br>
+                <div class="carousel-caption" style="text-align: left; color: #2F3A8F;">
+                    <h2>설탕보다 300배 이상 단 스테비아와</h2>
+                    <h2>건강하고 꾸덕한 그릭요거트의 만남!</h2>
                     스테비아 그릭요거트
                 </div>
               </a>    
@@ -63,9 +65,10 @@
             <!-- 이미지 설정3 -->
             <div class="item">
              <a href="fundingDetail?p_num=66&p_condition=1">
-                <img src="${pageContext.request.contextPath}/upload/charGoods012-1.png" style="margin: auto; height: 350px; width:50%;">
-                <div class="carousel-caption" style="text-align: left; color: black;">
-                    펭수와 함께 눈치정복할 준비되셨습니까?<br>
+                <img src="images/peng.png" style="margin: auto; height: 350px; width:50%;">
+                <div class="carousel-caption" style="text-align: left; color: #2F3A8F;">
+                    <h2>펭수와 함께</h2> 
+                    <h2>눈치정복할 준비되셨습니까?</h2>
                     눈치챙겨 2탄, 후드티로 돌아왔다!
                 </div>
              </a>    
@@ -117,7 +120,8 @@
 
 <div class="container">
 	<div class="row" style="width: 900px; margin: auto;">
-		<div class="col" style="padding: 50px 30px; margin-top: 40px; width: 500px; text-align:center; background-color:#F5F1E7;">위딩의 펀딩예정 상품들을 만나보세요</div>
+		<div class="col" style="padding: 55px 90px 55px 80px; margin-top: 40px; width: 500px; background-repeat:no-repeat; background-size:cover; font-size:18px; color:#2F3A8F; 
+			background-image: url(images/sub-banner-img.png)"><h2>직접 체험하고 펀딩하세요</h2> <p>위딩에서 만나는 오픈예정 펀딩</p></div>
 	</div>
 
 	<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 30px;">

@@ -181,86 +181,56 @@ function orderFormChk() {
 	<%@ include file="../header.jsp"%>
 
 	<div class="bg-header">
-		<div class="bg"
-			style="filter:brightness(50%); background-image: url(${pageContext.request.contextPath}/upload/${product.p_image1})"></div>
-		<div class="bg-text1">
-			<p>${product.mini_content}</p>
-		</div>
-		<div class="bg-text2">
-			<b><h1>${product.p_name}</h1></b>
-		</div>
-	</div>
-	<div class="container" style="margin-top: 70px;">
-		<div class="row" style="margin-top: 50px;">
-			<div class="col-1"></div>
-			<div class="col-6" style="width: 50%">
-				<div class="row">
-					<div class="col">
-						<img
-							src="${pageContext.request.contextPath}/upload/${product.p_image1}"
-							alt="상품" width="500" height="450">
-					</div>
-					<div class="row" style="margin-top: 20px;">
-						<div class="col">
-							<p class="b">
-							<h2>${product.p_description}</h2>
-							</p>
-						</div>
-					</div>
+	<div class="bg" style="filter:brightness(50%); background-image: url(${pageContext.request.contextPath}/upload/${product.p_image1})" ></div>
+	<div class="bg-text1"><p>${product.mini_content}</p></div>
+	<div class="bg-text2" style="color: white;"><b><h1>${product.p_name}</h1></b></div>
+</div>
+<div class="container" style="margin-top: 70px;">
+	<div class="row" style="margin-top: 50px;">
+		<div class="col-1"></div>
+		<div class="col-6" style="width: 50%">
+			<div class="row">
+				<div class="col">
+					<img src="${pageContext.request.contextPath}/upload/${product.p_image1}"
+						 alt="상품" width="500" height="450">
 				</div>
-				<div class="row" style="width: 80%; margin-top: 20px;">
-					<div class="col" style="background-color: rgb(230, 226, 208);">
-						<div>
-							<div class="col">
-								목표금액
-								<fmt:formatNumber value="${product.p_goalprice}" />
-								원
-							</div>
-							<!-- 펀딩기간 -->
-							<c:set var="start" value="${product.p_start}" />
-							<c:set var="end" value="${product.p_end}" />
-							<fmt:parseDate var="startDate" value="${start}"
-								pattern="yy-MM-dd" />
-							<fmt:parseDate var="endDate" value="${end}" pattern="yy-MM-dd" />
-							<div class="col">
-								펀딩기간
-								<fmt:formatDate value="${startDate}" pattern="yyyy.MM.dd" />
-								~
-								<fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd" />
-							</div>
-							<div class="col">100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100%
-								모이지 않으면 결제가 진행되지 않습니다.</div>
-						</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col">
+						<p class="b"><h2>${product.p_description}</h2></p>
 					</div>
 				</div>
 			</div>
+			<div class="row" style="width: 80%; margin-top: 20px;">
+				<div class="col" style="background-color: rgb(230, 226, 208);">
+					<div>
+						<div class="col">목표금액 ${product.p_goalprice}원</div>
+						<!-- 펀딩기간 -->
+						<c:set var="start" value="${product.p_start}"/>
+						<c:set var="end" value="${product.p_end}"/>
+						<fmt:parseDate var="startDate" value="${start}" pattern="yy-MM-dd" /> 
+						<fmt:parseDate var="endDate" value="${end}" pattern="yy-MM-dd" /> 
+						<div class="col">펀딩기간 <fmt:formatDate value="${startDate}" pattern="yyyy.MM.dd" />~<fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd" /></div>
+						<div class="col">100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100%
+							모이지 않으면 결제가 진행되지 않습니다.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<c:choose>
+		<c:when test="${product.p_condition==2 }">
 			<div class="col-4">
 				<div class="row">
-					<!-- 남은 펀딩기간 계산하기 -->
-					<div>
-						<h1>${product.leftdate}</h1>
-					</div>
-					<!-- 달성률 계산하기 -->
-					<div class="progress"
-						style="padding: 0px; margin-left: 15px; margin-top: 10px;">
-						<div class="progress-bar" style="width:${attainment}%"
-							role="progressbar" aria-valuenow="${attainment}"
-							aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-					<div>
-						<strong>${attainment}</strong>%달성
-					</div>
-					<div style="margin-top: 10px;">
-						<h3>
-							<strong><fmt:formatNumber
-									value="${product.p_currentprice}" /></strong>원 펀딩
-						</h3>
-					</div>
-					<div>
-						<p>
-							<b style="font-size: 30px;">${product.countOrders}</b>명의 서포터
-						</p>
-					</div>
+		<!-- 남은 펀딩기간 계산하기 -->
+					<div><h1>${product.leftdate}</h1></div>
+		<!-- 달성률 계산하기 -->	
+					<div class="progress" style="padding: 0px; margin-left: 15px; margin-top: 10px; height: 30px;">
+						<div class="progress-bar" style="width:${attainment}%" role="progressbar" aria-valuenow="${attainment}"
+                                      aria-valuemin="0" aria-valuemax="100">
+               			 </div>
+               		</div>
+					<div>${attainment}% 달성</div>
+					<div style="margin-top:10px;"><h3>${product.p_currentprice}원 펀딩</h3></div>
+					<div><p><b style="font-size:30px;">${product.countOrders}</b>명의 서포터</p></div>
 					<div align="right">
 						<input type="hidden" id="member" value="${member }">
 						<form action="orderForm" method="post" onsubmit="return orderFormChk()">
@@ -282,36 +252,51 @@ function orderFormChk() {
 								</c:otherwise>
 							</c:choose>
 
-						</form>
+							</form>
 					</div>
-					<div class="row d-grid gap-2 col-12 mx-auto"
-						style="margin-top: 10px;" align="center">
-						<p>
-							<input type="hidden" id="p_num" value="${product.p_num}">
-							<c:if test="${count==1}">
-								<button type="button" id="dibsBut" class="btn btn-light"
-									onclick="cancleDibsProduct(${product.p_num})">
-									<a style="text-decoration: none; color: black;">찜하기 취소</a>
-								</button>
-							</c:if>
-							<c:if test="${count==0}">
-								<button type="button" id="dibsBut" class="btn btn-light"
-									onclick="getDibsProduct(${product.p_num})">
-									<a style="text-decoration: none; color: black;">찜하기</a>
-								</button>
-							</c:if>
-							<button type="button" class="btn btn-light">
-								<a href="boardList?main_cat=300&mini_cat=300&p_num=${product.p_num}"
-									style="text-decoration: none; color: black;">1:1문의</a>
-							</button>
-							<button type="button" class="btn btn-light"
-								onclick="clip(); return false;">
-								<a>공유하기</a>
-							</button>
+					<div class="row d-grid gap-2 col-12 mx-auto" style="margin-top: 10px;" align="center">
+					<p>
+					<input type="hidden" id="p_num" value="${product.p_num}">
+					<c:if test="${count==1}">
+						<button type="button" id ="dibsBut" class="btn btn-light" onclick="cancleDibsProduct(${product.p_num})"><a style="text-decoration: none; color: black;">찜하기 취소</a></button>
+					</c:if>
+					<c:if test="${count==0}">
+						<button type="button" id ="dibsBut" class="btn btn-light" onclick="getDibsProduct(${product.p_num})"><a style="text-decoration: none; color: black;">찜하기</a></button>
+					</c:if>
+						<button type="button" class="btn btn-light"><a href="boardList?main_cat=300&mini_cat=300&p_num=${product.p_num} " style="text-decoration: none; color: black;">1:1문의</a></button>
+						<button type="button" class="btn btn-light" onclick="clip(); return false;"><a>공유하기</a></button>
 						</p>
 					</div>
 				</div>
 			</div>
+		</c:when>
+		<c:when test="${product.p_condition==3 }">
+			<div class="col-4">
+		<div class="row">
+		<!-- 남은 펀딩기간 계산하기 -->
+			<div><h1>${product.leftdate}</h1></div>
+		<!-- 달성률 계산하기 -->	
+			<div class="progress" style="padding: 0px; margin-left: 15px; margin-top: 10px; height: 30px;">
+				<div class="progress-bar" style="width:${attainment}%" role="progressbar" aria-valuenow="${attainment}"
+                                      aria-valuemin="0" aria-valuemax="100">
+                </div>
+               </div>
+			<div>${attainment}% 달성</div>
+			<div style="margin-top:10px;"><h3>${product.p_currentprice}원 펀딩</h3></div>
+			<div><p><b style="font-size:30px;">${product.countOrders}</b>명의 서포터</p></div>
+			<div class="row" style="margin-top: 40px;">
+				<div class="col" style="background-color: rgb(230, 226, 208); height: 100px;">
+					<div style="text-align=center; padding: 10px;">
+						[${product.p_name}] 상품은 펀딩이 종료된 상품입니다.<br>
+						소중한 서포터들의 펀딩과 응원으로 <fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd"/>에 성공적으로 종료되었습니다.
+						다음에 만나요!
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</c:when>
+		</c:choose>
 
 			<div class="col-1"></div>
 
@@ -364,7 +349,6 @@ function orderFormChk() {
 			</form>
 		</c:if>
 
-		<!-- Related items section-->
 		<!-- Related items section-->
 		<section class="py-5 bg-light" style="margin-top: 100px;">
 			<div class="container px-4 px-lg-5 mt-5">

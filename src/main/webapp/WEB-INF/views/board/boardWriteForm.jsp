@@ -85,11 +85,12 @@
 	
 			
 			<!-- 카테고리 셀렉트 -->
-			<c:if test="${board.mini_cat == 200}"></c:if>			
-			<select name="b_category">
-				<option value="상품문의">상품문의</option>
-				<option value="펀딩문의">펀딩문의</option>
-			</select>
+			<c:if test="${board.mini_cat == 200}">		
+				<select name="b_category">
+					<option value="상품문의">상품문의</option>
+					<option value="펀딩문의">펀딩문의</option>
+				</select>
+			</c:if>	
 		
          
             <table class="tableboardwriteform">
