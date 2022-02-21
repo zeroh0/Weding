@@ -747,5 +747,24 @@ public class ProductDaoImpl implements ProductDao {
 		
 		return orderCheck;
 	}
+
+
+	/**
+	 * soldListTotal
+	 */
+	@Override
+	public int soldListTotal(Product product) {
+		int tot = 0; 
+		try { 
+			tot = session.selectOne("soldTotal", product);  
+			log.info("soldListTotal tot -> " + tot); 
+		} catch (Exception e) { 
+			log.info("soldListTotal Exception -> " + e.getMessage()); 
+		} 
+		 
+		return tot;
+	}
+	
+	
 	
 }

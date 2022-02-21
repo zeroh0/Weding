@@ -195,9 +195,9 @@ public class MemberServiceImpl implements MemberService {
 	 * 작성자: 안혜정
 	 */
 	@Override
-	public String findId(Member member) {
+	public List<Member> findId(Member member) {
 		System.out.println("MemberServiceImpl findId Start.."); 
-		String idResult = md.findId(member);
+		List<Member> idResult = md.findId(member);
 		
 		return idResult;
 	}

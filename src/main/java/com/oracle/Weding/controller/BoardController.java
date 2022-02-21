@@ -1,6 +1,9 @@
 package com.oracle.Weding.controller;
 
+import java.io.File;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,11 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oracle.Weding.dto.Board;
 import com.oracle.Weding.dto.Member;
@@ -146,9 +151,36 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(Board board, Model model, HttpSession session) {
+	public String write(Board board, Model model, HttpSession session,HttpServletRequest request
+						,MultipartFile file1) {
 		System.out.println("BoardController Start write...");
 		
+		Member m1 = (Member) session.getAttribute("member"); //로그인 후 글쓴이 넣기.
+        board.setId(m1.getId());
+        
+        	System.out.println("file1->"+file1);
+            String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+    		System.out.println("uploadForm POST Start");
+    		log.info("originalName: " + file1.getOriginalFilename());
+    		log.info("size: " + file1.getSize());
+    		log.info("contentType: " + file1.getContentType());
+    		log.info("uploadPath: " + uploadPath);
+    	    
+    	    String b_image1 = null;
+			try {
+				b_image1 = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+			} catch (AccessDeniedException e) {
+				b_image1 = null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	   
+    	    System.out.println("업로드한 p_image11->"+b_image1);
+    	    
+    	  //DB에 상품 insert 
+    	    board.setB_image(b_image1);
+      
+
 		int result = bs.insert(board);
 		
 		if (result > 0)
@@ -159,6 +191,27 @@ public class BoardController {
 			return "forward:/board/boardWriteForm";
 		}
 	}
+	
+	// 파일 업로드
+	private String uploadFile(String originalName, byte[] fileData , String uploadPath) 
+			  throws Exception {
+		UUID uid = UUID.randomUUID();
+	   // requestPath = requestPath + "/resources/image";
+	    System.out.println("uploadPath->"+uploadPath);
+	    // Directory 생성 
+		File fileDirectory = new File(uploadPath);
+		if (!fileDirectory.exists()) {
+			fileDirectory.mkdirs();
+			System.out.println("업로드용 폴더 생성 : " + uploadPath);
+		}
+
+	    String savedName = originalName;
+	    log.info("savedName: " + savedName);
+	    File target = new File(uploadPath, savedName);
+	    FileCopyUtils.copy(fileData, target);   // org.springframework.util.FileCopyUtils
+	    
+	    return savedName;
+	 }	
 
 	
 	/**
@@ -264,10 +317,11 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("/replyForm") 
-	public String replyForm(int b_num, Model model) { 
+	public String replyForm(int b_num, String id, Model model) { 
 		System.out.println("boardController replyForm start.. .. ");
 		Board board = bs.replyForm(b_num);
 		model.addAttribute("board", board);
+		model.addAttribute("id", id); 
 		
 		return "/board/replyForm";
 	}

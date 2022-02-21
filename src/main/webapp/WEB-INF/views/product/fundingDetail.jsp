@@ -153,7 +153,7 @@ $(function(){
         }); 
     }); 
 }); 
-</script> 
+</script>
 <script>
 function orderFormChk() { 
 	let qty = $('#qty').val(); 
@@ -179,7 +179,7 @@ function orderFormChk() {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	
+
 	<div class="bg-header">
 		<div class="bg"
 			style="filter:brightness(50%); background-image: url(${pageContext.request.contextPath}/upload/${product.p_image1})"></div>
@@ -211,7 +211,11 @@ function orderFormChk() {
 				<div class="row" style="width: 80%; margin-top: 20px;">
 					<div class="col" style="background-color: rgb(230, 226, 208);">
 						<div>
-							<div class="col">목표금액 <fmt:formatNumber value="${product.p_goalprice}" />원</div>
+							<div class="col">
+								목표금액
+								<fmt:formatNumber value="${product.p_goalprice}" />
+								원
+							</div>
 							<!-- 펀딩기간 -->
 							<c:set var="start" value="${product.p_start}" />
 							<c:set var="end" value="${product.p_end}" />
@@ -243,9 +247,14 @@ function orderFormChk() {
 							role="progressbar" aria-valuenow="${attainment}"
 							aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
-					<div><strong>${attainment}</strong>%달성</div>
+					<div>
+						<strong>${attainment}</strong>%달성
+					</div>
 					<div style="margin-top: 10px;">
-						<h3><strong><fmt:formatNumber value="${product.p_currentprice}" /></strong>원 펀딩</h3>
+						<h3>
+							<strong><fmt:formatNumber
+									value="${product.p_currentprice}" /></strong>원 펀딩
+						</h3>
 					</div>
 					<div>
 						<p>
@@ -254,25 +263,27 @@ function orderFormChk() {
 					</div>
 					<div align="right">
 						<input type="hidden" id="member" value="${member }">
-						<form action="orderForm" method="post" onsubmit="return orderFormChk()">
-							<input type="number" id="qty" name="o_qty" value="1" class="col-md-2">
-							<input type="hidden" name="p_num" value="${product.p_num }">
-							<input type="hidden" name="p_price" value="${product.p_price }">
-						
-						<h2 style="margin-top: 5px; height: 50px;">${product.p_price}원</h2>
-						<c:choose>
-							<c:when test="${orderCheck eq 0 || orderCheck eq null }">
-								<input type="submit" class="btn btn-secondary col-md-12"
-								style="font-size: 15px; padding-top: 10px; padding-bottom: 10px;"
-								value="주문하기">
-							</c:when>
-							<c:otherwise>
-								<input type="button" class="btn btn-secondary col-md-12"
-								style="font-size: 15px; padding-top: 10px; padding-bottom: 10px;"
-								value="펀딩완료" disabled>
-							</c:otherwise>
-						</c:choose>
-						
+						<form action="orderForm" method="post"
+							onsubmit="return orderFormChk()">
+							<input type="number" id="qty" name="o_qty" value="1"
+								class="col-md-2"> <input type="hidden" name="p_num"
+								value="${product.p_num }"> <input type="hidden"
+								name="p_price" value="${product.p_price }">
+
+							<h2 style="margin-top: 5px; height: 50px;">${product.p_price}원</h2>
+							<c:choose>
+								<c:when test="${orderCheck eq 0 || orderCheck eq null }">
+									<input type="submit" class="btn btn-secondary col-md-12"
+										style="font-size: 15px; padding-top: 10px; padding-bottom: 10px;"
+										value="주문하기">
+								</c:when>
+								<c:otherwise>
+									<input type="button" class="btn btn-secondary col-md-12"
+										style="font-size: 15px; padding-top: 10px; padding-bottom: 10px;"
+										value="펀딩완료" disabled>
+								</c:otherwise>
+							</c:choose>
+
 						</form>
 					</div>
 					<div class="row d-grid gap-2 col-12 mx-auto"
@@ -292,7 +303,7 @@ function orderFormChk() {
 								</button>
 							</c:if>
 							<button type="button" class="btn btn-light">
-								<a href="writeForm?main_cat=300&mini_cat=300"
+								<a href="boardList?main_cat=300&mini_cat=300&p_num=${product.p_num}"
 									style="text-decoration: none; color: black;">1:1문의</a>
 							</button>
 							<button type="button" class="btn btn-light"
@@ -317,21 +328,21 @@ function orderFormChk() {
 				<div class="col-1"></div>
 			</div>
 		</div>
-		
-			<!--  review --> 
-			<c:if test="${product.p_condition == 3 && attainment >= 100}"> 
-			<form> 
-				<table> 
-					<tr> 
-						<th>번호</th> 
-						<th>내용</th> 
-						<th>작성일</th> 
-						<th>작성자</th> 
-					</tr> 
-					<tbody id="commentList"> 
-						<!--  review Contents --> 
-					</tbody> 
-					<!-- 여기까지 반복 --> 
+
+		<!--  review -->
+		<c:if test="${product.p_condition == 3 && attainment >= 100}">
+			<form>
+				<table>
+					<tr>
+						<th>번호</th>
+						<th>내용</th>
+						<th>작성일</th>
+						<th>작성자</th>
+					</tr>
+					<tbody id="commentList">
+						<!--  review Contents -->
+					</tbody>
+					<!-- 여기까지 반복 -->
 					<%-- <tr> 
 						<td colspan="2"> 
 							<c:if test="${pg.startPage > pg.pageBlock}"> 
@@ -344,18 +355,18 @@ function orderFormChk() {
 					            <a href="fundingDetail?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a> 
 					        </c:if> 
 				        </td> 
-			        <tr> --%> 
-					<tr> 
-						<td colspan="4">
-							<input type="hidden" name="id" id="id" value="${member.id }">
-							<input type="text" name="b_content" id="b_content"> 
-							<input type="button" value="리뷰작성" id="writeReview"> 
-						</td> 
-					</tr> 
-				</table> 
-			</form> 
-			</c:if> 
-	 
+			        <tr> --%>
+					<tr>
+						<td colspan="4"><input type="hidden" name="id" id="id"
+							value="${member.id }"> <input type="text"
+							name="b_content" id="b_content"> <input type="button"
+							value="리뷰작성" id="writeReview"></td>
+					</tr>
+				</table>
+			</form>
+		</c:if>
+
+		<!-- Related items section-->
 		<!-- Related items section-->
 		<section class="py-5 bg-light" style="margin-top: 100px;">
 			<div class="container px-4 px-lg-5 mt-5">

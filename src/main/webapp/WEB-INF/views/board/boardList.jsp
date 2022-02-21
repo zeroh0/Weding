@@ -12,6 +12,19 @@ console.log('${listBoard}');
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
  <style>
+ 	 .sub_banner{
+		margin-left: calc(-50vw + 50%);
+		width:100vw;
+		height:100px;
+		background-color: #ccc;
+		margin-bottom: 3.5rem;
+		
+	}
+	
+	.sub-title {
+	text-align: center;
+	line-height: 100px;
+	}
      body{text-align: center;}
 
      table {
@@ -33,6 +46,15 @@ console.log('${listBoard}');
          color: black;
          text-decoration: none;
      }
+     .write-btn{
+     	float:right;
+     	display:inline-block;
+     }
+     .board-page{
+     	margin-top:50px;
+     	
+     	text-align:center;
+     }
  </style>
  
  
@@ -48,11 +70,19 @@ console.log('${listBoard}');
 </head>
 <body>
 <div class="container">
-<br>
+ 
+		<div class = "sub_banner">
+    		<c:if test="${board.mini_cat == 100}">
+    			<h1 class="sub-title">공지사항</h1>
+    		</c:if>
+    		<c:if test="${board.mini_cat == 200}">
+    			<h1 class="sub-title">문의사항</h1>
+    		</c:if>
+    	</div>	
 
-<hr>
+
 <table>
-	<tr><th>번호</th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th></tr>
+	<tr><th>번호</th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th></tr>  <!--  번호와 제목 사이. c:if...  p_name.. th /th. -->
 <c:forEach var="board" items="${listBoard}" varStatus="status">
 	<tr id="board${status.index}">
 		<td>${board.b_num}</td>
@@ -70,10 +100,57 @@ console.log('${listBoard}');
 </c:forEach>
  		
 </table><br>
+
+	<div class = "write-btn">
+		<c:choose>
+        	 <c:when test="${board.mini_cat == 100 && member.mini_cat == 300}">
+            		<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
+         	</c:when>
+         	<c:when test="${board.mini_cat == 200 && (member.mini_cat == 100 || member.mini_cat == 200)}">
+	           		<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
+	        </c:when>
+	        <c:when test="${board.mini_cat == 300 && (member.mini_cat == 100 || member.mini_cat == 200)}">
+	             	<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
+         	</c:when>
+		</c:choose>
+    </div>        
+            	
+            
+            
+           
+            
+
+
+
+
+
+
+	<!-- 
+	
+		<c:if test = "${member.id != null}">
 		
-		 <button class="btn btn-outline-primary" onclick="writeForm()">글작성</button><br>
+		  			 <div class="nav">
+						<button class="btn btn-outline-primary" onclick="writeForm()">글작성</button><br>
+				      </div>
 		
-        <div style="text-align:center">
+		</c:if>
+		
+		
+		
+	 -->	
+		<!-- 
+		<c:if test = "mini_cat=200& ${meber.mini_cat == 100}">
+		
+		  			 <div class="nav">
+						<button class="btn btn-outline-primary" onclick="writeForm()">글작성</button><br>
+				      </div>
+		
+		</c:if>
+		 -->
+
+		
+		
+        <div class = "board-page">
         <c:if test="${pg.startPage > pg.pageBlock}">
             <a href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
         </c:if>

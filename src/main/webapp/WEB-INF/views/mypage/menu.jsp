@@ -86,7 +86,7 @@ a:visited {
 				<li>${member.name}님</li>
 				<li><a href="<c:url value='allMemberList?id=${member.id}'/>">회원관리</a></li>
 				<li><a
-					href="<c:url value='qnaList?main_cat=300&mini_cat=100'/>">공지사항답변</a></li>
+					href="<c:url value='qnaBoardList'/>">문의사항답변</a></li>
 				<li><a href="<c:url value='allProductList'/>">관리자상품관리</a></li>
 			</ul>
 		</c:if>

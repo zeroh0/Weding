@@ -17,13 +17,18 @@
 		FROM (
 		        SELECT rownum rn ,  a.*
 		        FROM  (select * from board order by b_num desc) a
-		        WHERE	   main_cat = #{main_cat} AND mini_cat = #{mini_cat}
+		        WHERE  main_cat = #{main_cat} AND mini_cat = #{mini_cat} ]]>
+		        
+		        <if test="p_num != null">
+		        <![CDATA[and p_num=#{p_num}]]>
+		        </if>
+		  <![CDATA[    
 		     )
 		WHERE  rn >= #{start} 
 		AND    rn <= #{end}
 		order by b_Group desc, b_Step asc, b_num desc
 		
-		  ]]>	
+		  ]]>
 	</select>
 	
 	
@@ -39,10 +44,9 @@
 	
 	
 	<insert id="insertBoard" parameterType="Board" >
-		insert into board (b_num,  main_cat,           mini_cat,    b_title,  b_content,   b_date,  b_image, b_category,  
-		                   b_hit , b_Group ,           b_Step,      b_level) 
-		VALUES (BOARD_SEQ.nextval,#{main_cat},       #{mini_cat}, #{b_title},#{b_content},sysdate,#{b_image},#{b_category},
-		                   0     , BOARD_SEQ.currval,  0,            0)
+		insert into board (id, b_num, main_cat,mini_cat, b_title, b_content, b_date, <if test="b_image != null">b_image,</if> b_category, b_hit, b_Group, b_Step, b_level)
+		                    
+		VALUES (#{id}, BOARD_SEQ.nextval,#{main_cat}, #{mini_cat}, #{b_title}, #{b_content}, sysdate, <if test="b_image != null">#{b_image},</if> #{b_category}, 0, BOARD_SEQ.currval, 0, 0)
     </insert>
 	
 	

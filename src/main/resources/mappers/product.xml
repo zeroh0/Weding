@@ -483,5 +483,9 @@
 		where P_NUM = #{p_num}
 		and ID = #{consumer_id}
 	 </select>
+	 
+	 <select id="soldTotal" resultType="int" parameterType="Product"> 
+		select count(*) from product where id=#{id} 
+	</select> 
 
 </mapper>

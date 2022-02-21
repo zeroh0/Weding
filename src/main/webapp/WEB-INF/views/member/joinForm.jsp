@@ -18,21 +18,51 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script type="text/javascript">
-	function check() { //비밀번호 일치 불일치 확인
+	
+		//비밀번호 일치 불일치 확인
+	function check() { 
 		var password = document.getElementById('password');
 		var password_check = document.getElementById('password_check');
-
+	
+		var emailNum   = $('#emailNum').val();   
+		var emailCheck = $('#emailCheck').val();
+		
+		var idDuplCheck = $("#idDuplCheck").val()
+		
 		if (password.value != password_check.value) {
-			alert('비밀번호 불일치')
+			alert('비밀번호 불일치');
 			return false;
 		}
-
-		document.joinForm.submit();
+		if(emailNum != emailCheck) {
+			alert('인증 번호 확인');
+			return false;
+		} 
+		if(idDuplCheck != "Y") {
+			alert('아이디를 확인해주세요.');
+			return false;
+		}
+		
+		alert("회원가입이 완료되었습니다");
+		return true;
+		
 	}
+		
 
-	//ID 중복체크
+	//ID 중복체크 및 id 유효성 검사(길이제한)
 	function memberIdConfirm() {
+		
 		var id = document.getElementById('id');
+		
+		//id 유효성 검사
+		var RegExp = /^[a-zA-Z0-9]{4,10}$/;
+		var objId = document.getElementById("id");
+		    
+		if(!RegExp.test(objId.value)){ //아이디 유효성검사
+		    alert("Id는 4~10자의 영문 대소문자와 숫자로만 입력하시길 바랍니다.");        
+		    return false;
+		}
+		
+		
 		if(id.value.length == 0) {
 			alert("아이디를 입력하세요.");
 			return;
@@ -49,8 +79,9 @@
 				console.log(data);
 				if (data == 1) {
 					alert("중복된 아이디입니다.");
+					$("#idDuplCheck").attr("value", "N");
 				} else if (data == 0) {
-					$("#memberIdConfirm").attr("value", "Y");
+					$("#idDuplCheck").attr("value", "Y");
 					alert("사용가능한 아이디입니다.");
 
 				}
@@ -62,19 +93,24 @@
 	}
 	
 	function emailChk() {
-		
-		var email = $('#email').val();
+		alert('메일을 전송하였습니다. 이메일을 확인하여 주십시오.');
+		var emailCheck = document.getElementById('emailCheck');
+		var email1 = $('#email1').val();
+		var email2 = $('#email2').val();
 
 		$.ajax({
+			<%-- request.getContextPath() 페이지 이동 중 위치.. --%> 
 			url : "<%=request.getContextPath()%>/mailConfirm",
 			type : "post",
 			dataType : "json",
-			data : {//
-				email :email
+			data : {  
+				  email1 :email1
+				, email2 :email2
 			},
 			success : function(data) {
 				console.log(data);
-				$('input[name=emailCheck]').attr('value', data);
+				emailCheck.value = data;
+				// $('input[name=emailCheck]').attr('value', data);
 			},
 			error : function(e) {
 				alert("이메일 발송 실패.");
@@ -83,14 +119,15 @@
 	}
 	
 	function codeChk() {
-		var emailNum = document.getElementById('emailNum');
-		var emailCheck = document.getElementById('emailCheck');
-		
-		if(emailNum.value == emailCheck) {
-			alert('y');
+		var emailNum   = $('#emailNum').val();    // document.getElementById('emailNum');
+		var emailCheck = $('#emailCheck').val();  // var emailCheck = document.getElementById('emailCheck');
+		alert('emailNum->'+emailNum)
+		alert('emailCheck->'+emailCheck)
+		if(emailNum == emailCheck) { //
+			alert('메일 인증이 완료되었습니다.');
 		} else {
-			alert('N');
-		}
+			alert('메일 인증 실패.');
+	}
 	}
 </script>
 
@@ -143,13 +180,12 @@
 		<div class="col-3"></div>
 		<div class="col-6">
 
-			<form action="join" method="post" name="joinForm" onsubmit="check()">
-
+			<form action="join" method="post" name="joinForm" onsubmit="return check()">
 				<div class="row">
 					<div class="col-3">이름</div>
 					<div class="col">
 						<input type="text" name="name" id="name" size=30
-							placeholder="이름입력" required>
+							placeholder="이름입력(10자 이하)" required>
 					</div>
 				</div>
 				<br>
@@ -158,7 +194,8 @@
 				<div class="row">
 					<div class="col-3">아이디</div>
 					<div class="col">
-						<input type="text" name="id" id="id" size=30 placeholder="아이디입력" required>
+						<input type="text" name="id" id="id" size=30 placeholder="아이디입력(4자리~10자리)"
+							required>
 
 					</div>
 					<div class="col">
@@ -172,7 +209,7 @@
 					<div class="col-3">비밀번호</div>
 					<div class="col">
 						<input type="password" name="password" id="password" size=30
-							placeholder="비밀번호입력" required>
+							placeholder="비밀번호입력">
 					</div>
 				</div>
 				<br>
@@ -180,7 +217,7 @@
 					<div class="col-3">비밀번호확인</div>
 					<div class="col">
 						<input type="password" name="password_check" id="password_check"
-							size=30 placeholder="비밀번호확인입력" required>
+							size=30 placeholder="비밀번호확인입력">
 					</div>
 				</div>
 				<!--  연락처 -->
@@ -188,7 +225,8 @@
 				<div class="row">
 					<div class="col-3">연락처</div>
 					<div class="col">
-						<input type="text" name="phone" id="phone" name=size=30	placeholder="연락처 입력" required>
+						<input type="text" name="phone" id="phone" size=30
+							placeholder="연락처 입력">
 					</div>
 				</div>
 
@@ -197,26 +235,37 @@
 				<div class="row">
 					<div class="col-3">이메일</div>
 					<div class="col">
-						<input type="text" name="email" id="email" size=30
-							placeholder="이메일 입력">
+						<input type="text" name="email1" id="email1" size=11
+							placeholder="이메일 입력"> @ <select name="email2" id="email2"
+							required>
+							<option value="naver.com" value="naver.com">naver.com</option>
+							<option value="gmail.com" value="gmail.com">gmail.com</option>
+							<option value="daum.net" value="daum.net">daum.net</option>
+							<option value="nate.com" value="nate.com">nate.com</option>
+						</select>
+
 						<button type="button" class="btn btn-light" onclick="emailChk()">이메일인증</button>
+
 						<br> <input type="text" name="emailNum" id="emailNum" size=30
-							placeholder="인증번호 입력">
-							<input type="hidden" name="emailCheck" id="emailCheck" readonly>
-							<button type="button" class="btn btn-light" onclick="codeChk()">인증확인</button>
+							placeholder="인증번호 입력" required> <input type="hidden"
+							name="emailCheck" id="emailCheck">
+						<button type="button" class="btn btn-light" onclick="codeChk()">인증확인</button>
 					</div>
 				</div>
+
 
 				<br>
 				<div class="row">
 					<div class="col-3">주소</div>
 					<div class="col">
-						<input type="text" name="zipCode" size="10" id="sample6_postcode" placeholder="우편번호" required> 
-						<input type="button" class="btn btn-primary btn-sm" value="우편번호찾기" onclick="sample6_execDaumPostcode()">
-							 <br> 
-						<input type="text" name="roadAddress" size="30" id="sample6_address" placeholder="주소" required> 
-							<br> 
-						<input type="text" name="detailAddress" size="30" id="sample6_address2"	placeholder="상세주소">
+						<input type="text" name="zipCode" size="10" id="sample6_postcode"
+							placeholder="우편번호" readonly> <input type="button"
+							class="btn btn-light" value="우편번호찾기"
+							onclick="sample6_execDaumPostcode()"> <br> <input
+							type="text" name="roadAddress" size="30" id="sample6_address"
+							placeholder="주소" readonly> <br> <input type="text"
+							name="detailAddress" size="30" id="sample6_address2"
+							placeholder="상세주소">
 					</div>
 				</div>
 				<br>
@@ -233,7 +282,7 @@
 						</div>
 					</div>
 				</div>
-		</form>
+			</form>
 		</div>
 
 

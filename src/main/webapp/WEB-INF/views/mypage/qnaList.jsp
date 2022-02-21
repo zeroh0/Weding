@@ -69,7 +69,17 @@ a:link {
 	<%@include file="../header.jsp"%>
 	<div class="container">
 		<div class="sub-banner">
-			<h2 class="sub-title">1:1 문의내역</h2>
+			<h2 class="sub-title">
+				<c:choose>
+					<c:when test="${member.mini_cat == 100}">
+						1:1 문의내역
+					</c:when>
+					<c:otherwise>
+						1:1 문의답변
+					</c:otherwise>
+				</c:choose>
+				
+			</h2>
 		</div>
 		<%@include file="menu.jsp"%>
 		<table style="width:80%;">

@@ -258,11 +258,11 @@ public class MemberDaoImpl implements MemberDao {
 	 * 작성자: 안혜정
 	 */
 	@Override
-	public String findId(Member member) {
+	public List<Member> findId(Member member) {
 		System.out.println("MemberDaoImpl findId Start..");
-		String idResultStr = "";
+		List<Member> idResultStr = null;
 		try {
-			idResultStr = session.selectOne("memberIdFind",member);
+			idResultStr = session.selectList("memberIdFind",member);
 		} catch (Exception e) {
 			System.out.println("MemberDaoImpl findId Exception : " + e.getMessage());
 		}

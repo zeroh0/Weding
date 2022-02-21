@@ -103,17 +103,17 @@
 					<c:set var="email2" value="${member.email.split('@')[1]}" />
 					<div class="row">
 						<div class="col-3">이메일</div>
-						<div class="col">
+						<div class="col-9">
 							<input type="text" name="email1" size=30 placeholder="이메일 입력"
 								value="${email1}">@ <select name="email2" required>
 								<option value="naver.com"
-									<c:if test="${email1.equals('naver.com')}"><c:out value="selected"/></c:if>>naver.com</option>
+									<c:if test="${email2.equals('naver.com')}"><c:out value="selected"/></c:if>>naver.com</option>
 								<option value="gmail.com"
-									<c:if test="${email1.equals('gmail.com')}"><c:out value="selected"/></c:if>>gmail.com</option>
+									<c:if test="${email2.equals('gmail.com')}"><c:out value="selected"/></c:if>>gmail.com</option>
 								<option value="daum.net"
-									<c:if test="${email1.equals('daum.net')}"><c:out value="selected"/></c:if>>daum.net</option>
+									<c:if test="${email2.equals('daum.net')}"><c:out value="selected"/></c:if>>daum.net</option>
 								<option value="nate.com"
-									<c:if test="${email1.equals('nate.com')}"><c:out value="selected"/></c:if>>nate.com</option>
+									<c:if test="${email2.equals('nate.com')}"><c:out value="selected"/></c:if>>nate.com</option>
 							</select>
 						</div>
 					</div>

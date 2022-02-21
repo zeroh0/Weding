@@ -28,6 +28,19 @@
     text-decoration: none;
   }
   
+.sub-banner {
+	width: 100vw;
+	margin-left: calc(-50vw + 50%);
+	height: 100px;
+	text-align: center;
+	background-color: #FEECE9;
+	margin-bottom: 50px;
+}
+
+.sub-title {
+	line-height: 100px;
+}
+  
 </style>
 <script>
 
@@ -49,8 +62,11 @@
 <body>
 <%@include file = "../header.jsp"%>
     <div class="container">
-        <h2>Q&A</h2><br>
-            <table colspan="2">
+        <div class="sub-banner">
+			<h2 class="sub-title">문의사항 답변</h2>
+		</div>
+		<%@include file="../mypage/menu.jsp"%>
+            <table style="width: 80%;">
                 <tr><th>번호</th><th>카테고리</th><th>제목</th><th>작성일</th><th>조회수</th><th>작성자</th><th>답변여부</th></tr>
         		<c:forEach var="qna" items="${qnaBoardList}">
                     <tr>
@@ -65,7 +81,6 @@
                     <c:set var="num" value="${num-1}"></c:set>
                 </c:forEach>
             </table><br>
-            <button class="btn btn-outline-primary">글작성</button><br>
         
         <c:if test="${pg.startPage > pg.pageBlock}">
             <a href="qnaBoardList?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>

@@ -16,24 +16,35 @@
 <%@include file="../header.jsp"%>
 </head>
 <style type="text/css">
-	form{
-		margin-bottom: 100px;
+	div.row{
+		margin-left: 20px;
+	}
+	form.row-form-body{
+		font-size: 15px;
+	}
+	td#menu-name {
+		width: 120px;
+		height: 40px;
+	}
+	table.table-body {
+		width: 70%;
+		height: auto;
+		margin: 0 auto;
 	}
 </style>
 <body>
 <div class="container">
 	<div class="p-3 mb-2">
-        <div class="title">
-            <div class="col" style="text-align: center;"> 관리자 상품 수정</div>
+        <div class="p-3 mb-2 bg-secondary text-white">
+            <h1 style="text-align: center; ">관리자 상품 수정</h1>
         </div>
     </div>
-    <hr>
 	<div class="row">
 		<%@include file="../mypage/menu.jsp"%>
-		<div class="col-md-8 col-md-offset-4">
-			<form action="allProductUpdate" method="get">
-				<div>상품번호<input type="text" id="p_num" name="p_num" value="${allProductUpdateForm.p_num}" readonly="readonly"></div>
-				<div>카테고리<select name="mini_cat" id="category-select">
+		<form action="allProductUpdate" method="get" class="row-form-body col-md-10">
+			<table class="table-body">
+				<tr><td id="menu-name">상품번호</td> <td><input type="text" id="p_num" name="p_num" value="${allProductUpdateForm.p_num}" readonly="readonly"></td></tr>
+				<tr><td id="menu-name">카테고리</td> <td><select name="mini_cat" id="category-select">
 						<option value="101" <c:if test="${allProductUpdateForm.mini_cat.equals('101')}"><c:out value="selected"/></c:if>>홈리빙</option>
 						<option value="102" <c:if test="${allProductUpdateForm.mini_cat.equals('102')}"><c:out value="selected"/></c:if>>푸드</option>
 						<option value="103" <c:if test="${allProductUpdateForm.mini_cat.equals('103')}"><c:out value="selected"/></c:if>>패션잡화</option>
@@ -44,19 +55,26 @@
 						<option value="108" <c:if test="${allProductUpdateForm.mini_cat.equals('108')}"><c:out value="selected"/></c:if>>베이비키즈</option>
 						<option value="109" <c:if test="${allProductUpdateForm.mini_cat.equals('109')}"><c:out value="selected"/></c:if>>반려동물</option>
 						<option value="110" <c:if test="${allProductUpdateForm.mini_cat.equals('110')}"><c:out value="selected"/></c:if>>게임취미</option>
-					</select></div>
-				<div>상품판매업체<input type="text" name="p_store" value="${allProductUpdateForm.p_store}"></div>
-				<div>상품이름<input type="text" name="p_name" value="${allProductUpdateForm.p_name}"></div>
-				<div>대표이미지<input type="file" name="p_image1" value="${allProductUpdateForm.p_image1}"></div>
-				<div>상세이미지<input type="file" name="p_image2" value="${allProductUpdateForm.p_image2}"></div>
-				<div>상품설명<textarea name="p_description" style="resize: both;" rows="5" cols="60">${allProductUpdateForm.p_description}</textarea></div>
-				<div>펀딩기간<input type="text" value="${allProductUpdateForm.p_start}" readonly="readonly"> ~ <input type="text" value="${allProductUpdateForm.p_end}" readonly="readonly"></div>
-				<div>상품가격<input name="p_price" type="text" value="${allProductUpdateForm.p_price}"></div>
-				<!-- <button type="button" class="btn btn-light" onclick="">알림보내기</button> -->
-				<button type="submit" class="btn btn-light">수정</button>
-				<button type="button" class="btn btn-light" onclick="location.href='allProductDetailDelete?p_num=${allProductUpdateForm.p_num}'">삭제</button>
-			</form>
-		</div>
+					</select></td></tr>
+				<tr><td id="menu-name">상품판매업체</td> <td><input type="text" name="p_store" value="${allProductUpdateForm.p_store}"></td></tr>
+				<tr><td id="menu-name">상품이름</td>	 <td><input type="text" name="p_name" value="${allProductUpdateForm.p_name}"></td></tr>
+				<tr><td id="menu-name">대표이미지</td>	 <td><input type="file" name="p_image1" value="${allProductUpdateForm.p_image1}"></td></tr>
+				<tr><td id="menu-name">상세이미지</td>  <td><input type="file" name="p_image2" value="${allProductUpdateForm.p_image2}"></td></tr>
+				<tr><td id="menu-name">상품설명</td>	 <td><textarea name="p_description" style="resize: vertical;" rows="5" cols="65">
+																	   ${allProductUpdateForm.p_description}</textarea></td></tr>
+				<tr><td id="menu-name">펀딩기간</td>	 <td><input type="text" value="${allProductUpdateForm.p_start}" readonly="readonly"> ~ 
+														 <input type="text" value="${allProductUpdateForm.p_end}" readonly="readonly"></td></tr>
+				<tr><td id="menu-name">상품가격</td>	 <td><input name="p_price" type="text" value="${allProductUpdateForm.p_price}">원</td></tr>
+				<tr>
+					<td colspan="2" style="text-align: right;">
+						<c:if test="${member.mini_cat == 300}">
+						<button type="submit" class="btn btn-outline-info">수정</button>
+						<button type="button" class="btn btn-outline-danger" onclick="location.href='allProductDetailDelete?p_num=${allProductUpdateForm.p_num}'">삭제</button>
+						</c:if>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>
 <!-- JavaScript Bundle with Popper -->

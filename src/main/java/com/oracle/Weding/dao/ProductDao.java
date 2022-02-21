@@ -50,4 +50,5 @@ public interface ProductDao {
 	List<Pname> 	searchPName();
 	List<Product> 	soldList(Product product);
 	int orderCheck(Product orderProduct);
+	int soldListTotal(Product product);
 }

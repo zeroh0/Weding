@@ -535,5 +535,19 @@ public class ProductServiceImpl implements ProductService {
 		int orderCheck = pd.orderCheck(orderProduct);
 		return orderCheck;
 	}
+
+
+	/**
+	 * soldListTotal
+	 */
+	@Override
+	public int soldListTotal(Product product) { 
+		int totCnt = pd.soldListTotal(product); 
+		log.info("soldListTotal totCnt -> " + totCnt); 
+		 
+		return totCnt; 
+	} 
+	
+	
 	
 }

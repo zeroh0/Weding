@@ -27,7 +27,7 @@
 <body>
 
 <div class="container">
-    <table style="height: 150px;">
+    <table style="height: 150px; border-spacing: 30px; border-collapse: separate;">
         <tr>
          <c:if test="${not empty catList}">
   		 	<c:forEach items="${catList}" var="cat">

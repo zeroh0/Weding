@@ -789,9 +789,15 @@ public class ProductController {
 	 */
 	
 	@GetMapping(value = "soldList")
-	public String soldList(Product product, String currentPage, Model model) {
+	public String soldList(Product product, String currentPage, Model model, HttpSession session) {
 		System.out.println("ProductController soldList Start... ");
-		int total  = ps.total();
+		
+		//세션 객체 안에 있는 ID정보 저장 
+		Member m1 = (Member) session.getAttribute("member"); 
+		product.setId(m1.getId()); 
+		
+		int total  = ps.soldListTotal(product); 
+		
 		System.out.println("ProductController total ->"+total);
 		System.out.println("currentPage - >"+currentPage);
 		

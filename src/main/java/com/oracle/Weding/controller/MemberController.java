@@ -52,6 +52,7 @@ public class MemberController {
 	@PostMapping(value="join")
 	public String join(Member member) {
 		System.out.println("MemberController Start Join .");
+		member.setEmail(member.getEmail1()+"@"+member.getEmail2());
 		int result = ms.join(member);
 		
 		if(result>0) {
@@ -147,7 +148,9 @@ public class MemberController {
 	@RequestMapping(value="mailConfirm")
 	public String mailConfirm(HttpServletRequest request, Model model) {
 		System.out.println("mailSending...");
-		String tomail = request.getParameter("email");   // 받는 사람 이메일
+		String tomail1 = request.getParameter("email1");
+		String tomail2 = request.getParameter("email2"); // 받는 사람 이메일
+		String tomail = tomail1 + '@' + tomail2;
 		System.out.println("tomail " + tomail);
 		String setfrom = "wedingfunding@gmail.com";
 		String title = "mailConfirm 입니다";                 // 제목
@@ -159,8 +162,8 @@ public class MemberController {
 			messageHelper.setTo(tomail);       // 받는사람 이메일
 			messageHelper.setSubject(title);   
 			tempPassword = (int) (Math.random() * 999999) + 1 + "";
-			messageHelper.setText("임시 비밀번호입니다 : " + tempPassword);
-			System.out.println("임시 비밀번호입니다 : " + tempPassword);
+			messageHelper.setText("이메인 인증번호 : " + tempPassword);
+			System.out.println("이메인 인증번호 : " + tempPassword);
 			mailSender.send(message);
 			
 			model.addAttribute("check", 1);   // 정상 전달
@@ -281,34 +284,41 @@ public class MemberController {
 	 * 소비자 -> 판매자 전환시 멤버 리스트, 총 인원 출력
 	 * 작성자: 안혜정
 	 * 
-	 * @param member
+	 * @param member1
 	 * @param currentPage
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="allMemberList")
-	public String allMemberList(Member member,String currentPage, Model model) {
+	public String allMemberList(Member member1,String currentPage, Model model, HttpSession session) {
 		System.out.println("MemberController Start allMemberList..");
 		int total = ms.total(); //총 회원 수
 		System.out.println("MemberController total : "+total);
 		
 		System.out.println("currentPage : "+currentPage);
 		Paging pg = new Paging(total, currentPage);
-		member.setStart(pg.getStart()); //시작시 1
-		member.setEnd(pg.getEnd()); //시작시 10
+		member1.setStart(pg.getStart()); //시작시 1
+		member1.setEnd(pg.getEnd()); //시작시 10
 		
-		List<Member> memberList = ms.memberList(member); //회원 리스트
-		List<Member> catList = ms.catList(member); //회원 카테고리(소비자/판매자/관리자)
+		List<Member> memberList = ms.memberList(member1); //회원 리스트
+		List<Member> catList = ms.catList(member1); //회원 카테고리(소비자/판매자/관리자)
 		for(Member catList01 : catList ) {
 			System.out.println("catList01.getMini_cat()->"+catList01.getMini_cat());
 			System.out.println("catList01.getMini_content()->"+catList01.getMini_content());
 		}
 		System.out.println("MemberController list memberList.size() : " + memberList.size());
 		
+		Member m1 = (Member) session.getAttribute("member"); 
+		member1.setName(m1.getName()); 
+		member1.setMain_cat(m1.getMain_cat()); 
+		member1.setMini_cat(m1.getMini_cat()); 
+		System.out.println("MemberController  member1.getName() : " + member1.getName()); 
+		
 		model.addAttribute("memberList",memberList);
 		model.addAttribute("pg",pg);
 		model.addAttribute("total",total);
 		model.addAttribute("catList",catList);
+		model.addAttribute("member",member1); 
 		
 		return "admin/allMemberList";
 	}
@@ -357,12 +367,12 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/idFindAjax", method = RequestMethod.POST)
 	@ResponseBody
-	public String idFindAjax(Member member) {
+	public List<Member> idFindAjax(Member member) {
 		System.out.println("MemberController idFindAjax Start..");
 		System.out.println("MemberController idFindAjax member.getName() : "+member.getName());
 		System.out.println("MemberController idFindAjax member.getPhone() : "+member.getPhone());
 		
-		String id = ms.findId(member);
+		List<Member> id = ms.findId(member); 
 		System.out.println("MemberController idFind id : "+id);
 		
 		return id;
