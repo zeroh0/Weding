@@ -229,5 +229,14 @@
 	</select>
 	
 	
+	<!-- 소비자-판매자 간에 판매자가 자신의 상품일때만 답변을... -->
+	<select id="pnumIdCount" parameterType="board" resultType="int">
+		select count(*) cntAnswer
+		from product
+		where p_num = #{p_num, jdbcType=VARCHAR}
+		and id = #{id, jdbcType=VARCHAR}
+	</select>	
+	
+	
 	
 </mapper>

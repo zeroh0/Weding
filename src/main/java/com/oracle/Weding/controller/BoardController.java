@@ -75,11 +75,24 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping(value = "boardDetail")
-	public String detail(int b_num, Model model, HttpServletRequest request) {
+	public String detail(int b_num, Model model, HttpServletRequest request, HttpSession session 	) {
+		
 		System.out.println("BoardController boardDetail start..");
 		Board board = bs.detail(b_num);
 		model.addAttribute("board", board);
-
+		
+		Member m1 = (Member) session.getAttribute("member");
+		String selId = m1.getId();
+		String p_num = board.getP_num();
+		Board board11  = new Board();
+		board11.setId(selId);
+		board11.setP_num(p_num);
+		
+		System.out.println(p_num+"&"+selId);
+		int idResult = bs.cntAnswer(board11);
+		System.out.println("BoardController boardDetail "+idResult);
+		model.addAttribute("idResult", idResult);
+		
 		return "/board/boardDetail";
 	}
 

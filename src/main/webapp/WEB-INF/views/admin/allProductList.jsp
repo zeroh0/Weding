@@ -63,6 +63,8 @@
 	String context = request.getContextPath();
     System.out.println("context->"+context);
 %>
+<script type="text/javascript"
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function getAllProductDelete(Vindex) {
 		if(confirm("정말 삭제 하시겠습니까?") == true){ // 확인

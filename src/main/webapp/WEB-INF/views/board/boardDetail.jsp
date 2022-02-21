@@ -190,7 +190,6 @@ article textarea {
 						</c:when>
 						
 						<c:when test="${member.id == 'admin'}">
-
 								<form action="delete" method="post"
 									onsubmit="return confirm('삭제하시겠습니까?')">
 									<input type="hidden" name="b_num" value="${board.b_num}">
@@ -198,13 +197,15 @@ article textarea {
 									<input type="hidden" name="mini_cat" value="${board.mini_cat}">
 									<input class="btn btn-outline-danger" type="submit" value="삭제">
 								</form>
-
-	
+								<button type="button" class="btn btn-outline-success"
+									onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
+						</c:when>
+						
+						 <c:when test = "${idResult == 1}">
+						  <button type="button" class="btn btn-outline-success"
+									onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
 						</c:when>
 					</c:choose>
-
-					<button type="button" class="btn btn-outline-success" 
-						onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
 
 			</c:when>
 		</c:choose>

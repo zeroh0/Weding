@@ -18,41 +18,56 @@
 	crossorigin="anonymous">
 </script>
 
+
 <style>
-.sub-banner {
-	width: 100vw;
-	margin-left: calc(-50vw + 50%);
-	height: 100px;
-	text-align: center;
-	background-color: #FEECE9;
-	margin-bottom: 50px;
-}
-
-.sub-title {
-	line-height: 100px;
-}
-
-.row {
-	width: 0 auto;
-}
-
-.container {
-	width: 1140px;
-	align-content: center;
-}
-
-.productBody {
-	width: 250px;
-	height: auto;
-}
-
-.card {
-	width: 23%;
-	height: 440px;
-	float: left;
-	margin-right: 5px;
-	margin-bottom: 80px;
-}
+	.sub-banner {
+		width: 100vw;
+		margin-left: calc(-50vw + 50%);
+		height: 100px;
+		text-align: center;
+		background-color: #FEECE9;
+		margin-bottom: 50px;
+	}
+	
+	.sub-title {
+		line-height: 100px;
+	}
+	
+	.row {
+		width: 0 auto;
+	}
+	
+	.container {
+		width: 1140px;
+		align-content: center;
+	}
+	
+	.productBody {
+		width: 250px;
+		height: auto;
+	}
+	
+	.card {
+		width: 23%;
+		height: 380px;
+		float: left;
+		margin-right: 5px;
+		margin-bottom: 60px;
+	}
+	.card-title{
+    	font-weight: bold;
+    	font-size: 20px;
+    	display: inline-block; 
+    	width: 100%; 
+    	white-space: nowrap; 
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    }
+    .card img{
+    	object-fit: cover;
+    	width: 237px;
+    	height: 236px;
+    }
 </style>
 </head>
 <body>
@@ -77,20 +92,26 @@
 										<a
 											href="fundingDetail?p_num=${product.p_num}&p_condition=${product.p_condition}">${product.p_name}</a>
 									</h5>
-									<p class="card-text">${product.mini_content}|${product.id}</p>
-									<div class="progress">
-										<div class="progress-bar"
-											style="width: ${product.attainment}%" role="progressbar"
-											aria-valuenow="${product.attainment}" aria-valuemin="0"
-											aria-valuemax="100"></div>
-									</div>
-									<div class="row" style="font-size: 10px;">
-										<div class="col-3">${product.attainment}%</div>
-										<div class="col">${product.p_goalprice}</div>
-										<div class="col-4">${product.leftdate}</div>
-									</div>
-								</div>
-							</div>
+									<p class="card-text" style="font-size: 13px;">${product.mini_content} | ${product.id}</p>
+		                            <div class="progress">
+		                                <div class="progress-bar progress-bar-info" style="width: ${product.attainment}%" 
+		                                	 role="progressbar" aria-valuenow="${product.attainment}"
+		                                	 aria-valuemin="0" aria-valuemax="100">
+		                                </div>
+		                            </div>
+		                            <div class="row" style="font-size: 10px;">
+		                                <div class="col-md-3"  style="font-weight: bold; color: #00B2B2">
+		                                    ${product.attainment}%
+		                                </div>
+		                                <div class="col-md-5" style="font-size: 12px;">
+		                                    <fmt:formatNumber value="${product.p_goalprice}"/>원
+		                                </div>
+		                                <div class="col-md-4" style="font-size: 12px;">
+		                                    ${product.leftdate}
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
 						</c:forEach>
 						<!-- forEach 끝 -->
 					</div>

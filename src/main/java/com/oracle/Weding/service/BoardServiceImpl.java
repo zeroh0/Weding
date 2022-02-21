@@ -247,5 +247,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		return total;
 	}
+
+
+	@Override
+	public int cntAnswer(Board board11) {
+		int idResult = bd.cntAnswer(board11);
+		return idResult;
+	}
+	
+	
 	
 }

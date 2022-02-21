@@ -263,12 +263,10 @@ function orderFormChk() {
 					</div>
 					<div align="right">
 						<input type="hidden" id="member" value="${member }">
-						<form action="orderForm" method="post"
-							onsubmit="return orderFormChk()">
-							<input type="number" id="qty" name="o_qty" value="1"
-								class="col-md-2"> <input type="hidden" name="p_num"
-								value="${product.p_num }"> <input type="hidden"
-								name="p_price" value="${product.p_price }">
+						<form action="orderForm" method="post" onsubmit="return orderFormChk()">
+							<input type="number" id="qty" name="o_qty" value="1" class="col-md-2">
+							<input type="hidden" name="p_num" value="${product.p_num }">
+							<input type="hidden" name="p_price" value="${product.p_price }">
 
 							<h2 style="margin-top: 5px; height: 50px;">${product.p_price}원</h2>
 							<c:choose>

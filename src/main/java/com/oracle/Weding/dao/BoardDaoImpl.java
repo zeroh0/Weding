@@ -355,6 +355,21 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return total;
 	}
+
+
+	@Override
+	public int cntAnswer(Board board11) {
+		int idResult = 0;
+		try {
+			System.out.println(board11.getId()+"+"+board11.getP_num());
+			idResult = session.selectOne("pnumIdCount", board11);
+			System.out.println("idReslt="+idResult);
+		}catch (Exception e) {
+			System.out.println("cntAnswer Exception -> " + e.getMessage());
+		}
+		
+		return idResult;
+	}
 	
 	
 	
