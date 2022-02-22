@@ -63,10 +63,10 @@ public class ProductDaoImpl implements ProductDao {
 	 * 작성자: 장동호
 	 */
 	@Override
-	public int payListTotal() {
+	public int payListTotal(Orders orders) {
 		int tot = 0;
 		try {
-			tot = session.selectOne("payListTotal"); 
+			tot = session.selectOne("payListTotal", orders); 
 			log.info("payListTotal tot -> " + tot);
 		} catch (Exception e) {
 			log.info("payListTotal Exception -> " + e.getMessage());

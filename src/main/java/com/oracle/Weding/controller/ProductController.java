@@ -28,6 +28,7 @@ import com.oracle.Weding.dto.Member;
 import com.oracle.Weding.dto.Orders;
 import com.oracle.Weding.dto.Pname;
 import com.oracle.Weding.dto.Product;
+import com.oracle.Weding.service.MemberService;
 import com.oracle.Weding.service.Paging;
 import com.oracle.Weding.service.ProductService;
 
@@ -38,6 +39,7 @@ import lombok.extern.java.Log;
 public class ProductController {
 	
 	@Autowired private ProductService ps;
+	@Autowired private MemberService ms;
 	
 	
 	/**
@@ -50,7 +52,14 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(value = "main")
-	public String main(Model model) {
+    public String main(Model model,HttpSession session) {
+	    if(session.getAttribute("member")!=null) {
+	    	Member m1 = (Member) session.getAttribute("member");
+	     
+	        Member member = ms.readMember(m1.getId());
+	        session.setAttribute("member", member);
+	    }
+	  
 		List<Product> randomProduct = ps.getRandomProduct();
 		List<Product> popularProduct = ps.getPopularProduct();
 		List<Product> openProduct = ps.getOpenProduct();
@@ -59,7 +68,7 @@ public class ProductController {
 		model.addAttribute("popularProduct" ,popularProduct);
 		model.addAttribute("openProduct" ,openProduct);
 		model.addAttribute("reviewProduct" ,reviewProduct);
-		
+	  
 		return "main";
 	}
 	
@@ -80,26 +89,21 @@ public class ProductController {
 	 */
 	@GetMapping(value = "/beforeFundList")
 	public String beforeFundList(Product product,
-								 @RequestParam(value = "currentPage", defaultValue = "1" ) String currentPage,
-								 @RequestParam(value = "main_cat", defaultValue = "200") String main_cat, // default : main_cat = 200 
-								 @RequestParam(value = "mini_cat", defaultValue = "999") String mini_cat, // default : main_cat = 999 
-								 @RequestParam(value = "p_condition", defaultValue = "1") String p_condition, // default : p_condition = 1
-								 Model model) {
+                         @RequestParam(value = "main_cat", defaultValue = "200") String main_cat, // default : main_cat = 200 
+                         @RequestParam(value = "mini_cat", defaultValue = "999") String mini_cat, // default : main_cat = 999 
+                         @RequestParam(value = "p_condition", defaultValue = "1") String p_condition, // default : p_condition = 1
+                         Model model) {
 		int total = ps.beforeFundListTotal();
-		Paging pg = new Paging(total, currentPage);
-		List<Product> productList = null;
-		product.setMain_cat(main_cat);
-		product.setMini_cat(mini_cat);
-		product.setP_condition(p_condition);
-		product.setStart(pg.getStart());
-		product.setEnd(pg.getEnd());
-		productList = ps.productList(product);
-		model.addAttribute("productList", productList);
-		model.addAttribute("pg", pg);
-		model.addAttribute("total", total);
-		
-		return "/product/beforeFundList";
-	}
+	    List<Product> productList = null;
+	    product.setMain_cat(main_cat);
+	    product.setMini_cat(mini_cat);
+	    product.setP_condition(p_condition);
+	    productList = ps.productList(product);
+	    model.addAttribute("productList", productList);
+	    model.addAttribute("total", total);
+	  
+	    return "/product/beforeFundList";
+   }
 	
 	
 	/**
@@ -206,7 +210,7 @@ public class ProductController {
 		Member member = (Member) session.getAttribute("member");
 		orders.setId(member.getId());
 		
-		int total = ps.payListTotal();
+		int total = ps.payListTotal(orders);
 		Paging pg = new Paging(total, currentPage);
 		orders.setStart(pg.getStart());
 		orders.setEnd(pg.getEnd());
@@ -418,31 +422,35 @@ public class ProductController {
 	
 	
 	/**
-	 * 판매자페이지 - 상품 등록 폼으로 이동
-	 * 작성자: 안혜정
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@GetMapping(value = "addProductForm")
-	public String addProductForm(Model model) {
-		List<Product> catList = ps.listCat();
-		System.out.println("ProductController catList size() : "+catList.size());
-		
-		// 등록 최소 날짜
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, 1);
-        date = c.getTime();
-		String now = sdf.format(date);
-		
-		model.addAttribute("now", now);
-		model.addAttribute("catList",catList);
-		
-		return "product/addProductForm";
-	}
+	    * 판매자페이지 - 상품 등록 폼으로 이동
+	    * 작성자: 안혜정
+	    * 
+	    * @param model
+	    * @return
+	    */
+	   @GetMapping(value = "addProductForm")
+	   public String addProductForm(Model model) {
+	      List<Product> catList = ps.listCat();
+	      System.out.println("ProductController catList size() : "+catList.size());
+	      
+	      // 등록 최소 날짜
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	      Date date = new Date();
+	      Calendar c = Calendar.getInstance();
+	      c.setTime(date);
+	      c.add(Calendar.DATE, 1);
+	      date = c.getTime();
+	      String now = sdf.format(date);
+	      
+	      c.add(Calendar.DATE, 60);
+	      String endDate = sdf.format(c.getTime());
+	      
+	      model.addAttribute("now", now);
+	      model.addAttribute("endDate",endDate);
+	      model.addAttribute("catList",catList);
+	      
+	      return "product/addProductForm";
+	   }
 	
 	
 	/**

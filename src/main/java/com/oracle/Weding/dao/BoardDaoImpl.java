@@ -370,9 +370,5 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return idResult;
 	}
-	
-	
-	
-	
-	
+
 }

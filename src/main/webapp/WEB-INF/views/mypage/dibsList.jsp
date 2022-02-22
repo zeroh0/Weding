@@ -20,19 +20,6 @@
 
 
 <style>
-	.sub-banner {
-		width: 100vw;
-		margin-left: calc(-50vw + 50%);
-		height: 100px;
-		text-align: center;
-		background-color: #FEECE9;
-		margin-bottom: 50px;
-	}
-	
-	.sub-title {
-		line-height: 100px;
-	}
-	
 	.row {
 		width: 0 auto;
 	}
@@ -67,6 +54,14 @@
     	object-fit: cover;
     	width: 237px;
     	height: 236px;
+    }
+    
+    .progress-bar-info {
+    	background-image: linear-gradient(to bottom,#2F3A8F 0,#2F3A8F 100%) !important;
+    }
+    
+    .col-md-3 {
+    	color: #2F3A8F !important;
     }
 </style>
 </head>

@@ -7,95 +7,144 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	form{
+		font-size: 12px;	
+	}
 
+	table{
+		width: 700px;
+		height: auto;
+		margin: auto;
+	}
+	
+	#menuName{
+		width: 550px;
+	 	height: 40px;
+	 	text-align: center;
+	 	font-size: 13px;
+	 	font-weight: bold;
+ 	}
+ 	tr{
+ 		margin-top : 10px;
+ 	}
+ 	td{
+ 		margin-top : 10px;
+ 	}
+ 	
+</style>
 </head>
 <body>
+<c:if test="${msg!=null}">${msg}</c:if>
 <%@ include file="../header.jsp" %>
-<div class="jumbotron">
-  <div class="container">
-     <h1 class="display-3">상품등록</h1>
-  </div>
-</div>
 <div class="container">
-<p>상품등록</p>
-<hr> 
-<form name="addProduct" id="addProduct" action="addProduct" method="post" class="form-horizontal" enctype="multipart/form-data">
-    <div class="form-group row">
-       <label class="col-sm-2">카테고리</label>
-       <div class="col-sm-3">
-          <select name="mini_cat">
-       		<option disabled="disabled" selected="selected">선택</option>
-	       		<c:forEach var="product" items="${catList}">
-	       			<option value="${product.mini_cat}">${product.mini_content}</option>
-				</c:forEach>
-          </select>
-       </div>
-    </div>
-   <div class="form-group row">
-       <label class="col-sm-2">상품판매업체</label>
-       <div class="col-sm-3">
-         <input type="text" name="p_store" class="form-control" autofocus required>
-       </div>
-    </div>
-    
-  <div class="form-group row">
-       <label class="col-sm-2">상품이름</label>
-       <div class="col-sm-3">
-         <input type="text" name="p_name" class="form-control" required>
-       </div>
-    <div class="form-group row">
-       <label class="col-sm-2">상품가격</label>
-       <div class="col-sm-3">
-       	<input type="text" name="p_price" class="form-control" required>원
-       </div>
-   </div>
-   <div class="form-group row">
-      <label class="col-sm-2" for="p_image1">대표이미지</label>
-       <div class="col-sm-5">
-         <input type="file" id="p_image1" name="file1" class="form-control">
-       </div>
-   </div>
-   
-   <div class="form-group row">
-      <label class="col-sm-2" for="p_image2">상세이미지</label>
-       <div class="col-sm-5">
-         <input type="file" id="p_image2" name="file2" class="form-control">
-       </div>
-   </div>
-   </div>
-   
-    <div class="form-group row">
-       <label class="col-sm-2">상품설명</label>
-       <div class="col-sm-5">
-         <textarea rows="2" cols="50" name="p_description" class="form-control"></textarea>
-       </div>
-   </div>
-   <div class="form-group row">
-       <label class="col-sm-2">펀딩기간</label>
-       <div class="col-sm-3">
-        <input type="date" name="p_start" class="form-control" min="${now }" required>
-        ~<input type="date" name="p_end" class="form-control" required>
-       </div>
-   </div>
-  <div class="form-group row">
-       <label class="col-sm-2">목표금액</label>
-       <div class="col-sm-3">
-       	<input type="text" name="p_goalprice" class="form-control" required>원
-       </div>
-   </div>
-   
-   
-   
-   <div class="form-group row" align="right">
-       <div class="col-sm-offset-2 col-sm-10">
-         <input type="button" value="목록" class="btn btn-primary" onclick="location.href='soldList.jsp'">
-         <input type="reset" value="취소" class="btn btn-primary" onclick="location.href='soldList.jsp'">
-         <input type="submit" value="등록" class="btn btn-primary" >
-       </div>
-   </div>
-  </form>
-  <!-- <iframe name="myBatisFrame"></iframe> -->
-</div>
+	<div class="p-3 mb-2" style="background-color: #FEECE9;">
+        <div class="title" >
+            <h1 class="col" style="text-align: center;">상품 등록</h1>
+        </div>
+    </div><hr>
+	<div class="row">
+		<%@include file = "../mypage/menu.jsp"%>
+		<form name="addProduct" id="addProduct" action="addProduct" method="post" enctype="multipart/form-data" style="width: 80%;">
+			<table class="col-md-12">
+			    <tr>
+			       <td id="menuName">카테고리</td>
+			       <td>
+			          <select name="mini_cat">
+			       		<option disabled="disabled" selected="selected">선택</option>
+				       		<c:forEach var="product" items="${catList}">
+				       			<option value="${product.mini_cat}">${product.mini_content}</option>
+							</c:forEach>
+			          </select>
+			       </td>
+			    </tr>
+			   <tr>
+			       <td id="menuName">상품판매업체</td>
+			       <td>
+			         <input type="text" name="p_store"   autofocus required>
+			       </td>
+			    </tr>
+			    
+			  <tr>
+			       <td id="menuName">상품이름</td>
+			       <td>
+			         <input type="text" name="p_name"   required>
+			       </td>
+			   </tr>
+			   
+			    <tr>
+			       <td id="menuName">상품가격</td>
+			       <td>
+			       	<input type="text" name="p_price"   required>원
+			       </td>
+			   </tr>
+			   
+			   <tr>
+			      <td id="menuName">대표이미지</td>
+			       <td>
+			         <input type="file" id="p_image1" name="file1" required>
+			       </td>
+			   </tr>
+			   
+			   <tr>
+			      <td id="menuName">상세이미지</td>
+			       <td>
+			         <input type="file" id="p_image2" name="file2" required>
+			       </td>
+			   </tr>
+			   
+			    <tr>
+			       <td id="menuName">상품설명</td>
+			       <td>
+			         <textarea rows="2" cols="50" name="p_description" ></textarea>
+			       </td>
+			   </tr>
+			   <tr>
+			       <td id="menuName">펀딩기간</td>
+			       <td>
+			        <input type="date" name="p_start"   required> ~ <input type="date" name="p_end"   required>
+			        <p style="font-size: 11px;">※ 펀딩 시작일은 최소 익일부터 지정 가능합니다. 펀딩은 12시에 일괄 오픈됩니다.
+			        </td>
+			   </tr>
+			   
+			  <tr>
+			       <td id="menuName">목표금액</td>
+			       <td>
+			       	<input type="number" name="p_goalprice" min="500000" step="10000" required>원
+			       	<p style="font-size: 11px;">※ 최소 금액은 500,000원부터 10,000원 단위로 지정 가능합니다.
+			       </td>
+			   </tr>
+			    <tr>
+				   <td colspan="2" id="menuName">
+				   	<hr>
+				   </td>
+			   </tr>			   
+			   <tr>
+				   <td id="menuName">안내사항</td>
+				   <td style="width: 75%;">
+					   <p> · 펀딩 기간과 목표 금액은 어떠한 경우에도 변경이 불가합니다. 신중히 결정하시기 바랍니다.
+					   <p> · 성차별, 인종 비하, 종교 관련 등 상품 판매와 관계없는 내용이 포함된 경우 무통보 삭제처리 됩니다.
+					   <p> · 이미 등록된 상품은 판매자 임의로 수정할 수 없으며 수정 시  Q&A 게시판을 이용하여 요청 주시기 바랍니다.
+					   <p> · Q&A 게시판에 수정 요청 시 상품 판매와 관계없는 내용으로는 수정이 불가합니다.
+				   </td>
+			   </tr>
+			   <tr>
+				   <td colspan="2" id="menuName">
+				   	<hr>
+				   </td>
+			   </tr>
+			   <tr>
+			       <td colspan="2" style="text-align: right;" id="menuName">
+			         <input type="button" value="목록" class="btn btn-outline-primary" onclick="location.href='soldList.jsp'">
+			         <input type="reset" value="취소" class="btn btn-outline-primary" onclick="location.href='soldList.jsp'">
+			         <input type="submit" value="등록" class="btn btn-outline-primary" >
+			       </td>
+			   </tr>
+			   
+			   </table>
+		  </form>
+	  </div>
+  </div>
 <%@ include file="../footer.jsp" %>
 </body>
 </html>

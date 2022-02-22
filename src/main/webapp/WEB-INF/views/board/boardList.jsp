@@ -62,7 +62,15 @@ console.log('${listBoard}');
   function writeForm() {
 	  const main_cat = ${board.main_cat};
 	  const mini_cat = ${board.mini_cat};
-	  location.href='writeForm?main_cat='+main_cat+'&mini_cat='+mini_cat;
+	  let p_num = "<c:out value='${board.p_num}'/>";
+	  console.log(p_num);
+	  
+	  if (p_num.length !=0 ) {
+		  location.href='writeForm?main_cat='+main_cat+'&mini_cat='+mini_cat+'&p_num='+p_num;
+	  } else {
+		  location.href='writeForm?main_cat='+main_cat+'&mini_cat='+mini_cat;
+	  }
+	 
    }
  </script>
  
@@ -78,14 +86,43 @@ console.log('${listBoard}');
     		<c:if test="${board.mini_cat == 200}">
     			<h1 class="sub-title">문의사항</h1>
     		</c:if>
+    			<c:if test="${board.mini_cat == 300}">
+    			<h1 class="sub-title">1:1 문의사항</h1>
+    		
+    		<%--
+    			<h2>"${product.p_name}"</h2>
+    		 --%>
+    		
+    		</c:if>
     	</div>	
 
 
 <table>
-	<tr><th>번호</th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th></tr>  <!--  번호와 제목 사이. c:if...  p_name.. th /th. -->
+	<tr><th>번호</th>
+	<%--
+	<c:if test = "${board.mini_cat == 300 && p_num==${p_num}">
+	 --%>
+	<c:if test = "${board.mini_cat == 300}">
+	<th>상품번호</th>
+	</c:if>
+	<c:if test = "${board.mini_cat == 200}">
+	<th>카테고리</th>
+	</c:if>
+
+	
+	
+	<th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th></tr> 
 <c:forEach var="board" items="${listBoard}" varStatus="status">
 	<tr id="board${status.index}">
 		<td>${board.b_num}</td>
+		
+		<c:if test = "${board.mini_cat == 300}">
+		<td>${board.p_num}</td>
+		</c:if>
+		<c:if test = "${board.mini_cat == 200}">
+		<td>${board.b_category}</td>
+		</c:if>
+		
 		<td>
 		<c:forEach begin="1" end = "${board.b_level}">
 		-
@@ -114,40 +151,6 @@ console.log('${listBoard}');
          	</c:when>
 		</c:choose>
     </div>        
-            	
-            
-            
-           
-            
-
-
-
-
-
-
-	<!-- 
-	
-		<c:if test = "${member.id != null}">
-		
-		  			 <div class="nav">
-						<button class="btn btn-outline-primary" onclick="writeForm()">글작성</button><br>
-				      </div>
-		
-		</c:if>
-		
-		
-		
-	 -->	
-		<!-- 
-		<c:if test = "mini_cat=200& ${meber.mini_cat == 100}">
-		
-		  			 <div class="nav">
-						<button class="btn btn-outline-primary" onclick="writeForm()">글작성</button><br>
-				      </div>
-		
-		</c:if>
-		 -->
-
 		
 		
         <div class = "board-page">

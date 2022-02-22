@@ -18,18 +18,6 @@
 	word-break: break-all;
 }
 
-.sub-banner {
-	width: 100vw;
-	margin-left: calc(-50vw + 50%);
-	height: 100px;
-	text-align: center;
-	background-color: #FEECE9;
-	margin-bottom: 50px;
-}
-
-.sub-title {
-	line-height: 100px;
-}
 </style>
 <script>
 	function pwCheck() {
@@ -54,33 +42,28 @@
 		</div>
 		<div class="row">
 		<%@include file="menu.jsp"%>
-			<div class="col-8">
+			<div class="col-2"></div>
+			<div class="col-4">
 				<form action="pwUpdate" method="post" name="memberPw"
 					onsubmit="return pwCheck()">
-					<table>
-						<div class="row">
-							<div class="col-3">변경할 비밀번호</div>
-							<div class="col-7">
-								<input type="password" name="password" placeholder="비밀번호입력">
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-3">변경할 비밀번호 확인</div>
-							<div class="col-7">
-								<input type="password" name="password_chk"
-									placeholder="비밀번호 확인 입력">
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-6" style="float: none; margin: auto;">
-								<input type="submit" class="btn btn-secondary" value="비밀번호 변경">
-							</div>
-						</div>
+					<table class="table">
+						<tr>
+							<td style="border: none">변경할 비밀번호</td>
+							<td style="border: none"><input type="password" class="form-control" style="font-size:12px;" name="password" placeholder="비밀번호입력"></td>
+						</tr>
+						<tr>
+							<td style="border: none">변경할 비밀번호 확인</td>
+							<td style="border: none"><input type="password" class="form-control" style="font-size:12px;" name="password_chk" placeholder="비밀번호 확인 입력"></td>
+						</tr>
 					</table>
+					<div class="row">
+						<div style="float: none; margin-top: 5rem;">
+							<input type="submit" class="btn btn-primary" style="width:100%" value="비밀번호 변경">
+						</div>
+					</div>
 				</form>
 			</div>
+			<div class="col-4"></div>
 		</div>
 	</div>
 	<!-- JavaScript Bundle with Popper -->

@@ -22,11 +22,17 @@
 	padding: 0;
 	display: inline;
 	font-size: 12px;
+	text-align: left;
 }
 
 .side-menu ul li {
 	list-style-type: none;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.side-menu ul li strong {
+	color: #2F3A8F;
+	font-size: 1.2em;
 }
 
 .side-menu ul li:first-child {
@@ -37,6 +43,10 @@
 
 a:link {
 	text-decoration: none;
+	color: black;
+}
+
+a:hover {
 	color: black;
 }
 
@@ -52,7 +62,7 @@ a:visited {
 		<c:if test="${member.mini_cat == 100}">
 			<ul>
 				<!-- 현재 접속한 회원의 이름 -->
-				<li>${member.name}님</li>
+				<li><strong>${member.name}</strong>님</li>
 				<li><a href="<c:url value='dibsList'/>">찜목록</a></li>
 				<li><a href="<c:url value='payList'/>">펀딩내역</a></li>
 				<li><a

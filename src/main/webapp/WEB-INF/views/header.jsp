@@ -10,14 +10,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <style>
-	*{
-		font-family: 'Noto Sans KR', sans-serif;
-		font-family: 'Roboto', sans-serif;
+	* {
+		font-family: 'Noto Sans KR';
 		font-size: 15px;
+	}
+	
+	.sub-banner {
+		width: 100vw;
+		margin-left: calc(-50vw + 50%);
+		height: 12rem;
+		text-align: center;
+		background-color: #D0E8F2;
+		margin-bottom: 50px;
+	}
+	
+	.sub-title {
+		line-height: 12rem;
+		color: #000;
 	}
 </style>
 <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-3 border-bottom">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">
       <a href="<c:url value='main'/>" class="main"><img src="images/logo.png"></a>
 
       <ul class="nav">

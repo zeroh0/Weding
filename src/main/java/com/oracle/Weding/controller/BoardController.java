@@ -77,21 +77,29 @@ public class BoardController {
 	@GetMapping(value = "boardDetail")
 	public String detail(int b_num, Model model, HttpServletRequest request, HttpSession session 	) {
 		
+		if(session.getAttribute("member")==null) {
 		System.out.println("BoardController boardDetail start..");
 		Board board = bs.detail(b_num);
 		model.addAttribute("board", board);
-		
-		Member m1 = (Member) session.getAttribute("member");
-		String selId = m1.getId();
-		String p_num = board.getP_num();
-		Board board11  = new Board();
-		board11.setId(selId);
-		board11.setP_num(p_num);
-		
-		System.out.println(p_num+"&"+selId);
-		int idResult = bs.cntAnswer(board11);
-		System.out.println("BoardController boardDetail "+idResult);
-		model.addAttribute("idResult", idResult);
+		} else {
+			System.out.println("BoardController boardDetail start..");
+			Board board = bs.detail(b_num);
+			model.addAttribute("board", board);
+			
+			Member m1 = (Member) session.getAttribute("member");
+			String selId = m1.getId();
+			String p_num = board.getP_num();
+			Board board11  = new Board();
+			board11.setId(selId);
+			board11.setP_num(p_num);
+			
+			System.out.println("selId" + selId);
+			
+			System.out.println(p_num+"&"+selId);
+			int idResult = bs.cntAnswer(board11);
+			System.out.println("BoardController boardDetail "+idResult);
+			model.addAttribute("idResult", idResult);
+		}
 		
 		return "/board/boardDetail";
 	}
@@ -167,9 +175,12 @@ public class BoardController {
 	public String write(Board board, Model model, HttpSession session,HttpServletRequest request
 						,MultipartFile file1) {
 		System.out.println("BoardController Start write...");
-		
+		System.out.println("BoardController Start board.getP_num()->"+board.getP_num());
+		System.out.println("BoardController Start board.getB_title()->"+board.getB_title());
+				
 		Member m1 = (Member) session.getAttribute("member"); //로그인 후 글쓴이 넣기.
         board.setId(m1.getId());
+        int result = bs.insert(board);
         
         	System.out.println("file1->"+file1);
             String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
@@ -194,16 +205,18 @@ public class BoardController {
     	    board.setB_image(b_image1);
       
 
-		int result = bs.insert(board);
-		
-		if (result > 0)
-			return "redirect:boardList?main_cat="+board.getMain_cat() +
-				   "&mini_cat="+board.getMini_cat()+"&currentPage=1"; // forward 지우고 redirect.
-		else {
-			model.addAttribute("msg", "입력 실패 확인해 보세요");
-			return "forward:/board/boardWriteForm";
-		}
-	}
+    		String boardListUrl = "redirect:boardList?main_cat="+board.getMain_cat() +
+ 				   "&mini_cat="+board.getMini_cat()+ "&currentPage=1";
+    		if (result > 0)
+	 			if(board.getP_num().isEmpty()) {//
+	 				return boardListUrl; 
+	 			} else {
+	 				return boardListUrl + "&p_num="+board.getP_num();
+	 			} else {
+	 			model.addAttribute("msg", "입력 실패 확인해 보세요");
+	 			return "forward:/board/boardWriteForm";
+	 		}
+ 	}
 	
 	// 파일 업로드
 	private String uploadFile(String originalName, byte[] fileData , String uploadPath) 
@@ -330,12 +343,14 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("/replyForm") 
-	public String replyForm(int b_num, String id, Model model) { 
+	public String replyForm(int b_num, String id, Model model, String p_num) { 
 		System.out.println("boardController replyForm start.. .. ");
 		Board board = bs.replyForm(b_num);
 		model.addAttribute("board", board);
 		model.addAttribute("id", id); 
+		model.addAttribute("p_num", board.getP_num());
 		
+		System.out.println("boardP_num" + board.getP_num());
 		return "/board/replyForm";
 	}
 	
@@ -348,15 +363,22 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("/reply")
-	public String reply(Board board) {
+	public String reply(Board board, HttpServletRequest request, Model model) {
 		System.out.println("BoardController reply start .. .. . .");
+		System.out.println("BoardController Start board.getP_num()->"+board.getP_num());
+		System.out.println("BoardController Start board.getB_title()->"+board.getB_title());
+		
 		int result = bs.reply(board); 
 		System.out.println("BoardController reply result->"+result);
 		
-	    return "redirect:boardList?main_cat="+board.getMain_cat() +
-	  			"&mini_cat="+board.getMini_cat()+"&currentPage=1";
+		String boardListUrl = "redirect:boardList?main_cat="+board.getMain_cat() + "&mini_cat="+board.getMini_cat();
 				
-	}
+		if(board.getP_num().isEmpty()) {//
+			return boardListUrl; 
+		} else {
+			return boardListUrl + "&p_num="+board.getP_num();
+		}
+	} 
 	
 	
 	/**

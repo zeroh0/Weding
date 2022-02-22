@@ -43,6 +43,8 @@ public class Product {
 	private int countAlarm; //알림신청한 사람 수
 	
 	private String sort; // 정렬
+	
+	private int cntAnswer; //1:1문의 소비자 판매자 연결
 
 	
 }

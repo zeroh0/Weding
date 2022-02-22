@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<!-- <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 
 <style>
 body {
@@ -36,18 +36,10 @@ a:link {
 	text-decoration: none;
 }
 
-.sub-banner {
-	width: 100vw;
-	margin-left: calc(-50vw + 50%);
-	height: 100px;
-	text-align: center;
-	background-color: #FEECE9;
-	margin-bottom: 50px;
-}
-
-.sub-title {
-	line-height: 100px;
-}
+.paging {
+	width: fit-content;
+	margin: 0 auto;
+} 
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -56,13 +48,16 @@ a:link {
 		console.log(b_num);
 		
 		$.ajax({
-			url: "<%=request.getContextPath()%>/replyCount",
-			data: {b_num:b_num},
+			url: "<%=request.getContextPath()%>
+	/replyCount",
+			data : {
+				b_num : b_num
+			},
 			success : function(data) {
 				console.log("data" + data);
 				$('#replyCount').attr("value", data);
 			}
-		});		
+		});
 	}
 </script>
 <body>
@@ -78,40 +73,54 @@ a:link {
 						1:1 문의답변
 					</c:otherwise>
 				</c:choose>
-				
+
 			</h2>
 		</div>
-		<%@include file="menu.jsp"%>
-		<table style="width:80%;">
-			<tr>
-				<th>번호</th>
-				<th>상품명</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>조회수</th>
-				<th>답변여부</th>
-			</tr>
-			<c:forEach var="board" items="${qnaList}">
-				<tr>
-					<td>${board.b_num}</td>
-					<td>${board.p_name}</td>
-					<td><a href="boardDetail?b_num=${board.b_num}">${board.b_title}</a></td>
-					<td>${board.b_date}</td>
-					<td>${board.b_hit}</td>
-					<td>${board.answer}</td>
-				</tr>
-			</c:forEach>
-		</table>
-		<br>
-		<c:if test="${pg.startPage > pg.pageBlock}">
-			<a href="qnaList?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
-		</c:if>
-		<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-			<a href="qnaList?currentPage=${i}">[${i}]</a>
-		</c:forEach>
-		<c:if test="${pg.endPage < pg.totalPage}">
-			<a href="qnaList?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
-		</c:if>
+		<div class="row">
+			<%@include file="menu.jsp"%>
+			<div class="col-10">
+				<table class="table" style="text-align: center;">
+					<tr style="--bs-table-bg: #2F3A8F;color:#fff;">
+						<th>번호</th>
+						<th>상품명</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>조회수</th>
+						<th>답변여부</th>
+					</tr>
+					<c:forEach var="board" items="${qnaList}">
+						<tr>
+							<td>${board.b_num}</td>
+							<td style="text-align: left;">${board.p_name}</td>
+							<td style="text-align: left;"><a href="boardDetail?b_num=${board.b_num}">${board.b_title}</a></td>
+							<td>${board.b_date}</td>
+							<td>${board.b_hit}</td>
+							<td>${board.answer}</td>
+						</tr>
+					</c:forEach>
+				</table>
+				<br>
+				<nav aria-label="..." class="paging">
+				  <ul class="pagination">
+				  	<c:if test="${pg.startPage > pg.pageBlock}">
+					    <li class="page-item">
+					      <a class="page-link" onclick="location.href='qnaList?currentPage=${pg.startPage - pg.pageBlock}'">&laquo;</a>
+					    </li>
+				    </c:if>
+				    <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+					    <li class="page-item">
+					    		<a class="page-link" href="qnaList?currentPage=${i}">${i}</a>
+			    		</li>
+		    		</c:forEach>
+		    		<c:if test="${pg.endPage < pg.totalPage}">
+					    <li class="page-item">
+					      <a class="page-link" href="qnaList?currentPage=${pg.startPage + pg.pageBlock}">&raquo;</a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
+			</div>
+		</div>
 	</div>
 	<%@include file="../footer.jsp"%>
 </body>

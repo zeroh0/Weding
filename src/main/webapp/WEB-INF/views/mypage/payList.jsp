@@ -17,18 +17,9 @@
 	word-break: break-all;
 }
 
-.sub-banner {
-	width: 100vw;
-	margin-left: calc(-50vw + 50%);
-	height: 100px;
-	text-align: center;
-	background-color: #FEECE9;
-	margin-bottom: 50px;
-}
-
-.sub-title {
-	line-height: 100px;
-}
+.paging {
+	margin: 0 auto;
+} 
 </style>
 </head>
 <body>
@@ -36,18 +27,18 @@
 		<div class="sub-banner">
 			<h2 class="sub-title">펀딩내역</h2>
 		</div>
-		<%@include file="menu.jsp"%>
 		<div class="row">
+		<%@include file="menu.jsp"%>
 			<div class="col-10">
-				<table width="800" style="text-align: center;">
-					<tr>
-						<td>주문번호</td>
-						<td>주문일자</td>
-						<td>주문상품</td>
-						<td>결제금액</td>
-						<td>펀딩상태</td>
-						<td>배송현황</td>
-						<td>취소</td>
+				<table class="table" style="text-align: center;">
+					<tr style="--bs-table-bg: #2F3A8F;color:#fff;">
+						<th>주문번호</th>
+						<th>주문일자</th>
+						<th>주문상품</th>
+						<th>결제금액</th>
+						<th>펀딩상태</th>
+						<th>배송현황</th>
+						<th>취소</th>
 					</tr>
 					<c:if test="${not empty payList}">
 						<c:forEach var="pay" items="${payList}">
@@ -56,8 +47,8 @@
 								<tr>
 									<td>${pay.o_num }</td>
 									<td>${pay.o_payday }</td>
-									<td>${pay.p_name }</td>
-									<td>${pay.o_sum }</td>
+									<td style="text-align:left;text-overflow:ellipsis;overflow:hidden">${pay.p_name }</td>
+									<td><fmt:formatNumber value="${pay.o_sum }"/>원</td>
 									<td><c:if test="${pay.p_condition == 2}">
 	                        		펀딩중
 	                        	</c:if> <c:if test="${pay.p_condition == 3}">
@@ -84,16 +75,29 @@
 						</tr>
 					</c:if>
 				</table>
+				
+				<nav aria-label="..." class="paging" style="width: fit-content;">
+			  <ul class="pagination">
+			  	<c:if test="${pg.startPage > pg.pageBlock}">
+				    <li class="page-item">
+				      <a class="page-link" href="payList?currentPage=${pg.startPage - pg.pageBlock}">&laquo;</a>
+				    </li>
+			    </c:if>
+			    <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+				    <li class="page-item">
+				    		<a class="page-link" href="payList?currentPage=${i}">${i}</a>
+		    		</li>
+		   		</c:forEach>
+		   		<c:if test="${pg.endPage < pg.totalPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="payList?currentPage=${pg.startPage + pg.pageBlock}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+			
 			</div>
-			<c:if test="${pg.startPage > pg.pageBlock}">
-				<a href="payList?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
-			</c:if>
-			<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-				<a href="payList?currentPage=${i}">[${i}]</a>
-			</c:forEach>
-			<c:if test="${pg.endPage < pg.totalPage}">
-				<a href="payList?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
-			</c:if>
+			
 		</div>
 	</div>
 	<!-- JavaScript Bundle with Popper -->

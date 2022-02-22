@@ -12,33 +12,24 @@
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- CSS only -->
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+	crossorigin="anonymous"> -->
 
 <style>
 .b {
 	word-break: break-all;
 }
 
-.sub-banner {
-	width: 100vw;
-	margin-left: calc(-50vw + 50%);
-	height: 100px;
-	text-align: center;
-	background-color: #FEECE9;
-	margin-bottom: 50px;
-}
-
-.sub-title {
-	line-height: 100px;
-}
-
 .mypageContent {
 	width: 80%;
 	margin: 0 auto;
+}
+
+table input {
+	font-size:13px;
 }
 </style>
 <script
@@ -79,33 +70,28 @@
 		<div class="sub-banner">
 			<h2 class="sub-title">회원수정</h2>
 		</div>
-		<div class="col-6">
+		<div class="row">
 			<%@include file="menu.jsp"%>
-			<form action="memberUpdate" method="post">
-				<div class="mypageContent">
-					<div class="row">
-						<div class="col-3">이름</div>
-						<div class="col">
-							<input type="text" name="name" size=30 placeholder="아이디입력"
-								value="${member.name}">
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-3">연락처</div>
-						<div class="col">
-							<input type="text" name="phone" size=30 placeholder="연락처입력"
-								value="${member.phone}">
-						</div>
-					</div>
-					<br>
-					<c:set var="email1" value="${member.email.split('@')[0]}" />
-					<c:set var="email2" value="${member.email.split('@')[1]}" />
-					<div class="row">
-						<div class="col-3">이메일</div>
-						<div class="col-9">
-							<input type="text" name="email1" size=30 placeholder="이메일 입력"
-								value="${email1}">@ <select name="email2" required>
+				<div class="col-2"></div>
+				<div class="col-8">
+				<form action="memberUpdate" method="post">
+				<c:set var="email1" value="${member.email.split('@')[0]}" />
+				<c:set var="email2" value="${member.email.split('@')[1]}" />
+				
+				<table class="table table-borderless">
+					<tr>
+						<td style="border: none">이름</td>
+						<td style="border: none"><input type="text" class="form-control" style="width:20%;font-size:12px;" name="name" size=30 placeholder="아이디입력" value="${member.name}"></td>
+					</tr>
+					<tr>
+						<td style="border: none">연락처</td>
+						<td style="border: none"><input type="text" class="form-control" style="width:25%;font-size:12px;"  name="phone" size=30 placeholder="연락처입력" value="${member.phone}"></td>
+					</tr>
+					<tr>
+						<td style="border: none">이메일</td>
+						<td style="border: none">
+							<input type="text" class="form-control" style="width:25%;display: inline;font-size:12px;" name="email1" size=30 placeholder="이메일 입력" value="${email1}"> &nbsp;@&nbsp;   
+							<select name="email2" class="form-select" style="width:25%; display: inline; height:34px;font-size:12px;" required>
 								<option value="naver.com"
 									<c:if test="${email2.equals('naver.com')}"><c:out value="selected"/></c:if>>naver.com</option>
 								<option value="gmail.com"
@@ -115,33 +101,43 @@
 								<option value="nate.com"
 									<c:if test="${email2.equals('nate.com')}"><c:out value="selected"/></c:if>>nate.com</option>
 							</select>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-3">주소</div>
-						<div class="col">
-							<input type="text" size="15" name="zipCode" id="zipCode"
-								placeholder="우편번호" value="${member.zipCode }"> <input
-								type="button" onclick="sample6_execDaumPostcode()" value="주소검색">
-							<input type="text" size="40" name="roadAddress" id="roadAddress"
-								placeholder="도로명주소" value="${member.roadAddress }"> <input
-								type="text" size="40" name="detailAddress" id="detailAddress"
+						</td>
+					</tr>
+					<tr>
+						<td style="border: none">주소</td>
+						<td style="border: none">
+							<input type="text" class="form-control" style="width:20%;display:inline-block;font-size:12px;" name="zipCode" id="zipCode" placeholder="우편번호" value="${member.zipCode }" readonly>
+							<input type="button" class="btn btn-primary" style="width:7.5%; height: 34px;" onclick="sample6_execDaumPostcode()" value="주소검색">
+						</td>
+					</tr>
+					<tr>
+						<td style="border: none"></td>
+						<td style="border: none">
+							<input type="text" class="form-control" style="width:50%;font-size:12px;" name="roadAddress" id="roadAddress"
+								placeholder="도로명주소" value="${member.roadAddress }" readonly>
+						</td>
+					</tr>
+					<tr>
+						<td style="border: none"></td>
+						<td style="border: none">
+							<input type="text" class="form-control" style="width:50%;font-size:12px;" name="detailAddress" id="detailAddress"
 								placeholder="상세주소" value="${member.detailAddress }">
-						</div>
-					</div>
-					<div class="row" style="margin-top: 10%">
-						<div class="col-8 d-grid gap-2">
-							<input type="submit" class="btn btn-secondary" value="회원수정">
+						</td>
+					</tr>
+				</table>
+				
+					<div class="row" style="margin-top: 5rem">
+						<div class="col-5 d-grid gap-2">
+							<input type="submit" class="btn btn-primary" value="회원수정">
 							<!-- submit button-->
 						</div>
-						<div id="memberDelete" class="col-4 d-grid gap-2">
+						<div id="memberDelete" class="col-2 d-grid gap-2">
 							<button type="button" class="btn btn-light"
 								onclick="location.href='memberDelete?id=${member.id}'">탈퇴</button>
 						</div>
 					</div>
+					</form>
 				</div>
-			</form>
 		</div>
 	</div>
 	<div class="col-3"></div>

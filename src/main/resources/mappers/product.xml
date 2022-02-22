@@ -20,36 +20,35 @@
 	
 	<!-- 펀딩내역 갯수 조회
 		 작성자 - 장동호 -->
-	<select id="payListTotal" resultType="int">
-		select count(*) from ORDERS where ID = 'hong006'
-	</select>
+   <select id="payListTotal" resultType="int">
+      select count(*) from ORDERS where ID = #{id}
+   </select>
 	
 	
 	<!-- 카테고리별 펀딩 상품 조회
 		 작성자 - 조소현, 장동호 -->
 	<select id="productList" parameterType="Product" resultType="Product">
-		<![CDATA[SELECT p.*, c1.c_content main_content, c2.c_content mini_content,
-				round((p_currentprice /p_goalprice)*100,2) attainment,
-				(case when round(to_date(p_end)-sysdate,0)<0 then '판매종료' else  to_char(round(to_date(p_end)-sysdate,0))||'일 남음' end) leftdate
-		FROM (SELECT rownum rn, a.*
-				FROM (SELECT *
-					  FROM product
-					  where main_cat = #{main_cat}]]>
-				      <if test="p_condition != 1">
-					  <![CDATA[and mini_cat = #{mini_cat}]]>
-					  </if>
-					  <if test="p_condition == 1">
-					 <![CDATA[ and mini_cat not in (#{mini_cat}) ]]>
-					  </if>
-					   <![CDATA[ and p_condition = #{p_condition}
-					  order by P_NUM) a) p,
-			(select * from cat where mini_cat='999') c1, 
-  		    (select * from cat where mini_cat<>'999') c2
-				 WHERE rn between #{start} AND #{end}
-				 and   p.main_cat = c1.main_cat
-				 and   p.main_cat = c2.main_cat
-				 and   p.mini_cat = c2.mini_cat]]>
-	</select>
+      <![CDATA[SELECT p.*, c1.c_content main_content, c2.c_content mini_content,
+            round((p_currentprice /p_goalprice)*100,2) attainment,
+            (case when round(to_date(p_end)-sysdate,0)<0 then '판매종료' else  to_char(round(to_date(p_end)-sysdate,0))||'일 남음' end) leftdate
+      FROM (SELECT a.*
+            FROM (SELECT *
+                 FROM product
+                 where main_cat = #{main_cat}]]>
+                  <if test="p_condition != 1">
+                 <![CDATA[and mini_cat = #{mini_cat}]]>
+                 </if>
+                 <if test="p_condition == 1">
+                <![CDATA[ and mini_cat not in (#{mini_cat}) ]]>
+                 </if>
+                  <![CDATA[ and p_condition = #{p_condition}
+                 order by P_NUM) a) p,
+         (select * from cat where mini_cat='999') c1, 
+            (select * from cat where mini_cat<>'999') c2
+             WHERE p.main_cat = c1.main_cat
+             and   p.main_cat = c2.main_cat
+             and   p.mini_cat = c2.mini_cat]]>
+   </select>
 	
 	
 	<!-- 펀딩 내역 조회
@@ -114,17 +113,17 @@
 	
 	
 	<!-- 메인 당일오픈 상품 조회
-		 작성자 - 장동호 -->
-	<select id="getOpenProduct" resultType="Product">
-		<![CDATA[
-			select *
-			from PRODUCT p, CAT c
-			where P_START = (select to_char(sysdate, 'yy/mm/dd') from dual)
-			and ROWNUM <= 6
-			and   c.main_cat = p.main_cat
-			and   c.mini_cat = p.mini_cat
-		]]>
-	</select>
+       작성자 - 장동호 -->
+   <select id="getOpenProduct" resultType="Product">
+      <![CDATA[
+         select *
+         from PRODUCT p, CAT c
+         where P_START = (select to_char(sysdate, 'yyyy-mm-dd') from dual)
+         and ROWNUM <= 6
+         and   c.main_cat = p.main_cat
+         and   c.mini_cat = p.mini_cat
+      ]]>
+   </select>
 	
 	
 	<!-- 메인 리뷰가 있는 상품 조회
@@ -462,17 +461,18 @@
 	
 	<!-- <![CDATA[ -> <>를 사용하기위한 명령문 -->
 	<select id = "soldListAll" parameterType="Product" resultType="Product">
-		<![CDATA[
-		select p.*,round((p.p_currentprice/p.p_goalprice)*100,0)attainment,c2.c_content mini_content
-			from (SELECT rownum rn, a.*FROM (SELECT * FROM product order by P_NUM) a) p,
-		    (select * from cat where mini_cat= 999)c1,
-		    (select * from cat where mini_cat <> 999)c2
-		WHERE rn between #{start} AND #{end}
-		and   p.main_cat = c1.main_cat
-		and   p.main_cat = c2.main_cat
-		and   p.mini_cat = c2.mini_cat
-		]]>
-	</select>
+      <![CDATA[
+      select p.*,round((p.p_currentprice/p.p_goalprice)*100,0)attainment,c2.c_content mini_content
+         from (SELECT rownum rn, a.*FROM (SELECT * FROM product where id=#{id} order by P_NUM) a) p,
+          (select * from cat where mini_cat= 999)c1,
+          (select * from cat where mini_cat <> 999)c2
+      WHERE rn between #{start} AND #{end}
+      and   p.main_cat = c1.main_cat
+      and   p.main_cat = c2.main_cat
+      and   p.mini_cat = c2.mini_cat
+      order by p_start desc
+      ]]>
+   </select>
 	
 	
 	<!-- 소비자의 상품 구매 내역 확인 (주문했던 상품은 주문 불가)

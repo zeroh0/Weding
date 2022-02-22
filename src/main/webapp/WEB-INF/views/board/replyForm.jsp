@@ -58,8 +58,6 @@
 
 </style>
 
-
-
 <body>
 	<div class="container">
 		<div class = "reply-banner">
@@ -79,24 +77,26 @@
 		<input type="hidden" name="b_step" value="${board.b_step}">
 		<input type="hidden" name="b_level" value="${board.b_level}">
 
-
+			<input type="hidden" name="p_num" value="${board.p_num}">
 
 	   <table class="reply-info">
 			<tr>
 				<td> 번호 </td>
 				<td> ${board.b_num} </td>
 			</tr>
+			<%--
 			<tr>
 				<td> 히트 </td>
 				<td> ${board.b_hit} </td>
 			</tr>
+			 --%>
 			<tr>
 				<td> 이름 </td>
-				<td> <input type="text" class="form-control" name="id" value="${board.id}"></td>
+				<td> <input type="text" class="form-control" name="id" readonly value="${member.id}"></td>
 			</tr>
 			<tr>
 				<td> 제목 </td>
-				<td> <input type="text" class="form-control" name="b_title" value="RE:" +"${board.b_title}"></td>
+				<td> <input type="text" class="form-control" name="b_title" value="RE: ${board.b_title}"></td>
 			</tr>
 			<tr>
 				<td> 내용 </td>

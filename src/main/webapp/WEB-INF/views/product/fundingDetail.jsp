@@ -186,7 +186,7 @@ function orderFormChk() {
 	<div class="bg-text2" style="color: white;"><b><h1>${product.p_name}</h1></b></div>
 </div>
 <div class="container" style="margin-top: 70px;">
-	<div class="row" style="margin-top: 50px;">
+	<div class="row" style="margin-top: 50px; margin-bottom: 100px;">
 		<div class="col-1"></div>
 		<div class="col-6" style="width: 50%">
 			<div class="row">
@@ -312,42 +312,35 @@ function orderFormChk() {
 			</div>
 		</div>
 
-		<!--  review -->
-		<c:if test="${product.p_condition == 3 && attainment >= 100}">
-			<form>
-				<table>
-					<tr>
-						<th>번호</th>
-						<th>내용</th>
-						<th>작성일</th>
-						<th>작성자</th>
-					</tr>
-					<tbody id="commentList">
-						<!--  review Contents -->
-					</tbody>
-					<!-- 여기까지 반복 -->
-					<%-- <tr> 
-						<td colspan="2"> 
-							<c:if test="${pg.startPage > pg.pageBlock}"> 
-			            		<a href="fundingDetail?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a> 
-					        </c:if> 
-					        <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}"> 
-					            <a href="fundingDetail?currentPage=${i}">[${i}]</a> 
-					        </c:forEach> 
-					        <c:if test="${pg.endPage < pg.totalPage}"> 
-					            <a href="fundingDetail?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a> 
-					        </c:if> 
-				        </td> 
-			        <tr> --%>
-					<tr>
-						<td colspan="4"><input type="hidden" name="id" id="id"
-							value="${member.id }"> <input type="text"
-							name="b_content" id="b_content"> <input type="button"
-							value="리뷰작성" id="writeReview"></td>
-					</tr>
-				</table>
-			</form>
-		</c:if>
+		<h1>[${product.p_name}] 상품의 Review</h1>
+		<hr>	
+		<div class="row" style="margin-top: 50px;">
+			<c:if test="${product.p_condition == 3 && attainment >= 100}">
+				<form>
+					<table style="width: 100%;">
+						<tr>
+							<th>번호</th>
+							<th style="width:1000px;">내용</th>
+							<th>작성일</th>
+							<th>작성자</th>
+						</tr>
+						<tbody id="commentList">
+						</tbody>
+				        
+						<tr>
+							<td colspan="4" style=" border-top:30px solid #fff;">
+								<input type="hidden" name="id" id="id" value="${member.id }"> 
+								<input type="hidden" id="p_num" value="${product.p_num}">
+								<div class="row" style="text-align:center;">
+									<textarea rows="5" cols="150" name="b_content" id="b_content" style="width: 80%;"></textarea>
+									<input type="button" value="리뷰작성" id="writeReview" style="height: 120px; width: 120px; margin-left: 10px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</c:if>
+		</div>
 
 		<!-- Related items section-->
 		<section class="py-5 bg-light" style="margin-top: 100px;">

@@ -19,7 +19,7 @@ public interface ProductDao {
 	List<Product> 	getReviewProduct();
 	int 			beforeFundListTotal();
 	int 			fundingListTotal(Product product);
-	int 			payListTotal();
+	int 			payListTotal(Orders orders);
 	List<Cat> 		arrayCategory();
 	int 			orders(Orders orders);
 	int 			sumCurPrice(Orders orders);

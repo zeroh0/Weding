@@ -53,8 +53,8 @@ public class ProductServiceImpl implements ProductService {
 	 * 작성자: 장동호
 	 */
 	@Override
-	public int payListTotal() {
-		int totCnt = pd.payListTotal();
+	public int payListTotal(Orders orders) {
+		int totCnt = pd.payListTotal(orders);
 		log.info("payListTotal totCnt -> " + totCnt);
 		
 		return totCnt;

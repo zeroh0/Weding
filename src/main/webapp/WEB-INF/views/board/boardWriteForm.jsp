@@ -23,13 +23,6 @@
 	line-height: 100px;
 	}
 	
-	
- 
-	
-
-	
-	
-	
 	.tdboardtitle{
 	width:80px;
 	}
@@ -81,9 +74,8 @@
 		 <form action="write" method ="post" enctype="multipart/form-data">
 		 	<input type="hidden" name="main_cat" value="${board.main_cat}">
 			<input type="hidden" name="mini_cat" value="${board.mini_cat}">
-			
+			<input type="hidden" name="p_num" value="${board.p_num}">
 	
-			
 			<!-- 카테고리 셀렉트 -->
 			<c:if test="${board.mini_cat == 200}">		
 				<select name="b_category">

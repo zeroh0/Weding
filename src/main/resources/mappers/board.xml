@@ -44,9 +44,13 @@
 	
 	
 	<insert id="insertBoard" parameterType="Board" >
-		insert into board (id, b_num, main_cat,mini_cat, b_title, b_content, b_date, <if test="b_image != null">b_image,</if> b_category, b_hit, b_Group, b_Step, b_level)
-		                    
-		VALUES (#{id}, BOARD_SEQ.nextval,#{main_cat}, #{mini_cat}, #{b_title}, #{b_content}, sysdate, <if test="b_image != null">#{b_image},</if> #{b_category}, 0, BOARD_SEQ.currval, 0, 0)
+      insert into board (id,      b_num,          main_cat,    mini_cat,    b_title,     b_content,   b_date,
+                      <if test="b_image != null">b_image,</if>
+                      <if test="b_category != null">b_category,</if>    b_hit, b_Group,          b_Step,   b_level, p_num)
+                          
+      VALUES            (#{id}, BOARD_SEQ.nextval,#{main_cat}, #{mini_cat}, #{b_title}, #{b_content}, sysdate,
+                      <if test="b_image != null">#{b_image},</if>
+                      <if test="b_category != null">#{b_category},</if> 0,     BOARD_SEQ.currval, 0,       0,       #{p_num})
     </insert>
 	
 	
@@ -63,32 +67,34 @@
 	
 	<!--  -->
 	<select id="qnaListAll" parameterType="Board" resultType="Board">
-		<choose>
-			<when test="member_mini_cat == 100">
-			    select *
-				from (select ROWNUM rn, a.*
-				      from (select b.B_NUM, p.P_NAME, b.B_TITLE, b.B_DATE, b.B_HIT, chk_reply3(b.b_group, b.mini_cat) answer
-				            from BOARD b, PRODUCT p
-				            where b.MINI_CAT = '300'
-				              and b.ID = #{id}
-				              and b.P_NUM = p.P_NUM
-				            order by b.B_NUM desc) a)
-				where rn between #{start} and #{end}
-	    	</when>
-	    	<otherwise>
-	    		select *
-				from (select ROWNUM rn, a.*
-				      from (select b.B_NUM, p.P_NAME, b.b_title, b.B_DATE, b.B_HIT, chk_reply3(b.b_group, b.mini_cat) answer
-				            from BOARD b, (select *
-				                           from PRODUCT
-				                           where ID = #{id}) p
-				            where b.MINI_CAT = '300'
-				            and b.P_NUM = p.P_NUM
-				            order by B_NUM desc) a )
-				where rn between #{start} and #{end}
-	    	</otherwise>
-	    </choose>
-     </select>  
+      <choose>
+         <when test="member_mini_cat == 100">
+             select *
+            from (select ROWNUM rn, a.*
+                  from (select b.B_NUM, p.P_NAME, b.B_TITLE, b.B_DATE, b.B_HIT, chk_reply3(b.b_group, b.mini_cat) answer
+                        from BOARD b, PRODUCT p
+                        where b.MINI_CAT = '300'
+                          and b.b_step='0'
+                          and b.ID = #{id}
+                          and b.P_NUM = p.P_NUM
+                        order by b.B_NUM desc) a)
+            where rn between #{start} and #{end}
+          </when>
+          <otherwise>
+             select *
+            from (select ROWNUM rn, a.*
+                  from (select b.B_NUM, p.P_NAME, b.b_title, b.B_DATE, b.B_HIT, chk_reply3(b.b_group, b.mini_cat) answer
+                        from BOARD b, (select *
+                                       from PRODUCT
+                                       where ID = #{id}) p
+                        where b.MINI_CAT = '300'
+                        and b.b_step='0'
+                        and b.P_NUM = p.P_NUM
+                        order by B_NUM desc) a )
+            where rn between #{start} and #{end}
+          </otherwise>
+       </choose>
+     </select>   
      
      <!-- Q&A 문의내역 갯수 -->
 	 <select id="sellerQnaTotal" resultType="int" parameterType="Board">
@@ -156,27 +162,27 @@
 	</insert>
 	
 	
-	<select id="boardList" parameterType="Board"   resultType="Board"> <!-- mapping id 바꿔주세요 -->
+<!-- 	<select id="boardList" parameterType="Board"   resultType="Board"> mapping id 바꿔주세요
 		SELECT *
 		FROM (
 		        SELECT rownum rn ,  a.*
 		        FROM  (select * from board order by b_num) a
 		     )
 		WHERE rn between #{start} AND  #{end}
-	</select>
+	</select> -->
 	
 	
 	<select id="qnaBoardList" resultType="Board">
-		select *
-		from (select ROWNUM rn, a.*
-		      from (select B_NUM, B_CATEGORY, B_TITLE, B_DATE, B_HIT, id, (case B_STEP when 0 then 'N' else 'Y' end) ANSWER
-		            from BOARD
-		            where MINI_CAT = '200'
-		            and B_STEP = 0
-		            order by B_NUM desc) a
-		     )
-		where rn between #{start} and #{end}
-	</select>
+      select *
+      from (select ROWNUM rn, a.*
+            from (select B_NUM, B_CATEGORY, B_TITLE, B_DATE, B_HIT, id, chk_reply3(b_group, mini_cat) answer
+                  from BOARD
+                  where MINI_CAT = '200'
+                  and B_STEP = 0
+                  order by B_NUM desc) a
+           )
+      where rn between #{start} and #{end}
+   </select>
 	
 	
 	<select id="reviewBoardList" resultType="Board" parameterType="Board">
@@ -235,7 +241,7 @@
 		from product
 		where p_num = #{p_num, jdbcType=VARCHAR}
 		and id = #{id, jdbcType=VARCHAR}
-	</select>	
+	</select>		
 	
 	
 	

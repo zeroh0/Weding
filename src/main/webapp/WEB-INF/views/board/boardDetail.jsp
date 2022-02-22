@@ -151,6 +151,15 @@ article textarea {
 		</c:choose>
 		
 		<textarea rows="7" readonly>${board.b_content}</textarea>
+<%--
+		이 글(detail)이 가지고 있는 p_num  :  ${board.p_num}
+		product.p_num : ${product.p_num}
+		board.p_num : ${board.p_num}
+		member.id : ${member.id}
+		product.id : ${product.id}
+ --%>
+
+
 
 		<!-- button -->
 		<div class="board-btn">
