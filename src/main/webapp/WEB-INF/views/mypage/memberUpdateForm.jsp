@@ -107,7 +107,7 @@ table input {
 						<td style="border: none">주소</td>
 						<td style="border: none">
 							<input type="text" class="form-control" style="width:20%;display:inline-block;font-size:12px;" name="zipCode" id="zipCode" placeholder="우편번호" value="${member.zipCode }" readonly>
-							<input type="button" class="btn btn-primary" style="width:7.5%; height: 34px;" onclick="sample6_execDaumPostcode()" value="주소검색">
+							<input type="button" class="btn" style="width:8rem; height: 34px;border: 1px solid #2F3A8F; color: #2F3A8F;" onclick="sample6_execDaumPostcode()" value="주소검색">
 						</td>
 					</tr>
 					<tr>
@@ -128,11 +128,11 @@ table input {
 				
 					<div class="row" style="margin-top: 5rem">
 						<div class="col-5 d-grid gap-2">
-							<input type="submit" class="btn btn-primary" value="회원수정">
+							<input type="submit" style="background-color:#2F3A8F;color:#fff;font-size: 1em;" class="btn" value="회원수정">
 							<!-- submit button-->
 						</div>
 						<div id="memberDelete" class="col-2 d-grid gap-2">
-							<button type="button" class="btn btn-light"
+							<button type="button" style="font-size: 1em;" class="btn btn-light"
 								onclick="location.href='memberDelete?id=${member.id}'">탈퇴</button>
 						</div>
 					</div>

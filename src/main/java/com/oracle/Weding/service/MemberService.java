@@ -22,4 +22,5 @@ public interface MemberService {
 	Member 			getMemberEmail(Member member);
 	int 			findPw(Member member);
 	void 			tempPassword(Member member);
+	List<Member> getSearchMember(String keyword);
 }

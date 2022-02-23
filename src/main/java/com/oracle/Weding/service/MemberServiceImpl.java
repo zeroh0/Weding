@@ -239,4 +239,16 @@ public class MemberServiceImpl implements MemberService {
 		int randomPassword = md.randomPassword(member);		
 	}
 	
+	
+	/**
+	 * 멤버 찾기
+	 * 작성자: 조소현
+	 */
+	@Override
+	public List<Member> getSearchMember(String keyword) {
+		System.out.println("MemberServiceImpl getSearchMember Start..");
+		List<Member> memberList = md.getSearchMember(keyword);
+		return memberList;
+	}
+	
 }

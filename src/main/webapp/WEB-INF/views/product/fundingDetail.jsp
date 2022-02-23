@@ -248,7 +248,7 @@ function orderFormChk() {
 								<c:otherwise>
 									<input type="button" class="btn btn-secondary col-md-12"
 										style="font-size: 15px; padding-top: 10px; padding-bottom: 10px;"
-										value="펀딩완료" disabled>
+										value="주문완료" disabled>
 								</c:otherwise>
 							</c:choose>
 
@@ -288,8 +288,15 @@ function orderFormChk() {
 				<div class="col" style="background-color: rgb(230, 226, 208); height: 100px;">
 					<div style="text-align=center; padding: 10px;">
 						[${product.p_name}] 상품은 펀딩이 종료된 상품입니다.<br>
-						소중한 서포터들의 펀딩과 응원으로 <fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd"/>에 성공적으로 종료되었습니다.
-						다음에 만나요!
+						<c:choose>
+	                     <c:when test="${attainment>=100}">
+	                     소중한 서포터들의 펀딩과 응원으로 <fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd"/>에 성공적으로 종료되었습니다.
+	                     다음에 만나요!
+	                     </c:when>
+	                     <c:otherwise>
+	                     ${product.p_name} 프로젝트는 아쉽게도 목표금액을 달성하지 못한채 ${product.p_end}에 종료되었습니다.
+	                     </c:otherwise>
+	                  </c:choose>
 					</div>
 				</div>
 			</div>

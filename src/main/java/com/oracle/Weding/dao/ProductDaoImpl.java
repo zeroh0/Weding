@@ -766,5 +766,21 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	
+	/**
+     * 관리자페이지 - 전체 상품관리 상품이름 검색
+     * 작성자: 조소현
+     */
+	@Override
+	public List<Product> searchProductName(String keyword) {
+		System.out.println("ProductDaoImpl searchProductName Start");
+		List<Product> allproductListAll = null;
+		try {
+			allproductListAll = session.selectList("searchProductName", keyword);
+			System.out.println("검색된 상품개수는 "+allproductListAll.size());
+		}catch(Exception e) {
+			System.out.println("ProductDaoImpl allproductListAll Exception "+e.getMessage());
+		}
+		return allproductListAll;
+	}
 	
 }

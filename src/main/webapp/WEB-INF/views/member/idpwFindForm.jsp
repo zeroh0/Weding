@@ -59,8 +59,8 @@
 		    $("#pwfind").click(function(){
 			var selId = $("#id").val(); //가져온 phone에 대한 값  가져옴
 			var selEmail  = $("#email").val(); //가져온 name에 대한 값  가져옴
-			alert("selId : "+selId);
-			alert("selEmail : "+selEmail);
+			/* alert("selId : "+selId); */
+			/* alert("selEmail : "+selEmail); */
 			
 			$.ajax({
 				type:"POST",

@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>전체상품관리(관리자)</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous">
+</script>
 <%@include file = "../header.jsp" %>
 </head>
 <style>
@@ -12,39 +17,6 @@
     	width: 100%;
     	margin: 0;
     	padding: 0;
-    }
-    .table{
-    	margin: 0 auto;
-    	padding: 0;
-    	text-align: center;
-    }
-    
-    .allProduct_table1{
-    	width: 9%;
-    }
-    .allProduct_table2{
-    	width: 20%;
-    }
-    .allProduct_table3{
-    	width: 9%;
-    }
-    .allProduct_table4{
-    	width: 10%;
-    }
-    .allProduct_table5{
-    	width: 22%;
-    }
-    .allProduct_table6{
-    	width: 10%;
-    }
-    .allProduct_table7{
-    	width: 8%;
-    }
-    .allProduct_table8{
-    	width: 6%;
-    }
-    .allProduct_table9{
-    	width: 6%;
     }
     .allProduct_table_td1{
        	display: inline-block; 
@@ -58,6 +30,12 @@
 	.pg_btn{
     	text-align: center;
     } 
+    
+    .paging {
+		clear: both;
+		width: fit-content;
+		margin: 0 auto;
+	} 
 </style>
 <%
 	String context = request.getContextPath();
@@ -87,26 +65,24 @@
 </script>
 <body>
 <div class="container">
-    <div class="p-3 mb-2">
-        <div class="p-3 mb-2 bg-secondary text-white">
-            <h1 style="text-align: center;"> 관리자 상품관리</h1>
-        </div>
+    <div class="sub-banner">
+   		<h2 class="sub-title">관리자 상품 관리</h2>
     </div>
     <c:set var="num" value="${pg.total-pg.start+1}"></c:set>
-        <div class="allProductList_member_tableForm">
+        <div class="row">
        		<%@include file = "../mypage/menu.jsp" %>
-       		<div class="col-md-10" style="padding-left: 0">
-	            <table class="table table-bordered">
-	                <tr class="tr_title">
-	                    <th class="allProduct_table1">상품번호</th>
-	                    <th class="allProduct_table2">상품이름</th>
-	                    <th class="allProduct_table3">판매자</th>
-	                    <th class="allProduct_table4">카테고리</th>
-	      	            <th class="allProduct_table5">펀딩기간</th>
-	      	            <th class="allProduct_table6">상품가격</th>
-	      	            <th class="allProduct_table7">달성율</th>
-	      	            <th class="allProduct_table8">수정</th>
-	      	            <th class="allProduct_table9">삭제</th>
+       		<div class="col-10">
+	            <table class="table" style="text-align: center">
+	                <tr class="table-dark">
+	                    <th>상품번호</th>
+	                    <th>상품이름</th>
+	                    <th>판매자</th>
+	                    <th>카테고리</th>
+	      	            <th>펀딩기간</th>
+	      	            <th>상품가격</th>
+	      	            <th>달성율</th>
+	      	            <th>수정</th>
+	      	            <th>삭제</th>
 	                </tr>
 		            <!-- c:forEach 시작 -->
 		            <c:forEach var="product" items="${allproductListAll}" varStatus="status">
@@ -115,7 +91,7 @@
 		                    	<input type="hidden" id="p_num${status.index}" value="${product.p_num}">
 		                    	${product.p_num}
 		                   	</td>
-		                    <td class="allProduct_table_td1"><a href="fundingDetail?p_num=${product.p_num}&p_condition=${product.p_condition}">${product.p_name}</a></td>
+		                    <td style="text-align:left;"><a href="fundingDetail?p_num=${product.p_num}&p_condition=${product.p_condition}">${product.p_name}</a></td>
 		                    <td>${product.p_store}</td>
 		                    <td>${product.mini_content}</td>
 		                    <td>${product.p_start} ~ ${product.p_end}</td>
@@ -130,17 +106,34 @@
 		            </c:forEach>
 		            <!-- c:forEach 끝 -->
 	        	</table>
-			<div class="pg_btn">
-			    <c:if test="${pg.startPage > pg.pageBlock}">
-			        <a href="allProductList?currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
-			    </c:if>
-			    <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-			        <a href="allProductList?currentPage=${i}">[${i}]</a>
-			    </c:forEach>
-			    <c:if test="${pg.endPage < pg.totalPage}">
-			        <a href="allProductList?currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
-			    </c:if>
-			</div>
+	        	
+	        	<nav aria-label="..." class="paging">
+				  <ul class="pagination">
+				  	<c:if test="${pg.startPage > pg.pageBlock}">
+					    <li class="page-item">
+					      <a class="page-link" onclick="location.href='allProductList?currentPage=${pg.startPage - pg.pageBlock}'">&laquo;</a>
+					    </li>
+				    </c:if>
+				    <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+					    <li class="page-item">
+					    		<a class="page-link" href="allProductList?currentPage=${i}">${i}</a>
+			    		</li>
+		    		</c:forEach>
+		    		<c:if test="${pg.endPage < pg.totalPage}">
+					    <li class="page-item">
+					      <a class="page-link" href="allProductList?currentPage=${pg.startPage + pg.pageBlock}">&raquo;</a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
+				
+				<div class="allMemberList_table_btn">
+		       	 <form action="searchProductName" method="get" style="text-align: center;">
+		          	<input name="keyword" class="form-control" style="width:20%;display:inline" type="text" value="" placeholder="검색">
+		          	<input type="submit" class="btn btn-outline-primary" style="width:5rem;height:34px;" value="검색">
+	    		 </form>
+				</div>
+				
         </div>
     </div>      
 </div>

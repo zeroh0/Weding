@@ -22,4 +22,5 @@ public interface MemberDao {
 	Member			getMemberEmail(Member member);
 	int 			findPw(Member member);
 	int				randomPassword(Member member);
+	List<Member> getSearchMember(String keyword);
 }

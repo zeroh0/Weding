@@ -549,5 +549,15 @@ public class ProductServiceImpl implements ProductService {
 	} 
 	
 	
+	/**
+     * 관리자페이지 - 전체 상품관리 상품이름 검색
+     * 작성자: 조소현
+     */
+	@Override
+	public List<Product> searchProductName(String keyword) {
+		System.out.println("ProductServiceImpl searchProductName Start");
+		List<Product> allproductListAll = pd.searchProductName(keyword);
+		return allproductListAll;
+	}
 	
 }

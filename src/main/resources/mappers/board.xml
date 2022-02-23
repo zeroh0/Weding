@@ -12,24 +12,22 @@
 	
 	
 	<select id="BoardListAll" parameterType="Board"   resultType="Board"> 
-		 <![CDATA[
- 	    SELECT *
-		FROM (
-		        SELECT rownum rn ,  a.*
-		        FROM  (select * from board order by b_num desc) a
-		        WHERE  main_cat = #{main_cat} AND mini_cat = #{mini_cat} ]]>
-		        
-		        <if test="p_num != null">
-		        <![CDATA[and p_num=#{p_num}]]>
-		        </if>
-		  <![CDATA[    
-		     )
-		WHERE  rn >= #{start} 
-		AND    rn <= #{end}
-		order by b_Group desc, b_Step asc, b_num desc
-		
-		  ]]>
-	</select>
+       <![CDATA[
+        SELECT *
+      FROM (
+              SELECT rownum rn ,  a.*
+              FROM  (select * from board order by b_Group desc, b_Step asc,b_num desc) a
+              WHERE  main_cat = #{main_cat} AND mini_cat = #{mini_cat} ]]>
+              
+              <if test="p_num != null">
+              <![CDATA[and p_num=#{p_num}]]>
+              </if>
+        <![CDATA[    
+           )
+      WHERE  rn >= #{start} 
+      AND    rn <= #{end}
+        ]]>
+   </select>
 	
 	
 	<select id="BoardDetail" parameterType="int" resultType="Board">
@@ -124,15 +122,17 @@
 	     </choose>
 	 </select>
 	    
+	    
 	<select id = "sellerQnaAll" parameterType="Board" resultType="Board">
-		select *
-		from (select ROWNUM rn, a.*, chk_reply3(a.b_group, a.mini_cat) answer
-		      from (select * from BOARD) a
-		      where MINI_CAT = '200'
-		      and id = #{id}
-		      and b_step = 0) b
-		where rn between #{start} and #{end}
-	</select>
+      select *
+      from (select ROWNUM rn, a.*, chk_reply3(a.b_group, a.mini_cat) answer
+            from (select * from BOARD) a
+            where MINI_CAT = '200'
+            and id = #{id}
+            and b_step = 0) b
+      where rn between #{start} and #{end}
+      order by b_num desc
+   </select>
 	
 	
 	<!-- 답글 -->
@@ -241,8 +241,12 @@
 		from product
 		where p_num = #{p_num, jdbcType=VARCHAR}
 		and id = #{id, jdbcType=VARCHAR}
-	</select>		
+	</select>	
 	
+	
+	<select id="getSearchBoard" resultType="Board">
+	  select * from board where main_cat=#{main_cat} and mini_cat=#{mini_cat} and b_title like '%' || #{keyword} || '%'
+	</select>	
 	
 	
 </mapper>

@@ -12,19 +12,6 @@ console.log('${listBoard}');
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
  <style>
- 	 .sub_banner{
-		margin-left: calc(-50vw + 50%);
-		width:100vw;
-		height:100px;
-		background-color: #ccc;
-		margin-bottom: 3.5rem;
-		
-	}
-	
-	.sub-title {
-	text-align: center;
-	line-height: 100px;
-	}
      body{text-align: center;}
 
      table {
@@ -55,6 +42,15 @@ console.log('${listBoard}');
      	
      	text-align:center;
      }
+     
+      .list-banner tr th{
+     	text-align: center;
+     
+     }
+     .paging {
+		width: fit-content;
+		margin: 0 auto;
+	 } 
  </style>
  
  
@@ -79,7 +75,7 @@ console.log('${listBoard}');
 <body>
 <div class="container">
  
-		<div class = "sub_banner">
+		<div class="sub-banner">
     		<c:if test="${board.mini_cat == 100}">
     			<h1 class="sub-title">공지사항</h1>
     		</c:if>
@@ -97,74 +93,72 @@ console.log('${listBoard}');
     	</div>	
 
 
-<table>
-	<tr><th>번호</th>
-	<%--
-	<c:if test = "${board.mini_cat == 300 && p_num==${p_num}">
-	 --%>
-	<c:if test = "${board.mini_cat == 300}">
-	<th>상품번호</th>
-	</c:if>
-	<c:if test = "${board.mini_cat == 200}">
-	<th>카테고리</th>
-	</c:if>
-
-	
-	
-	<th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th></tr> 
+<table class = "table list-banner">
+	<tr style="--bs-table-bg: #2F3A8F;color:#fff;"><th>번호</th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th></tr>  <!--  번호와 제목 사이. c:if...  p_name.. th /th. -->
 <c:forEach var="board" items="${listBoard}" varStatus="status">
 	<tr id="board${status.index}">
-		<td>${board.b_num}</td>
-		
-		<c:if test = "${board.mini_cat == 300}">
-		<td>${board.p_num}</td>
-		</c:if>
-		<c:if test = "${board.mini_cat == 200}">
-		<td>${board.b_category}</td>
-		</c:if>
-		
+		<td style="text-align: center;">${board.b_num}</td>
 		<td>
 		<c:forEach begin="1" end = "${board.b_level}">
 		-
 		</c:forEach>
-		<a href="boardDetail?b_num=${board.b_num}">${board.b_title}</a>
+		<a href="boardDetail?b_num=${board.b_num}" style="text-align: left;">${board.b_title}</a>
 		</td>
-			<td>${board.id}</td>
-		<td>${board.b_date}</td>
-		<td>${board.b_hit}</td>
+			<td style="text-align: center;">${board.id}</td>
+			<td style="text-align: center;">${board.b_date}</td>
+			<td style="text-align: center;">${board.b_hit}</td>
 	</tr>
 	
 </c:forEach>
  		
 </table><br>
 
-	<div class = "write-btn">
-		<c:choose>
-        	 <c:when test="${board.mini_cat == 100 && member.mini_cat == 300}">
-            		<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
-         	</c:when>
-         	<c:when test="${board.mini_cat == 200 && (member.mini_cat == 100 || member.mini_cat == 200)}">
-	           		<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
-	        </c:when>
-	        <c:when test="${board.mini_cat == 300 && (member.mini_cat == 100 || member.mini_cat == 200)}">
-	             	<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
-         	</c:when>
-		</c:choose>
-    </div>        
+	<div class="row">	
+	<div class="col-3"></div>
+	<div class="col-6">
+	      <form action="getSearchBoard" method="get" style="text-align: center;">
+	      	  <input type="hidden" name="main_cat" value="${board.main_cat}">
+	      	  <input type="hidden" name="mini_cat" value="${board.mini_cat}">
+	          <input name="keyword" class="form-control" style="width:30%;display:inline" type="text" value="" placeholder="검색">
+	          <input type="submit" class="btn btn-outline-primary" style="width:5rem;height:34px;" value="검색">
+	      </form>
+	</div>  
+	 <div class="col-3">    
+	    	<div class = "write-btn" style="text-align: center;">
+			<c:choose>
+	        	 <c:when test="${board.mini_cat == 100 && member.mini_cat == 300}">
+	            		<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
+	         	</c:when>
+	         	<c:when test="${board.mini_cat == 200 && (member.mini_cat == 100 || member.mini_cat == 200)}">
+		           		<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
+		        </c:when>
+		        <c:when test="${board.mini_cat == 300 && (member.mini_cat == 100 || member.mini_cat == 200)}">
+		             	<button class="btn btn-outline-primary" onclick="writeForm()">글쓰기</button><br>
+	         	</c:when>
+			</c:choose>
+	  	    </div>  
+	</div> 	    
+	</div>      
 		
-		
-        <div class = "board-page">
-        <c:if test="${pg.startPage > pg.pageBlock}">
-            <a href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${pg.startPage - pg.pageBlock}">[이전]</a>
-        </c:if>
-        <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
-            <a href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${i}">[${i}]</a>
-        </c:forEach>
-        <c:if test="${pg.endPage < pg.totalPage}">
-            <a href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${pg.startPage + pg.pageBlock}">[다음]</a>
-        </c:if>
-        </div>
-        
+		<nav aria-label="..." class="paging" style="width: fit-content;">
+			  <ul class="pagination">
+			  	<c:if test="${pg.startPage > pg.pageBlock}">
+				    <li class="page-item">
+				      <a class="page-link" href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${pg.startPage - pg.pageBlock}">&laquo;</a>
+				    </li>
+			    </c:if>
+			    <c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+				    <li class="page-item">
+				    		<a class="page-link" href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${i}">${i}</a>
+		    		</li>
+		   		</c:forEach>
+		   		<c:if test="${pg.endPage < pg.totalPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="boardList?main_cat=${board.main_cat}&mini_cat=${board.mini_cat}&currentPage=${pg.startPage + pg.pageBlock}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
 </div>
 
 <%@ include file="../footer.jsp" %>

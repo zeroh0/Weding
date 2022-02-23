@@ -18,15 +18,16 @@
 	.sub-banner {
 		width: 100vw;
 		margin-left: calc(-50vw + 50%);
-		height: 12rem;
+		height: 15rem;
 		text-align: center;
-		background-color: #D0E8F2;
+		background-color: #2F3A8F;
 		margin-bottom: 50px;
 	}
 	
 	.sub-title {
-		line-height: 12rem;
-		color: #000;
+		font-size: 2.2em;
+		line-height: 15rem;
+		color: #fff;
 	}
 </style>
 <div class="container">

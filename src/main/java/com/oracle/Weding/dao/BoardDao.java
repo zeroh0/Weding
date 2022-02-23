@@ -30,5 +30,6 @@ public interface BoardDao {
 	int	 			sellerQnaTotal(Board board);
 	int 			qnaListTotal(Board board);
 	int cntAnswer(Board board11);
+	List<Board> getSearchBoard(Board board);
 
 }

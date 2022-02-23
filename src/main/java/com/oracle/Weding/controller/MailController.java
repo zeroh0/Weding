@@ -49,7 +49,6 @@ public class MailController {
 			System.out.println(i+"번째 사람"+emailList.get(i).getName()+"이메일="+emailList.get(i).getEmail());
 			tomail=emailList.get(i).getEmail();
 		
-		
 		try {
 			// Mime 전자우편 Internet 표준 Format
 			MimeMessage message = mailSender.createMimeMessage();
@@ -58,8 +57,8 @@ public class MailController {
 			messageHelper.setTo(tomail);;		//받는사람 이메일 
 			messageHelper.setSubject(title);	//메일제목은 생략이 가능하다 
 			messageHelper.setText("내일은 "+emailList.get(0).getP_name()+"상품오픈일입니다.");		//메일 내용 
-			DataSource dataSource = new FileDataSource("/Users/zeroh0/Desktop/upload/fun.jpeg");			//첨부메일 
-			messageHelper.addAttachment(MimeUtility.encodeText("airport.png", "UTF-8", "B"), dataSource);	//첨부문자 rename 
+//			DataSource dataSource = new FileDataSource("/Users/zeroh0/Desktop/upload/fun.jpeg");			//첨부메일 
+//			messageHelper.addAttachment(MimeUtility.encodeText("airport.png", "UTF-8", "B"), dataSource);	//첨부문자 rename 
 			mailSender.send(message);
 			model.addAttribute("check", 1);		//정상전달 
 //			s.tempPw(u_id, tempPassword);		//db에 비밀번호를 임시비밀번호로 업데이트 	

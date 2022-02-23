@@ -328,4 +328,22 @@ public class MemberDaoImpl implements MemberDao {
 		return randomPassword;
 	}
 	
+	
+	/**
+	 * 멤버 찾기
+	 * 작성자: 조소현
+	 */
+	@Override
+	public List<Member> getSearchMember(String keyword) {
+		System.out.println("MemberDaoImpl getSearchMember Start..");
+		List<Member> memberList = null;
+		try {
+			memberList = session.selectList("getSearchMember", keyword);
+			System.out.println("키워드와 일치하는 아이디 개수는 "+memberList.size());
+		}catch(Exception e) {
+			System.out.println("MemberDaoImpl getSearchMember Exception"+e.getMessage());
+		}
+		return memberList;
+	}
+	
 }

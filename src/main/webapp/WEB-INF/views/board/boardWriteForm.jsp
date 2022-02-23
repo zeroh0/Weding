@@ -76,16 +76,23 @@
 			<input type="hidden" name="mini_cat" value="${board.mini_cat}">
 			<input type="hidden" name="p_num" value="${board.p_num}">
 	
-			<!-- 카테고리 셀렉트 -->
-			<c:if test="${board.mini_cat == 200}">		
-				<select name="b_category">
-					<option value="상품문의">상품문의</option>
-					<option value="펀딩문의">펀딩문의</option>
-				</select>
-			</c:if>	
+		
 		
          
             <table class="tableboardwriteform">
+            <tr>
+            	<td>
+            		글카테고리
+            	</td>
+            	<td>
+	            	<c:if test="${board.mini_cat == 200}">		
+						<select name="b_category">
+							<option value="상품문의">상품문의</option>
+							<option value="펀딩문의">펀딩문의</option>
+						</select>
+					</c:if>	
+            	</td>
+            </tr>
                 <tr><td class="tdboardtitle">제목</td><td><a><input name="b_title" class="form-control" type="text" style="margin-bottom: 10px; width: 500px;"></a></td></tr>
                 <tr><td class="tdboardtitle">내용</td><td><a><textarea class="form-control" name="b_content" rows="10" cols="20"  style="margin-bottom: 10px;"></textarea></a></td></tr>
                 <tr><td class="tdboardtitle">이미지</td><td><a><input type="file" class="btn btn-secondary" name="file1"></a></td></tr>

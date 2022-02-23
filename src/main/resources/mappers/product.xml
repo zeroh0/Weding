@@ -78,45 +78,46 @@
 	
 	<!-- 메인 랜덤상품 조회
 		 작성자 - 장동호 -->
-	<select id="getRandomProduct" resultType="Product">
-		<![CDATA[
-		select p.*, c.c_content mini_content
-		from cat c,
-			 (select *
-		      from PRODUCT
-		      where P_CONDITION = '2'
-		      order by DBMS_RANDOM.VALUE()) p
-		where ROWNUM <= 6
-		and   c.main_cat = p.main_cat
-		and   c.mini_cat = p.mini_cat
-		]]>
-	</select>
+   <select id="getRandomProduct" resultType="Product">
+      <![CDATA[
+      select p.*, c.c_content mini_content,round((p.p_currentprice /p.p_goalprice)*100,0) attainment
+      from cat c,
+          (select *
+            from PRODUCT
+            where P_CONDITION = '2'
+            order by DBMS_RANDOM.VALUE()) p
+      where ROWNUM <= 6
+      and   c.main_cat = p.main_cat
+      and   c.mini_cat = p.mini_cat
+      ]]>
+   </select>
 	
 	
 	<!-- 메인 인기상품 조회
 		 작성자 - 장동호 -->
-	<select id="getPopularProduct" resultType="Product">
-		<![CDATA[
-		select p1.*, c1.c_content mini_content
-		from PRODUCT p1, CAT c1
-		where P_NUM in (select P_NUM
-		                from (select p.P_NUM, count(p.P_NUM)
-		                      from PRODUCT p, DIBS d
-		                      where p.P_NUM = d.P_NUM
-		                      group by p.P_NUM
-		                      order by count(p.P_NUM) desc, P_NUM)
-		                where ROWNUM <= 5)
-		and p1.MAIN_CAT = c1.MAIN_CAT
-		and p1.MINI_CAT = c1.MINI_CAT
-		]]>
-	</select>
+    <select id="getPopularProduct" resultType="Product">
+      <![CDATA[
+      SELECT p.*, c2.c_content mini_content,round((p_currentprice /p_goalprice)*100,0) attainment
+      FROM (select p_num, count(id) pop from dibs group by p_num) d,
+           product p,
+          (select * from cat where mini_cat='999') c1, 
+             (select * from cat where mini_cat<>'999') c2
+             WHERE d.p_num = p.p_num
+             and   p.p_condition=2
+             and   p.main_cat = c1.main_cat
+             and   p.main_cat = c2.main_cat
+             and   p.mini_cat = c2.mini_cat
+             and   ROWNUM <= 5
+             order by d.pop desc
+      ]]>
+   </select>
 	
 	
 	<!-- 메인 당일오픈 상품 조회
        작성자 - 장동호 -->
    <select id="getOpenProduct" resultType="Product">
       <![CDATA[
-         select *
+         select p.*,c.c_content mini_content,round((p.p_currentprice /p.p_goalprice)*100,0) attainment
          from PRODUCT p, CAT c
          where P_START = (select to_char(sysdate, 'yyyy-mm-dd') from dual)
          and ROWNUM <= 6
@@ -211,7 +212,7 @@
 			SELECT m.id consumer_id, p.*, c2.c_content mini_content, round((p.p_currentprice /p.p_goalprice)*100,0) attainment
 			FROM  (SELECT * FROM member WHERE id = 'admin') m,
 				  (SELECT rownum rn ,  a.* 
-				   FROM  (select * from product order by to_number(p_num)) a) p,
+				   FROM  (select * from product order by p_start desc) a) p,
 			      (select * from cat where mini_cat = '999') c1,
 			      (select * from cat where mini_cat <> '999') c2
 			WHERE rn between #{start} AND  #{end}
@@ -487,5 +488,24 @@
 	 <select id="soldTotal" resultType="int" parameterType="Product"> 
 		select count(*) from product where id=#{id} 
 	</select> 
+	
+	
+	
+	<!-- 관리자 페이지내 상품 검색 
+	 	 작성자: 조소현 -->
+	<select id="searchProductName" parameterType="String" resultType="Product">
+		<![CDATA[
+			SELECT m.id consumer_id, p.*, c2.c_content mini_content, round((p.p_currentprice /p.p_goalprice)*100,0) attainment
+			FROM  (SELECT * FROM member WHERE id = 'admin') m,
+				  (SELECT rownum rn ,  a.* 
+				   FROM  (select * from product order by to_number(p_num)) a) p,
+			      (select * from cat where mini_cat = '999') c1,
+			      (select * from cat where mini_cat <> '999') c2
+			WHERE lower(p.p_name) like '%' || lower(#{keyword}) || '%'
+			and   p.main_cat = c1.main_cat
+			and   p.main_cat = c2.main_cat
+			and   p.mini_cat = c2.mini_cat
+		]]>
+	</select>
 
 </mapper>

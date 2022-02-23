@@ -58,7 +58,7 @@
 					</table>
 					<div class="row">
 						<div style="float: none; margin-top: 5rem;">
-							<input type="submit" class="btn btn-primary" style="width:100%" value="비밀번호 변경">
+							<input type="submit" style="background-color:#2F3A8F;color:#fff;font-size: 1em;width:100%" class="btn" value="비밀번호 변경">
 						</div>
 					</div>
 				</form>

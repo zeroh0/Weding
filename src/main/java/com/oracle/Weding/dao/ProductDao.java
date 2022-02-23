@@ -51,4 +51,5 @@ public interface ProductDao {
 	List<Product> 	soldList(Product product);
 	int orderCheck(Product orderProduct);
 	int soldListTotal(Product product);
+	List<Product> searchProductName(String keyword);
 }

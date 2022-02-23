@@ -461,4 +461,19 @@ public class BoardController {
 		return result;
 	}
 	
+	/**
+	 * 게시글 검색
+	 * 작성자: 조소현 
+	 */
+	@GetMapping(value="getSearchBoard")
+	private String getSearchBoard(Board board, Model model){
+		System.out.println("BoardController getSearchBoard Start…");
+		System.out.println("board main_cat =>"+board.getMain_cat());
+		System.out.println("board mini_cat =>"+board.getMini_cat());
+		System.out.println("board keyword =>"+board.getKeyword());
+		List<Board> listBoard = bs.getSearchBoard(board);
+		model.addAttribute("listBoard", listBoard);
+		return "board/boardList";
+	}
+	
 }

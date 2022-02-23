@@ -15,21 +15,6 @@
 	crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
-	.sub_banner{
-		margin-left: calc(-50vw + 50%);
-		width:100vw;
-		height:100px;
-		background-color: #ccc;
-		margin-bottom: 3.5rem;
-		
-	}
-	
-	.sub-title {
-	text-align: center;
-	line-height: 100px;
-	}
-	
-
 .container {
 	text-align: center;
 }
@@ -68,7 +53,6 @@ article textarea {
 .board-title {
 	width: 700px;
 	height: 2rem;
-	background-color: #ccc;
 }
 
 .board-title h3 {
@@ -122,7 +106,7 @@ article textarea {
 <body>
 
 	<div class="container">
-		<div class = "sub_banner">
+		<div class = "sub-banner">
     		<c:if test="${board.mini_cat == 100}">
     			<h1 class="sub-title">공지사항</h1>
     		</c:if>

@@ -256,5 +256,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
+	//게시글 검색 
+	@Override
+	public List<Board> getSearchBoard(Board board) {
+		System.out.println("BoardServiceImpl getSearchBoard Start…");
+		List<Board> boardList = bd.getSearchBoard(board);
+		return boardList;
+	}
+	
 	
 }

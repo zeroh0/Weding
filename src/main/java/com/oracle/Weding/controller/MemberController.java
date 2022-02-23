@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.Weding.dto.Member;
@@ -443,6 +444,23 @@ public class MemberController {
 	public Member defaultShipping(String id) {
 		Member member = ms.readMember(id);
 		return member;
+	}
+	
+	
+	/**
+	 * 멤버 찾기
+	 * 작성자: 조소현
+	 */
+	@GetMapping(value="getSearchMember")
+	private String getSearchMember(@RequestParam String keyword, Model model) {
+		System.out.println("MemberController getSearchMember Start");
+		System.out.println("검색하는 키워드는 "+keyword);
+		List<Member> memberList = ms.getSearchMember(keyword);
+		Member member = new Member();
+		List<Member> catList = ms.catList(member);
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("catList",catList);
+		return "admin/allMemberList";
 	}
 	
 }

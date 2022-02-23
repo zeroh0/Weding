@@ -370,5 +370,20 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return idResult;
 	}
+	
+	
+	//게시글 검색
+	@Override
+	public List<Board> getSearchBoard(Board board) {
+		System.out.println("BoardDaoImpl getSearchBoard Start…");
+		List<Board> listBoard = null;
+		try {
+			listBoard = session.selectList("getSearchBoard", board);
+			System.out.println("게시글검색결과개수->"+listBoard.size());
+		}catch(Exception e) {
+			System.out.println("BoardDaoImpl getSearchBoard Exception -> " + e.getMessage());
+		}
+		return listBoard;
+	}
 
 }

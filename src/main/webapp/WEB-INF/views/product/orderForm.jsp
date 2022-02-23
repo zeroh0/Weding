@@ -297,11 +297,11 @@
               });
 
               var msg = "결제가 완료되었습니다.";
-              msg += "결제 금액 : " + rsp.paid_amount + "merchant_uid" + rsp.merchant_uid;
+             /*  msg += "결제 금액 : " + rsp.paid_amount + "merchant_uid" + rsp.merchant_uid; */
               console.log(msg);
             } else {
               var msg = "결제에 실패하였습니다.";
-              msg += "에러내용 : " + rsp.error_msg;
+              /* msg += "에러내용 : " + rsp.error_msg; */
               console.log(msg);
             }
             alert(msg);

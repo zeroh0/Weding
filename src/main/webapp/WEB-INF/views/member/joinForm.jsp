@@ -12,7 +12,12 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-
+<style>
+	.row {
+		margin-bottom: 2rem;
+	}
+	
+</style>
 
 <title>joinForm</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -121,8 +126,8 @@
 	function codeChk() {
 		var emailNum   = $('#emailNum').val();    // document.getElementById('emailNum');
 		var emailCheck = $('#emailCheck').val();  // var emailCheck = document.getElementById('emailCheck');
-		alert('emailNum->'+emailNum)
-		alert('emailCheck->'+emailCheck)
+		/* alert('emailNum->'+emailNum) */
+		/* alert('emailCheck->'+emailCheck) */
 		if(emailNum == emailCheck) { //
 			alert('메일 인증이 완료되었습니다.');
 		} else {
@@ -170,124 +175,113 @@
 
 <body>
 	<div class="container">
-		<div class="p-3 mb-2 bg-secondary text-white">
-			<div class="row">
-				<div class="col" style="text-align: center;">회원가입</div>
-			</div>
+		<div class="sub-banner">
+			<h2 class="sub-title">회원가입</h2>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-3"></div>
-		<div class="col-6">
-
+		<div class="col-4"></div>
+		<div class="col-4">
 			<form action="join" method="post" name="joinForm" onsubmit="return check()">
-				<div class="row">
+				 ※ 정보를 입력해주세요.
+				 <hr>
+				<div class="row" style="margin-top: 3rem">
 					<div class="col-3">이름</div>
-					<div class="col">
-						<input type="text" name="name" id="name" size=30
+					<div class="col-5">
+						<input type="text" class="form-control" name="name" id="name" size=30
 							placeholder="이름입력(10자 이하)" required>
 					</div>
 				</div>
-				<br>
 
 				<!-- 아이디 -->
 				<div class="row">
 					<div class="col-3">아이디</div>
-					<div class="col">
-						<input type="text" name="id" id="id" size=30 placeholder="아이디입력(4자리~10자리)"
+					<div class="col-5">
+						<input type="text" class="form-control" name="id" id="id" size=30 placeholder="아이디입력(4자리~10자리)"
 							required>
 
 					</div>
 					<div class="col">
-						<button class="memberIdConfirm" type="button" id="idDuplCheck"
+						<button class="memberIdConfirm btn" style="border: 1px solid #2F3A8F; color: #2F3A8F; height: 34px; width: 8rem" type="button" id="idDuplCheck"
 							onclick="memberIdConfirm();" value="N">중복확인</button>
 					</div>
 				</div>
-				<br>
 				<!--  비밀번호 -->
 				<div class="row">
 					<div class="col-3">비밀번호</div>
-					<div class="col">
-						<input type="password" name="password" id="password" size=30
+					<div class="col-5">
+						<input type="password" class="form-control" name="password" id="password" size=30
 							placeholder="비밀번호입력">
 					</div>
 				</div>
-				<br>
 				<div class="row">
 					<div class="col-3">비밀번호확인</div>
-					<div class="col">
-						<input type="password" name="password_check" id="password_check"
+					<div class="col-5">
+						<input type="password" class="form-control" name="password_check" id="password_check"
 							size=30 placeholder="비밀번호확인입력">
 					</div>
 				</div>
 				<!--  연락처 -->
-				<br>
 				<div class="row">
 					<div class="col-3">연락처</div>
-					<div class="col">
-						<input type="text" name="phone" id="phone" size=30
+					<div class="col-5">
+						<input type="text" class="form-control" name="phone" id="phone" size=30
 							placeholder="연락처 입력">
 					</div>
 				</div>
 
-				<br>
-
 				<div class="row">
 					<div class="col-3">이메일</div>
-					<div class="col">
-						<input type="text" name="email1" id="email1" size=11
-							placeholder="이메일 입력"> @ <select name="email2" id="email2"
+					<div class="col-6">
+						<input type="text" class="form-control" style="width:45%;display:inline" name="email1" id="email1"
+							placeholder="이메일 입력">&nbsp;&nbsp;@&nbsp;&nbsp;<select name="email2" class="form-select" style="width:45%;display:inline; height: 34px;" id="email2"
 							required>
 							<option value="naver.com" value="naver.com">naver.com</option>
 							<option value="gmail.com" value="gmail.com">gmail.com</option>
 							<option value="daum.net" value="daum.net">daum.net</option>
 							<option value="nate.com" value="nate.com">nate.com</option>
 						</select>
-
-						<button type="button" class="btn btn-light" onclick="emailChk()">이메일인증</button>
-
-						<br> <input type="text" name="emailNum" id="emailNum" size=30
+					</div>
+					
+					<div class="col">
+						<button type="button" style="border: 1px solid #2F3A8F; color: #2F3A8F; height: 34px; width: 8rem" class="btn btn-light" onclick="emailChk()">이메일인증</button>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-3">이메일</div>
+					<div class="col-5">
+						<input type="text" class="form-control" name="emailNum" id="emailNum" size=30
 							placeholder="인증번호 입력" required> <input type="hidden"
 							name="emailCheck" id="emailCheck">
-						<button type="button" class="btn btn-light" onclick="codeChk()">인증확인</button>
+					</div>
+					<div class="col">
+						<button type="button" style="border: 1px solid #2F3A8F; color: #2F3A8F; height: 34px; width: 8rem" class="btn btn-light" onclick="codeChk()">인증확인</button>
 					</div>
 				</div>
 
 
-				<br>
 				<div class="row">
 					<div class="col-3">주소</div>
-					<div class="col">
-						<input type="text" name="zipCode" size="10" id="sample6_postcode"
-							placeholder="우편번호" readonly> <input type="button"
-							class="btn btn-light" value="우편번호찾기"
-							onclick="sample6_execDaumPostcode()"> <br> <input
-							type="text" name="roadAddress" size="30" id="sample6_address"
-							placeholder="주소" readonly> <br> <input type="text"
-							name="detailAddress" size="30" id="sample6_address2"
-							placeholder="상세주소">
+					<div class="col address">
+							<input type="text" class="form-control" style="width:30%;display:inline;" name="zipCode" size="10" id="sample6_postcode" placeholder="우편번호" readonly>
+							<input type="button" style="display:inline;border: 1px solid #2F3A8F; color: #2F3A8F; height: 34px; width: 8rem;" class="btn btn-light" value="우편번호찾기" onclick="sample6_execDaumPostcode()">
+							<input type="text" class="form-control" style="display:block;width:70%; margin-top:1rem;" name="roadAddress" size="30" id="sample6_address" placeholder="주소" readonly>
+							<input type="text" class="form-control" style="display:block;width:70%; margin-top:1rem;" name="detailAddress" size="30" id="sample6_address2" placeholder="상세주소">
 					</div>
 				</div>
-				<br>
 
-				<div>
-					<div class="row" style="margin-top: 10%">
-						<div class="col-8 d-grid gap-2">
-							<button type="submit" formmethod="POST" class="btn btn-secondary">회원가입</button>
-							<!-- submit button-->
-						</div>
-
-						<div class="col-4 d-grid gap-2">
-							<button type="submit" formmethod="GET" class="btn btn-light">취소</button>
-						</div>
-					</div>
+				<div class="row" style="margin-top: 10%; width:100%">
+						<button type="submit" formmethod="POST" class="btn" style="background-color:#2F3A8F;color:#fff;font-size: 1.2em;width:70%;margin:0 auto">회원가입</button>
+						<!-- submit button-->
 				</div>
+					
 			</form>
 		</div>
 
 
 	</div>
-	<div class="col-3"></div>
+	<div class="col-4"></div>
 
 	<!-- JavaScript Bundle with Popper -->
 	<script

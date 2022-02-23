@@ -87,7 +87,7 @@
 				<tr>
 				<td style="line-height: 5rem;">${soldList.p_num}</td>
 				<td style="line-height: 5rem;">${soldList.mini_content}</td>
-				<td class="soldListTableTd" style="text-align: left;"><img src="${pageContext.request.contextPath}/upload/${soldList.p_image1}"/>
+				<td class="soldListTableTd" style="text-align: left;text-overflow: ellipsis;overflow: hidden; "><img src="${pageContext.request.contextPath}/upload/${soldList.p_image1}"/>
 				<%-- <img src="${pageContext.request.contextPath}/upload/${soldList.p_image1}"
 					 alt="상품" style="width: 25px; height: 25px;"> --%>
 				&nbsp;&nbsp;&nbsp;<a href="fundingDetail?p_num=${soldList.p_num}&p_condition=${soldList.p_condition}">${soldList.p_name}</a></td>

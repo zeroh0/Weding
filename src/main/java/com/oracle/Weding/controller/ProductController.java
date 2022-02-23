@@ -496,7 +496,7 @@ public class ProductController {
 
 		int result = ps.insert(product);
 		
-		if(result>0) return "redirect:fundingList"; //합친 후에 리턴 확인하기
+		if(result>0) return "redirect:beforeFundList";
 		else {
 			model.addAttribute("msg","상품이 등록되지 않았습니다.");
 			return "addProductForm"; //리턴안됨 수정예정
@@ -819,5 +819,18 @@ public class ProductController {
 		model.addAttribute("total",total);
 		return "/mypage/soldList";
 	}
+	
+	
+	/**
+     * 관리자페이지 - 전체 상품관리 상품이름 검색
+     * 작성자: 조소현
+     */
+ 	@GetMapping(value="searchProductName")
+ 	public String searchProductName(@RequestParam String keyword, String currentPage, Model model) {
+ 		System.out.println("ProductController searchProductName Start");
+ 		List<Product> allproductListAll = ps.searchProductName(keyword);
+ 		model.addAttribute("allproductListAll", allproductListAll);
+ 		return "admin/allProductList";
+ 	}
 	
 }

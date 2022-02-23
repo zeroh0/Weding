@@ -78,7 +78,7 @@ a:visited {
 		<c:if test="${member.mini_cat == 200}">
 			<ul>
 				<!-- 현재 접속한 회원의 이름 -->
-				<li>${member.name}님</li>
+				<li><strong>${member.name}</strong>님</li>
 				<li><a href="<c:url value='memberUpdateForm'/>">회원수정</a></li>
 				<li><a href="<c:url value='pwChangeForm'/>">비밀번호변경</a></li>
 				<li><a
@@ -93,7 +93,7 @@ a:visited {
 		<c:if test="${member.mini_cat == 300}">
 			<ul>
 				<!-- 현재 접속한 회원의 이름 -->
-				<li>${member.name}님</li>
+				<li><strong>${member.name}</strong>님</li>
 				<li><a href="<c:url value='allMemberList?id=${member.id}'/>">회원관리</a></li>
 				<li><a
 					href="<c:url value='qnaBoardList'/>">문의사항답변</a></li>
