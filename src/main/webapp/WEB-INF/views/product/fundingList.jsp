@@ -55,19 +55,19 @@
             </form>
         </div>
         <div class="col-1">
-                <button class="btn btn-light" type="button" onclick="location.href='fundingEndList'" style="font-size: 15px;">펀딩종료</button>
-        </div>
-        <div class="col-1">
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 15px;">&nbsp;&nbsp;정렬&nbsp;&nbsp;</button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                 	<li><a class="dropdown-item" href="sortProduct?sort=newSort">최신순</a></li>
-                    <li><a class="dropdown-item" href="sortProduct?sort=popularSort">인기순</a></li>
-                    <li><a class="dropdown-item" href="sortProduct?sort=goalSort">달성순</a></li>
-                </ul>
-            </div>
-        </div>
+		    <div class="dropdown">
+		        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+		            data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 15px;">&nbsp;&nbsp;정렬&nbsp;&nbsp;</button>
+		        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+		            <li><a class="dropdown-item" href="sortProduct?sort=newSort">최신순</a></li>
+		            <li><a class="dropdown-item" href="sortProduct?sort=popularSort">인기순</a></li>
+		            <li><a class="dropdown-item" href="sortProduct?sort=goalSort">달성순</a></li>
+		        </ul>
+		    </div>
+		</div>
+		<div class="col-1">
+		        <button class="btn btn-light" type="button" onclick="location.href='fundingEndList'" style="font-size: 15px;">펀딩종료</button>
+		</div>
     </div>
     
     <hr>

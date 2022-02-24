@@ -60,9 +60,9 @@
 
 <body>
 	<div class="container">
-		<div class = "reply-banner">
-			<h1>답변 달기</h1>
-		</div>
+		<div class = "sub-banner">
+   			<h1 class="sub-title">답변 작성</h1>
+    	</div>
 
 
 
@@ -79,7 +79,7 @@
 
 			<input type="hidden" name="p_num" value="${board.p_num}">
 
-	   <table class="reply-info">
+	   <table class="reply-info" style=" border-spacing: 1rem; border-collapse: separate;">
 			<tr>
 				<td> 번호 </td>
 				<td> ${board.b_num} </td>
@@ -113,5 +113,6 @@
 			</div>	
 	</form>
   </div>	
+  <%@ include file="../footer.jsp" %>
 </body>
 </html>

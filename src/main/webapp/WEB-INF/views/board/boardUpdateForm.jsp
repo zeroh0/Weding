@@ -60,10 +60,11 @@ console.log('${board}');
     		</c:if>
     	</div>	
 		<article>
-			<form action="update" method="post">
+			<form action="update" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="b_num" value ="${board.b_num}">
 				<input type="hidden" name="main_cat" value ="${board.main_cat}">
 				<input type="hidden" name="mini_cat" value ="${board.mini_cat}">
+				<input type="hidden" name="p_num" value="${board.p_num}">
 				<table class = "table">
 					<tr>
 						<td style="border: none">

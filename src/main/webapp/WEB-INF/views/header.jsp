@@ -29,6 +29,23 @@
 		line-height: 15rem;
 		color: #fff;
 	}
+	
+	a {
+		color:#000;
+	}
+	
+	a:link {
+		text-decoration: none;
+	}
+	
+	a:visited {
+		color:#000;
+	}
+	
+	a:hover {
+		color:#000;
+		text-decoration: none;
+	}
 </style>
 <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">

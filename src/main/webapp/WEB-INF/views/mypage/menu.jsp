@@ -79,6 +79,8 @@ a:visited {
 			<ul>
 				<!-- 현재 접속한 회원의 이름 -->
 				<li><strong>${member.name}</strong>님</li>
+				<li><a href="<c:url value='dibsList'/>">찜목록</a></li>
+				<li><a href="<c:url value='payList'/>">펀딩내역</a></li>
 				<li><a href="<c:url value='memberUpdateForm'/>">회원수정</a></li>
 				<li><a href="<c:url value='pwChangeForm'/>">비밀번호변경</a></li>
 				<li><a

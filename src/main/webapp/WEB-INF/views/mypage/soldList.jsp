@@ -6,61 +6,35 @@
 <meta charset="UTF-8">
 <%@ include file="../header.jsp" %>
 <style type="text/css">
-	.menu1{width:300px; border:1px solid red; float:left;}
-	.content1{width:500px;}
-	.pg_btn{
-	    	text-align: center;
-	    	margin-bottom: 100px;
-	    }
-	/* table {
-			text-align: center;
-			table-layout: fixed;
-		}
-	th{
-		font-weight: bold;
-	}
-	.soldListTableProduct1{
-		width: 8%;
-	}
-	.soldListTableProduct2{
-		width: 10%;
-	}
-	.soldListTableProduct3{
-		width: 40%;
-	}
-	.soldListTableProduct4{
-		width: 15%;
-	}
-	.soldListTableProduct5{
-		width: 8%;
-	}
-	.soldListTableProduct6{
-		width: 8%;
-	}
-	.soldListTableProduct7{
-		width: 10%;
-	} */
-	.soldListTableTd{
-/* 	 width: 100%;
-	 display: inline-block; */
-	 text-overflow: ellipsis;
-	 overflow: hidden; 
-/* 	 height: 50px;
-	 text-align: left;
-	 font-size: 12px; */
-	}
-	
-	.soldListTableTd img {
-		width: 50px;
-		height: 50px;
-		object-fit: cover;
-	}
-	
-	.paging {
-		clear: both;
-		width: fit-content;
-		margin: 0 auto;
-	} 
+   .menu1{width:300px; border:1px solid red; float:left;}
+   .content1{width:500px;}
+   .pg_btn{
+          text-align: center;
+          margin-bottom: 100px;
+   }
+   
+   .soldListTableTd {
+      text-align: left;
+       font-size: 15px;
+       display: inline-block; 
+       width: 483px; 
+       height: auto;
+       white-space: nowrap; 
+       text-overflow: ellipsis;
+       overflow: hidden;
+   }
+   
+   .soldListTableTd img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+   }
+   
+   .paging {
+      clear: both;
+      width: fit-content;
+      margin: 0 auto;
+   } 
 </style>
 <title>Insert title here</title>
 </head>

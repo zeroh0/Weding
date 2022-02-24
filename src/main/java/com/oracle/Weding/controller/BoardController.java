@@ -134,89 +134,125 @@ public class BoardController {
 	 * @return
 	 */
 	@PostMapping(value = "update")
-	public String update(Board board, Model model, HttpServletRequest request) {
+	public String update(Board board, Model model, HttpServletRequest request,HttpSession session, MultipartFile file1) {
+		System.out.println("file1->"+file1);
+        String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+		System.out.println("uploadForm POST Start");
+		log.info("originalName: " + file1.getOriginalFilename());
+		log.info("size: " + file1.getSize());
+		log.info("contentType: " + file1.getContentType());
+		log.info("uploadPath: " + uploadPath);
+	    
+	    String b_image1 = null;
+		try {
+			b_image1 = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+		} catch (AccessDeniedException e) {
+			b_image1 = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	   
+	    System.out.println("업로드한 p_image11->"+b_image1);
+	    
+	  //DB에 상품 insert 
+	    board.setB_image(b_image1);
+	    
 		int uptCnt = bs.update(board);
 		System.out.println("bs.update(board) Count-->" + uptCnt);
 		model.addAttribute("uptCnt", uptCnt);
 		
-		return "redirect:boardList?main_cat="+board.getMain_cat() +
-				"&mini_cat="+board.getMini_cat()+"&currentPage=1";
-	}
-
-	
-	/**
-	 * 글작성
-	 * 작성자: 송지훈, 임채영
-	 * 
-	 * @param board
-	 * @param model
-	 * @return
-	 */
-	@GetMapping(value = "writeForm")
-	public String writeForm(Board board, Model model) {
-		System.out.println("writeForm Start....");
+					//	return "redirect:boardList?main_cat="+board.getMain_cat() +
+					//			"&mini_cat="+board.getMini_cat()+ "&currentPage=1";
+						
+		int result = bs.update(board);
+		System.out.println("BoardController update result->"+result);
 		
-		model.addAttribute("board", board);
-		
-		return "/board/boardWriteForm";
-	}
-
-	
-	/**
-	 * 글작성 등록
-	 * 작성자: 송지훈, 임채영
-	 * 
-	 * @param board
-	 * @param model
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(Board board, Model model, HttpSession session,HttpServletRequest request
-						,MultipartFile file1) {
-		System.out.println("BoardController Start write...");
-		System.out.println("BoardController Start board.getP_num()->"+board.getP_num());
-		System.out.println("BoardController Start board.getB_title()->"+board.getB_title());
+		String boardListUrl = "redirect:boardList?main_cat="+board.getMain_cat() + "&mini_cat="+board.getMini_cat() +"&currentPage=1";
 				
-		Member m1 = (Member) session.getAttribute("member"); //로그인 후 글쓴이 넣기.
-        board.setId(m1.getId());
-        int result = bs.insert(board);
-        
-        	System.out.println("file1->"+file1);
-            String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
-    		System.out.println("uploadForm POST Start");
-    		log.info("originalName: " + file1.getOriginalFilename());
-    		log.info("size: " + file1.getSize());
-    		log.info("contentType: " + file1.getContentType());
-    		log.info("uploadPath: " + uploadPath);
-    	    
-    	    String b_image1 = null;
-			try {
-				b_image1 = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
-			} catch (AccessDeniedException e) {
-				b_image1 = null;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	   
-    	    System.out.println("업로드한 p_image11->"+b_image1);
-    	    
-    	  //DB에 상품 insert 
-    	    board.setB_image(b_image1);
-      
+			if(board.getP_num().isEmpty()) {//
+				return boardListUrl; 
+			} else {
+				return boardListUrl + "&p_num="+board.getP_num();
+		}
+		
+	}
 
-    		String boardListUrl = "redirect:boardList?main_cat="+board.getMain_cat() +
- 				   "&mini_cat="+board.getMini_cat()+ "&currentPage=1";
-    		if (result > 0)
-	 			if(board.getP_num().isEmpty()) {//
-	 				return boardListUrl; 
-	 			} else {
-	 				return boardListUrl + "&p_num="+board.getP_num();
-	 			} else {
-	 			model.addAttribute("msg", "입력 실패 확인해 보세요");
-	 			return "forward:/board/boardWriteForm";
-	 		}
- 	}
+	
+	/**
+	    * 글작성
+	    * 작성자: 송지훈, 임채영
+	    * 
+	    * @param board
+	    * @param model
+	    * @return
+	    */
+	   @GetMapping(value = "writeForm")
+	   public String writeForm(Board board, Model model) {
+	      System.out.println("writeForm Start....");
+	      
+	      model.addAttribute("board", board);
+	      
+	      return "/board/boardWriteForm";
+	   }
+	   
+	   
+	 /**
+	    * 글작성 등록
+	    * 작성자: 송지훈, 임채영
+	    * 
+	    * @param board
+	    * @param model
+	    * @param session
+	    * @return
+	    */
+	   @RequestMapping(value = "write", method = RequestMethod.POST)
+	   public String write(Board board, Model model, HttpSession session,HttpServletRequest request
+	                  ,MultipartFile file1) {
+	      System.out.println("BoardController Start write...");
+	      System.out.println("BoardController Start board.getP_num()->"+board.getP_num());
+	      System.out.println("BoardController Start board.getB_title()->"+board.getB_title());
+	            
+	      Member m1 = (Member) session.getAttribute("member"); //로그인 후 글쓴이 넣기.
+	        board.setId(m1.getId());
+	        
+	           System.out.println("file1->"+file1);
+	            String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+	          System.out.println("uploadForm POST Start");
+	          log.info("originalName: " + file1.getOriginalFilename());
+	          log.info("size: " + file1.getSize());
+	          log.info("contentType: " + file1.getContentType());
+	          log.info("uploadPath: " + uploadPath);
+	           
+	           String b_image1 = null;
+	         try {
+	            b_image1 = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+	         } catch (AccessDeniedException e) {
+	            b_image1 = null;
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	          
+	           System.out.println("업로드한 p_image11->"+b_image1);
+	           
+	         //DB에 상품 insert 
+	           board.setB_image(b_image1);
+	      
+	           log.info("board.getB_category(): " + board.getB_category());
+	           int result = bs.insert(board);
+	          String boardListUrl = "redirect:boardList?main_cat="+board.getMain_cat() +
+	                "&mini_cat="+board.getMini_cat()+ "&currentPage=1"; //
+	          if (result > 0) {
+	             if(board.getP_num().isEmpty()) {//
+	                return boardListUrl; 
+	             } else {
+	                return boardListUrl + "&p_num="+board.getP_num();
+	             } 
+	          } else {
+	             model.addAttribute("msg", "입력 실패 확인해 보세요");
+	             return "forward:/board/boardWriteForm";
+	          }
+       }
+	
 	
 	// 파일 업로드
 	private String uploadFile(String originalName, byte[] fileData , String uploadPath) 
@@ -253,10 +289,15 @@ public class BoardController {
 	public String delete(Board board, int b_num, Model model) {
 		System.out.println("BoardController delete Start ");
 		int result = bs.delete(b_num);
+		System.out.println("BoardController delete result->"+result);
 		
-		return "redirect:boardList?main_cat="+board.getMain_cat() +
-				"&mini_cat="+board.getMini_cat()+"&currentPage=1"; // forward 지우고 redirect.		
-
+		String boardListUrl = "redirect:boardList?main_cat="+board.getMain_cat()
+							 + "&mini_cat="+board.getMini_cat() +"&currentPage=1";
+		if(board.getP_num().isEmpty()) {//
+			return boardListUrl; 
+		} else {
+			return boardListUrl + "&p_num="+board.getP_num();
+		}
 	}
 	
 	

@@ -232,7 +232,7 @@
 
 				<div class="row">
 					<div class="col-3">이메일</div>
-					<div class="col-6">
+					<div class="col-5">
 						<input type="text" class="form-control" style="width:45%;display:inline" name="email1" id="email1"
 							placeholder="이메일 입력">&nbsp;&nbsp;@&nbsp;&nbsp;<select name="email2" class="form-select" style="width:45%;display:inline; height: 34px;" id="email2"
 							required>

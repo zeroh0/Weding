@@ -9,20 +9,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <style>
-	.sub_banner{
-		margin-left: calc(-50vw + 50%);
-		width:100vw;
-		height:100px;
-		background-color: #ccc;
-		margin-bottom: 3.5rem;
-		
-	}
-	
-	.sub-title {
-	text-align: center;
-	line-height: 100px;
-	}
-	
 	.tdboardtitle{
 	width:80px;
 	}
@@ -56,11 +42,9 @@
 
 
 <body>
-	
-	
     <div class="container">
     	<!--글작성폼에 공지사항에서 쓰는지 문의사항에서 쓰는지 구분   -->
-    	<div class = "sub_banner">
+    	<div class = "sub-banner">
     		<c:if test="${board.mini_cat == 100}">
     			<h1 class="sub-title">공지사항</h1>
     		</c:if>
@@ -80,19 +64,21 @@
 		
          
             <table class="tableboardwriteform">
-            <tr>
-            	<td>
-            		글카테고리
-            	</td>
-            	<td>
-	            	<c:if test="${board.mini_cat == 200}">		
-						<select name="b_category">
-							<option value="상품문의">상품문의</option>
-							<option value="펀딩문의">펀딩문의</option>
-						</select>
-					</c:if>	
-            	</td>
-            </tr>
+            	<c:if test="${board.mini_cat == 200}">	
+		            <tr>
+		            	<td class="tdboardtitle" style="padding-bottom:1rem">
+		            		글카테고리
+		            	</td>
+		            	<td>
+			            		
+								<select name="b_category" class="form-select" style="width:16rem;height:34px;margin-bottom:1rem">
+									<option value="상품문의">상품문의</option>
+									<option value="펀딩문의">펀딩문의</option>
+								</select>
+							
+		            	</td>
+		            </tr>
+	            </c:if>	
                 <tr><td class="tdboardtitle">제목</td><td><a><input name="b_title" class="form-control" type="text" style="margin-bottom: 10px; width: 500px;"></a></td></tr>
                 <tr><td class="tdboardtitle">내용</td><td><a><textarea class="form-control" name="b_content" rows="10" cols="20"  style="margin-bottom: 10px;"></textarea></a></td></tr>
                 <tr><td class="tdboardtitle">이미지</td><td><a><input type="file" class="btn btn-secondary" name="file1"></a></td></tr>

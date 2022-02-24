@@ -47,7 +47,7 @@
 								<tr>
 									<td>${pay.o_num }</td>
 									<td>${pay.o_payday }</td>
-									<td style="text-align:left;text-overflow:ellipsis;overflow:hidden">${pay.p_name }</td>
+									<td style="text-align:left;text-overflow:ellipsis;overflow:hidden"><a href="fundingDetail?p_num=${pay.p_num }&p_condition=${pay.p_condition}">${pay.p_name }</a></td>
 									<td><fmt:formatNumber value="${pay.o_sum }"/>원</td>
 									<td><c:if test="${pay.p_condition == 2}">
 	                        		펀딩중

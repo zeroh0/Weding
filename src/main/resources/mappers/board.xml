@@ -36,7 +36,7 @@
 	
 	
 	<update id="BoardUpdate" parameterType="Board">
-	 update board set b_title=#{b_title}, b_content=#{b_content}
+	 update board set b_title=#{b_title}, b_content=#{b_content} <if test="b_image != null"> , b_image = #{b_image}</if>
 			where b_num=#{b_num}
 	</update>
 	
@@ -153,12 +153,12 @@
 		insert into Board(b_num, main_cat, mini_cat, id,
 						  b_title, b_content, b_date,
 						  b_hit, b_group,
-						  b_step, b_level)
+						  b_step, b_level, p_num)
 			 values (board_seq.nextval, #{main_cat},
 			  		 #{mini_cat}, #{id}, #{b_title},
 			  		 #{b_content}, sysdate,
 			 		 0,  #{b_group},
-			 		 #{b_step}+1, #{b_level}+1 )
+			 		 #{b_step}+1, #{b_level}+1, #{p_num})
 	</insert>
 	
 	

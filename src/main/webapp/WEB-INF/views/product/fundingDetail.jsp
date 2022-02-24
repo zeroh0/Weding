@@ -100,17 +100,17 @@ function listReview() {
 			var html = ""; 
 			if(data.length > 0) { 
 				$(data).each(function(){ 
-					html += "<tr>"; 
+					html += "<tr style='text-align: center'>"; 
 					 
 					html += "<td>"; 
 					html += this.b_num; 
 					html += "</td>"; 
 					 
-					html += "<td>"; 
+					html += "<td style='text-align: left'>"; 
 					html += this.b_content; 
 					html += "</td>"; 
 					 
-					html += "<td>"; 
+					html += "<td>";
 					html += this.b_date; 
 					html += "</td>"; 
 					 
@@ -120,6 +120,14 @@ function listReview() {
 					 
 					html += "</tr>"; 
 				}); 
+			} else {
+				html += "<tr>"; 
+				
+				html += "<td colspan='4' style='text-align:center'>"; 
+				html += "등록된 리뷰가 없습니다."; 
+				html += "</td>"; 
+				
+				html += "</tr>"; 
 			} 
 			 
 			$("#commentList").html(html); 
@@ -129,28 +137,40 @@ function listReview() {
 } 
  
 $(function(){ 
+	
     listReview(); 
+    
     $('#writeReview').click(function() { 
-   		var reviewContent = $('#b_content').val(); 
+    	
     	var id = $('#id').val(); 
-    	var p_num = $('#p_num').val();
- 
-        $.ajax({ 
-            url: "<%=request.getContextPath()%>/reviewBoardWrite", 
-            type: 'POST', 
-            data: {b_content : reviewContent, 
-            	   p_num: p_num, 
-            	   id: id}, 
-            dataType: 'text', 
-            success: function(data) { 
-            	if(data == '1') { 
-            		$('#b_content').val(""); 
-                    listReview(); 
-            	} 
-            }, error: function(error) { 
-                alert("error"+error); 
-            } 
-        }); 
+    	
+    	if(id.length != 0) {
+    	
+	   		var reviewContent = $('#b_content').val(); 
+	    	var p_num = $('#p_num').val();
+	 
+	        $.ajax({ 
+	            url: "<%=request.getContextPath()%>/reviewBoardWrite", 
+	            type: 'POST', 
+	            data: {b_content : reviewContent, 
+	            	   p_num: p_num, 
+	            	   id: id}, 
+	            dataType: 'text', 
+	            success: function(data) { 
+	            	if(data == '1') { 
+	            		$('#b_content').val(""); 
+	                    listReview(); 
+	            	} 
+	            }, error: function(error) { 
+	                alert("error"+error); 
+	            } 
+	        }); 
+        
+	    } else {
+			alert('로그인을 해주세요.');
+			location.href='login';
+		}
+	    
     }); 
 }); 
 </script>
@@ -294,7 +314,7 @@ function orderFormChk() {
 	                     다음에 만나요!
 	                     </c:when>
 	                     <c:otherwise>
-	                     ${product.p_name} 프로젝트는 아쉽게도 목표금액을 달성하지 못한채 ${product.p_end}에 종료되었습니다.
+	                     이 프로젝트는 아쉽게도 목표금액을 달성하지 못한채 ${product.p_end}에 종료되었습니다.
 	                     </c:otherwise>
 	                  </c:choose>
 					</div>
@@ -319,13 +339,15 @@ function orderFormChk() {
 			</div>
 		</div>
 
-		<h1>[${product.p_name}] 상품의 Review</h1>
-		<hr>	
-		<div class="row" style="margin-top: 50px;">
+		
+		
 			<c:if test="${product.p_condition == 3 && attainment >= 100}">
+			<div class="row" style="margin-top: 50px;">
+			<h1>[${product.p_name}] 상품의 Review</h1>
+			<hr style="width:100%;">
 				<form>
-					<table style="width: 100%;">
-						<tr>
+					<table class="table">
+						<tr class="table-dark" style="text-align: center">
 							<th>번호</th>
 							<th style="width:1000px;">내용</th>
 							<th>작성일</th>
@@ -334,20 +356,25 @@ function orderFormChk() {
 						<tbody id="commentList">
 						</tbody>
 				        
-						<tr>
+						<tr style="text-align: center">
 							<td colspan="4" style=" border-top:30px solid #fff;">
 								<input type="hidden" name="id" id="id" value="${member.id }"> 
 								<input type="hidden" id="p_num" value="${product.p_num}">
 								<div class="row" style="text-align:center;">
-									<textarea rows="5" cols="150" name="b_content" id="b_content" style="width: 80%;"></textarea>
-									<input type="button" value="리뷰작성" id="writeReview" style="height: 120px; width: 120px; margin-left: 10px;">
+									<div class="col-11">
+										<textarea rows="5" cols="150" name="b_content" style="width:100%;height:50%" id="b_content"></textarea>
+									</div>
+									<div class="col-1">
+										<input type="button" value="리뷰작성" id="writeReview" class="btn" style="border: 1px solid #2F3A8F; color: #2F3A8F; width:100%;height:50%;">
+									</div>
 								</div>
 							</td>
 						</tr>
 					</table>
 				</form>
+				</div>
 			</c:if>
-		</div>
+		
 
 		<!-- Related items section-->
 		<section class="py-5 bg-light" style="margin-top: 100px;">
