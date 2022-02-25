@@ -8,6 +8,9 @@
 		select count(*) from board
 		where main_cat = #{main_cat}
 		and mini_cat = #{mini_cat}
+		<if test="p_num != null">
+        	and p_num=#{p_num}
+        </if>
 	</select>
 	
 	

@@ -79,8 +79,9 @@
 		            	</td>
 		            </tr>
 	            </c:if>	
-                <tr><td class="tdboardtitle">제목</td><td><a><input name="b_title" class="form-control" type="text" style="margin-bottom: 10px; width: 500px;"></a></td></tr>
-                <tr><td class="tdboardtitle">내용</td><td><a><textarea class="form-control" name="b_content" rows="10" cols="20"  style="margin-bottom: 10px;"></textarea></a></td></tr>
+                <tr><td class="tdboardtitle">제목</td><td><a><input name="b_title" class="form-control" type="text" required style="margin-bottom: 10px; width: 500px;"></a></td></tr>
+                <tr><td class="tdboardtitle">내용</td><td><a><textarea class="form-control" name="b_content" rows="10" cols="20" required style="margin-bottom: 10px; resize: none;"></textarea></a></td></tr>
+                
                 <tr><td class="tdboardtitle">이미지</td><td><a><input type="file" class="btn btn-secondary" name="file1"></a></td></tr>
 				<tr><th><td>
 				<div style="float: right">

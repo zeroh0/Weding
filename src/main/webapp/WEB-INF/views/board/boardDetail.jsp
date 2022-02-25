@@ -45,9 +45,10 @@ article {
 	margin: 0 auto;
 }
 
-article textarea {
+article .textarea {
 	width: 700px;
-	padding: 1rem 1rem;
+	text-align: left;
+/* 	padding: 1rem 1rem; */
 }
 
 .board-title {
@@ -134,7 +135,8 @@ article textarea {
 			</c:otherwise>
 		</c:choose>
 		
-		<textarea rows="7" readonly>${board.b_content}</textarea>
+		<div class="textarea"><pre>${board.b_content}</pre></div>
+
 <%--
 		이 글(detail)이 가지고 있는 p_num  :  ${board.p_num}
 		product.p_num : ${product.p_num}
@@ -150,11 +152,9 @@ article textarea {
 		<button class="btn btn-outline-danger" onclick="history.back()">목록</button>
 		<c:choose>
 			<c:when test="${member != null}">
-			
+			<c:choose>
 
-					<c:choose>
 						<c:when test="${board.mini_cat == 100 && member.id == 'admin'}">
-							
 								<button class="btn btn-outline-primary"
 									onclick="location.href = 'updateForm?b_num=${board.b_num}'">수정</button>
 								<form action="delete" method="post"
@@ -162,42 +162,75 @@ article textarea {
 									<input type="hidden" name="b_num" value="${board.b_num}">
 									<input type="hidden" name="main_cat" value="${board.main_cat}">
 									<input type="hidden" name="mini_cat" value="${board.mini_cat}">
+									<input type="hidden" name="p_num"    value="${board.p_num }">
 									<input class="btn btn-outline-danger" type="submit" value="삭제">
 								</form>
-
-							
 						</c:when>
 						
-						<c:when test="${board.id == member.id}"> 
+						<c:when test="${board.mini_cat == 200 && member.id == 'admin'}">
+								
+								<form action="delete" method="post"
+									onsubmit="return confirm('삭제하시겠습니까?')">
+									<input type="hidden" name="b_num" value="${board.b_num}">
+									<input type="hidden" name="main_cat" value="${board.main_cat}">
+									<input type="hidden" name="mini_cat" value="${board.mini_cat}">
+									<input type="hidden" name="p_num"    value="${board.p_num }">
+									<input class="btn btn-outline-danger" type="submit" value="삭제">
+								</form>
+								
+									<button type="button" class="btn btn-outline-success"
+											onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
+
+									<c:choose>
+										<c:when test = "${board.id == member.id}">
+										<button class="btn btn-outline-primary"
+											onclick="location.href = 'updateForm?b_num=${board.b_num}'">수정</button>
+										</c:when>
+									</c:choose>
+						</c:when>
+						
+						
+						<c:when test="${board.mini_cat == 300 && member.id == 'admin'}">
+								
+								<form action="delete" method="post"
+									onsubmit="return confirm('삭제하시겠습니까?')">
+									<input type="hidden" name="b_num" value="${board.b_num}">
+									<input type="hidden" name="main_cat" value="${board.main_cat}">
+									<input type="hidden" name="mini_cat" value="${board.mini_cat}">
+									<input type="hidden" name="p_num"    value="${board.p_num }">
+									<input class="btn btn-outline-danger" type="submit" value="삭제">
+								</form>
+						</c:when>
+						
+						
+						
+						
+						<c:when test="${board.id == member.id }"> 
 								<button class="btn btn-outline-primary"
 									onclick="location.href = 'updateForm?b_num=${board.b_num}'">수정</button>
-							
 								<form action="delete" method="post"
 									onsubmit="return confirm('삭제하시겠습니까?')">
 									<input type="hidden" name="b_num" value="${board.b_num}">
 									<input type="hidden" name="main_cat" value="${board.main_cat}">
 									<input type="hidden" name="mini_cat" value="${board.mini_cat}">
+									<input type="hidden" name="p_num"    value="${board.p_num}">
 									<input class="btn btn-outline-danger" type="submit" value="삭제">
 								</form>
-
-						</c:when>
-						
-						<c:when test="${member.id == 'admin'}">
-								<form action="delete" method="post"
-									onsubmit="return confirm('삭제하시겠습니까?')">
-									<input type="hidden" name="b_num" value="${board.b_num}">
-									<input type="hidden" name="main_cat" value="${board.main_cat}">
-									<input type="hidden" name="mini_cat" value="${board.mini_cat}">
-									<input class="btn btn-outline-danger" type="submit" value="삭제">
-								</form>
-								<button type="button" class="btn btn-outline-success"
-									onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
-						</c:when>
+								
+									<c:choose>
+											 <c:when test = "${idResult == 1}">
+						  						<button type="button" class="btn btn-outline-success"
+												onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
+											 </c:when>
+									</c:choose>
+						 </c:when>
 						
 						 <c:when test = "${idResult == 1}">
-						  <button type="button" class="btn btn-outline-success"
-									onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
-						</c:when>
+						  						<button type="button" class="btn btn-outline-success"
+												onclick="location.href = 'replyForm?b_num=${board.b_num}'">답변</button>
+						 </c:when>
+						
+						
 					</c:choose>
 
 			</c:when>

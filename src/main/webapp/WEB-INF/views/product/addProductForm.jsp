@@ -91,7 +91,7 @@
                 </td>
              </tr>
             <tr>
-                <td id="menuName" style="border:none;">상품판매업체</td>
+                <td id="menuName" style="border:none;">업체명</td>
                 <td style="border:none;">
                   <input type="text" class="form-control" style="width:30%" name="p_store" autofocus required>
                 </td>

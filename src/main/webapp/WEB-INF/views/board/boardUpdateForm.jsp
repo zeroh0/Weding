@@ -71,15 +71,15 @@ console.log('${board}');
 							제목
 						</td>
 						<td style="border: none">
-							<input type="text" class="form-control" name="b_title" value="${board.b_title}">
+							<input type="text" class="form-control" name="b_title" required value="${board.b_title}">
 						</td>
 					</tr>
 					<tr>
 						<td style="border: none">
 							내용
 						</td>
-						<td style="border: none">
-							<textarea class="form-control" rows="5" name="b_content" cols="80">${board.b_content}</textarea>
+						<td style="border: none ">
+							<textarea class="form-control" rows="10" name="b_content" cols="80" required style= "resize: none;">${board.b_content}</textarea>
 						</td>
 					</tr>
 					<tr>
@@ -93,7 +93,9 @@ console.log('${board}');
 					</tr>
 				</table>
 				<div class= "updateBtn">
+				<%--
 				<button type="button" class="btn btn-outline-secondary" onclick="boardList">목록</button>
+				 --%>
 				<button class="btn btn-outline-danger" onclick="history.back()">취소</button>
 				<input type="submit" value="수정" class="btn btn-outline-success" >
 				</div>

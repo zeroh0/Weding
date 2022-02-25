@@ -96,11 +96,11 @@
 			</tr>
 			<tr>
 				<td> 제목 </td>
-				<td> <input type="text" class="form-control" name="b_title" value="RE: ${board.b_title}"></td>
+				<td> <input type="text" class="form-control" name="b_title" required value="RE: ${board.b_title}"></td>
 			</tr>
 			<tr>
 				<td> 내용 </td>
-				<td> <textarea class="form-control" rows="10" cols="20"  style="margin-bottom: 10px;"  name="b_content">${board.b_content}</textarea></td>
+				<td> <textarea class="form-control" rows="10" cols="20" style="margin-bottom: 10px; resize: none"  name="b_content" required>${board.b_content}</textarea></td>
 			</tr>
 			
 				
