@@ -269,7 +269,7 @@ public class BoardDaoImpl implements BoardDao {
 		List<Board> reviewBoardList = null;
 		try {
 			reviewBoardList = session.selectList("reviewBoardList", board);
-			log.info(reviewBoardList == null? "qnaBoardList is null":"qnaBoardList is not null");
+			log.info(reviewBoardList == null? "reviewBoardList is null":"reviewBoardList is not null");
 		} catch (Exception e) {
 			log.info("reviewBoardList(): " + e.getMessage());
 		}

@@ -458,15 +458,15 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "reviewBoardList")
 	@ResponseBody
-	public List<Board> reviewBoardList(Model model, Board board, String currentPage) {
+	public List<Board> reviewBoardList(Board board) {
 		log.info("reviewBoardList()");
-		int total = bs.reviewBoardListTotal(board);
-		Paging pg = new Paging(total, currentPage);
-		board.setStart(pg.getStart());
-		board.setEnd(pg.getEnd());
+//		int total = bs.reviewBoardListTotal(board);
+//		Paging pg = new Paging(total, currentPage);
+//		board.setStart(pg.getStart());
+//		board.setEnd(pg.getEnd());
 		List<Board> reviewBoardList = bs.reviewBoardList(board);
-		model.addAttribute("pg", pg);
-		model.addAttribute("total", total);
+//		model.addAttribute("pg", pg);
+//		model.addAttribute("total", total);
 		
 		return reviewBoardList;
 	}

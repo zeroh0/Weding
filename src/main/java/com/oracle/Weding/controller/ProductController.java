@@ -597,7 +597,7 @@ public class ProductController {
 			attainment = ps.attainment(p_num);
 			productList = ps.recommendProduct(p_condition);
 			
-		}else {
+		} else {
 		//세션 객체 안에 있는 ID정보 저장
 		Member m1 = (Member) session.getAttribute("member");
 		Member member= new Member();
@@ -648,14 +648,15 @@ public class ProductController {
 	 * @return
 	 */
 	@GetMapping(value="getSearchProduct")
-	private String getSearchProduct(@RequestParam("keyword") String keyword, Model model){
+	private String getSearchProduct(Product product, Model model){
 		System.out.println("ProductController getSearchProduct Start...");
-		System.out.println("ProductController getSearchProduct keyword->"+keyword);
+		System.out.println("ProductController getSearchProduct keyword->"+product.getKeyword());
 		//펀딩 중 상품목록에서 카테고리 이름 정렬 가져오기
 		List<Cat> catList = ps.arrayCategory();
 		model.addAttribute("catList", catList);		
-		Product product = new Product();
-		product.setKeyword(keyword);
+		
+		//펀딩중/종료 구분하기 
+		System.out.println(product.getP_condition());
 		List<Product> productList = ps.getSearchList(product);
 		model.addAttribute("productList", productList);
 		return "product/fundingList";

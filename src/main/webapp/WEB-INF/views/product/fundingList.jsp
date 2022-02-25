@@ -20,12 +20,19 @@
     .pagination {
         justify-content: center;
     }
+    
+    .progress-bar-info {
+    	background-image: linear-gradient(to bottom,#2F3A8F 0,#2F3A8F 100%) !important;
+    }
+    
+    .col-md-3 {
+    	color: #2F3A8F !important;
+    }
 </style>
 
 <title>fundingList</title>
 </head>
 <body>
-
 <div class="container">
     <table style="height: 150px; border-spacing: 30px; border-collapse: separate;">
         <tr>
@@ -50,24 +57,25 @@
 		<div class="col-8"></div>
         <div class="col-2">
             <form class="d-flex" action="getSearchProduct" method="get">
+            	<input type="hidden" name="p_condition" value="2">
                 <input class="form-control me-2" type="text" name="keyword" placeholder="검색" aria-label="Search" value="">
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </div>
         <div class="col-1">
-		    <div class="dropdown">
-		        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
-		            data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 15px;">&nbsp;&nbsp;정렬&nbsp;&nbsp;</button>
-		        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-		            <li><a class="dropdown-item" href="sortProduct?sort=newSort">최신순</a></li>
-		            <li><a class="dropdown-item" href="sortProduct?sort=popularSort">인기순</a></li>
-		            <li><a class="dropdown-item" href="sortProduct?sort=goalSort">달성순</a></li>
-		        </ul>
-		    </div>
-		</div>
-		<div class="col-1">
-		        <button class="btn btn-light" type="button" onclick="location.href='fundingEndList'" style="font-size: 15px;">펀딩종료</button>
-		</div>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 15px;">&nbsp;&nbsp;정렬&nbsp;&nbsp;</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                 	<li><a class="dropdown-item" href="sortProduct?sort=newSort">최신순</a></li>
+                    <li><a class="dropdown-item" href="sortProduct?sort=popularSort">인기순</a></li>
+                    <li><a class="dropdown-item" href="sortProduct?sort=goalSort">달성순</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-1">
+                <button class="btn btn-light" type="button" onclick="location.href='fundingEndList'" style="font-size: 15px;">펀딩종료</button>
+        </div>
     </div>
     
     <hr>
@@ -82,18 +90,18 @@
                     <h2 class="card-title">${product.p_name}</h2>
                     <p class="card-text">${product.mini_content} | ${product.p_store }</p>
                     <div class="progress">
-                        <div class="progress-bar" style="width: ${product.attainment}%" role="progressbar" aria-valuenow="${product.attainment}"
+                        <div class="progress-bar progress-bar-info" style="width: ${product.attainment}%" role="progressbar" aria-valuenow="${product.attainment}"
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-3">
+                    <div class="row" style="font-size: 10px;">
+                        <div class="col-md-3"  style="font-weight: bold; color: #00B2B2">
                             ${product.attainment}%
                         </div>
-                        <div class="col">
-                            ${product.p_price }
+                        <div class="col-md-5" style="font-size: 12px;">
+                            <fmt:formatNumber value="${product.p_goalprice}"/>원
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4" style="font-size: 12px;">
                             ${product.leftdate}
                         </div>
                     </div>

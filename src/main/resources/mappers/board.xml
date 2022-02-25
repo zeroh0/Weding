@@ -187,14 +187,10 @@
 	
 	<select id="reviewBoardList" resultType="Board" parameterType="Board">
 		select *
-		from (select ROWNUM rn, a.*
-		      from (select *
-		            from BOARD
-		            where MINI_CAT = '400'
-		            and P_NUM = #{p_num}
-		            order by B_NUM desc) a
-		      )
-		where rn between #{start} and #{end}
+		from BOARD
+		where MINI_CAT = '400'
+		  and P_NUM = #{p_num}
+		order by B_NUM desc
 	</select>
 	
 	

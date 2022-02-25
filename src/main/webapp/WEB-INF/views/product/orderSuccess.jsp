@@ -30,32 +30,39 @@
         height: 60px;
         font-size: 18px;
       }
+      
+      .span{
+      	margin-top: 20px;
+      }
     </style>
   </head>
   <body>
-    <div class="container">
+  <hr>
+    <div class="container" style="margin-top: 100px;">
       <!-- 결제 정보-->
       <div class="order-info">
         <c:choose>
           <c:when test="${orders.success == 1}">
-            <div class="alert alert-success" role="alert">
-              <h5>결제가 완료 되었습니다</h5>
+            <div class="alert" role="alert" style="background-color: #F6F6F6">
+              <h1 style="color: #2F3A8F;">결제가 완료 되었습니다.</h1>
+              <hr>
               <span>주문번호: ${orders.o_num }</span>
               <span>주문자: ${orders.id }</span>
               <span>주문 상품: ${orders.p_name }</span>
               <span>결제 금액: <fmt:formatNumber value="${orders.o_sum }" />원</span>
             </div>
-            <button type="button" class="btn btn-primary" onclick="location.href='main'">메인페이지</button>
+            <button type="button" class="btn" onclick="location.href='main'" style="background-color:#2F3A8F;color:#fff; height: 50px; width: 30%; font-size: 14px; margin-top: 50px;">메인페이지로</button>
           </c:when>
           <c:otherwise>
-            <div class="alert alert-danger" role="alert">
-              <h5>결제를 실패했습니다</h5>
+            <div class="alert" role="alert" style="background-color: #F6F6F6">
+              <h1 style="color: red;">결제를 실패했습니다.</h1>
+              <hr>
               <span>주문번호: ${orders.o_num }</span>
               <span>주문자: ${orders.id }</span>
               <span>주문 상품: ${orders.p_num }</span>
               <span>결제 금액:<fmt:formatNumber value="${orders.o_sum }" />원</span>
             </div>
-            <button type="button" class="btn btn-primary" onclick="location.href='main'">메인페이지</button>
+            <button type="button" class="btn" onclick="location.href='main'" style="background-color:#2F3A8F;color:#fff; height: 50px; width: 30%; font-size: 14px; margin-top: 50px;">메인페이지로</button>
           </c:otherwise>
         </c:choose>
       </div>

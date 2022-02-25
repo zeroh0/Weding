@@ -27,6 +27,10 @@
 	word-break: break-all;
 	width: 80%;
 }
+
+ .progress-bar-info {
+    	background-image: linear-gradient(to bottom,#2F3A8F 0,#2F3A8F 100%) !important;
+    }
 </style>
 
 <script type="text/javascript">
@@ -90,7 +94,8 @@ function clip(){
 <script type="text/javascript"> 
 
 function listReview() { 
-	var p_num = $('#p_num').val(); 
+	var p_num = $('#review-p_num').val(); 
+	console.log(p_num);
 	$.ajax({ 
 		url: "<%=request.getContextPath()%>/reviewBoardList", 
 		type: 'POST', 
@@ -98,7 +103,9 @@ function listReview() {
 		dataType: 'JSON', 
 		success: function(data) { 
 			var html = ""; 
+			console.log(data.length); 
 			if(data.length > 0) { 
+				
 				$(data).each(function(){ 
 					html += "<tr style='text-align: center'>"; 
 					 
@@ -110,7 +117,7 @@ function listReview() {
 					html += this.b_content; 
 					html += "</td>"; 
 					 
-					html += "<td>";
+					html += "<td>"; 
 					html += this.b_date; 
 					html += "</td>"; 
 					 
@@ -120,14 +127,6 @@ function listReview() {
 					 
 					html += "</tr>"; 
 				}); 
-			} else {
-				html += "<tr>"; 
-				
-				html += "<td colspan='4' style='text-align:center'>"; 
-				html += "등록된 리뷰가 없습니다."; 
-				html += "</td>"; 
-				
-				html += "</tr>"; 
 			} 
 			 
 			$("#commentList").html(html); 
@@ -137,40 +136,37 @@ function listReview() {
 } 
  
 $(function(){ 
-	
     listReview(); 
-    
-    $('#writeReview').click(function() { 
-    	
+    $('#writeReview').click(function() {
     	var id = $('#id').val(); 
     	
-    	if(id.length != 0) {
+    	if (id.length != 0) {
     	
-	   		var reviewContent = $('#b_content').val(); 
-	    	var p_num = $('#p_num').val();
-	 
-	        $.ajax({ 
-	            url: "<%=request.getContextPath()%>/reviewBoardWrite", 
-	            type: 'POST', 
-	            data: {b_content : reviewContent, 
-	            	   p_num: p_num, 
-	            	   id: id}, 
-	            dataType: 'text', 
-	            success: function(data) { 
-	            	if(data == '1') { 
-	            		$('#b_content').val(""); 
-	                    listReview(); 
-	            	} 
-	            }, error: function(error) { 
-	                alert("error"+error); 
-	            } 
-	        }); 
+   		var reviewContent = $('#b_content').val(); 
+    	var p_num = $('#review-p_num').val();
+ 
+        $.ajax({ 
+            url: "<%=request.getContextPath()%>/reviewBoardWrite", 
+            type: 'POST', 
+            data: {b_content : reviewContent, 
+            	   p_num: p_num, 
+            	   id: id}, 
+            dataType: 'text', 
+            success: function(data) { 
+            	if(data == '1') { 
+            		$('#b_content').val(""); 
+                    listReview(); 
+            	} 
+            }, error: function(error) { 
+                alert("error"+error); 
+            } 
+        }); 
         
-	    } else {
-			alert('로그인을 해주세요.');
-			location.href='login';
-		}
-	    
+    	} else {
+    		alert('로그인을 해주세요.');
+    		location.href='login';
+    	}
+    	
     }); 
 }); 
 </script>
@@ -199,7 +195,6 @@ function orderFormChk() {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-
 	<div class="bg-header">
 	<div class="bg" style="filter:brightness(50%); background-image: url(${pageContext.request.contextPath}/upload/${product.p_image1})" ></div>
 	<div class="bg-text1"><p>${product.mini_content}</p></div>
@@ -216,14 +211,14 @@ function orderFormChk() {
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col">
-						<p class="b"><h2>${product.p_description}</h2></p>
+						<h2 class="b">${product.p_description}</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row" style="width: 80%; margin-top: 20px;">
-				<div class="col" style="background-color: rgb(230, 226, 208);">
-					<div>
-						<div class="col">목표금액 ${product.p_goalprice}원</div>
+				<div class="col" style="background-color: #F7F8F9;">
+					<div style="text-align=center; padding: 10px;">
+						<div class="col">목표금액 <fmt:formatNumber value="${product.p_goalprice}"/>원</div>
 						<!-- 펀딩기간 -->
 						<c:set var="start" value="${product.p_start}"/>
 						<c:set var="end" value="${product.p_end}"/>
@@ -244,25 +239,25 @@ function orderFormChk() {
 					<div><h1>${product.leftdate}</h1></div>
 		<!-- 달성률 계산하기 -->	
 					<div class="progress" style="padding: 0px; margin-left: 15px; margin-top: 10px; height: 30px;">
-						<div class="progress-bar" style="width:${attainment}%" role="progressbar" aria-valuenow="${attainment}"
+						<div class="progress-bar progress-bar-info" style="width:${attainment}%" role="progressbar" aria-valuenow="${attainment}"
                                       aria-valuemin="0" aria-valuemax="100">
                			 </div>
                		</div>
 					<div>${attainment}% 달성</div>
-					<div style="margin-top:10px;"><h3>${product.p_currentprice}원 펀딩</h3></div>
+					<div style="margin-top:10px;"><h3><fmt:formatNumber value="${product.p_currentprice}"/>원 펀딩</h3></div>
 					<div><p><b style="font-size:30px;">${product.countOrders}</b>명의 서포터</p></div>
 					<div align="right">
 						<input type="hidden" id="member" value="${member }">
 						<form action="orderForm" method="post" onsubmit="return orderFormChk()">
 							<input type="number" id="qty" name="o_qty" value="1" class="col-md-2">
-							<input type="hidden" name="p_num" value="${product.p_num }">
+							<input type="hidden" name="p_num" id="p_num" value="${product.p_num }">
 							<input type="hidden" name="p_price" value="${product.p_price }">
 
-							<h2 style="margin-top: 5px; height: 50px;">${product.p_price}원</h2>
+							<h2 style="margin: 5px 0px 40px  0px; height: 50px;"><fmt:formatNumber value="${product.p_price}"/>원</h2>
 							<c:choose>
 								<c:when test="${orderCheck eq 0 || orderCheck eq null }">
-									<input type="submit" class="btn btn-secondary col-md-12"
-										style="font-size: 15px; padding-top: 10px; padding-bottom: 10px;"
+									<input type="submit" class="btn col-md-12"
+										style="font-size: 15px; padding-top: 10px; padding-bottom: 10px; background-color: #2F3A8F; color: #fff;"
 										value="주문하기">
 								</c:when>
 								<c:otherwise>
@@ -297,26 +292,26 @@ function orderFormChk() {
 			<div><h1>${product.leftdate}</h1></div>
 		<!-- 달성률 계산하기 -->	
 			<div class="progress" style="padding: 0px; margin-left: 15px; margin-top: 10px; height: 30px;">
-				<div class="progress-bar" style="width:${attainment}%" role="progressbar" aria-valuenow="${attainment}"
+				<div class="progress-bar progress-bar-info" style="width:${attainment}%" role="progressbar" aria-valuenow="${attainment}"
                                       aria-valuemin="0" aria-valuemax="100">
                 </div>
                </div>
 			<div>${attainment}% 달성</div>
-			<div style="margin-top:10px;"><h3>${product.p_currentprice}원 펀딩</h3></div>
+			<div style="margin-top:10px;"><h3><fmt:formatNumber value="${product.p_currentprice}"/>원 펀딩</h3></div>
 			<div><p><b style="font-size:30px;">${product.countOrders}</b>명의 서포터</p></div>
 			<div class="row" style="margin-top: 40px;">
-				<div class="col" style="background-color: rgb(230, 226, 208); height: 100px;">
+				<div class="col" style="background-color: #F7F8F9; height: 100px;">
 					<div style="text-align=center; padding: 10px;">
 						[${product.p_name}] 상품은 펀딩이 종료된 상품입니다.<br>
 						<c:choose>
-	                     <c:when test="${attainment>=100}">
-	                     소중한 서포터들의 펀딩과 응원으로 <fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd"/>에 성공적으로 종료되었습니다.
-	                     다음에 만나요!
-	                     </c:when>
-	                     <c:otherwise>
-	                     이 프로젝트는 아쉽게도 목표금액을 달성하지 못한채 ${product.p_end}에 종료되었습니다.
-	                     </c:otherwise>
-	                  </c:choose>
+                        <c:when test="${attainment>=100}">
+                        소중한 서포터들의 펀딩과 응원으로 <fmt:formatDate value="${endDate}" pattern="yyyy.MM.dd"/>에 성공적으로 종료되었습니다.
+                        다음에 만나요!
+                        </c:when>
+                        <c:otherwise>
+                           이 프로젝트는 아쉽게도 목표금액을 달성하지 못한채 ${product.p_end}에 종료되었습니다.
+                        </c:otherwise>
+                     </c:choose>
 					</div>
 				</div>
 			</div>
@@ -339,27 +334,27 @@ function orderFormChk() {
 			</div>
 		</div>
 
-		
-		
-			<c:if test="${product.p_condition == 3 && attainment >= 100}">
-			<div class="row" style="margin-top: 50px;">
-			<h1>[${product.p_name}] 상품의 Review</h1>
-			<hr style="width:100%;">
+		<c:if test="${product.p_condition == 3 && attainment >= 100}">
+		<h1>[${product.p_name}] 상품의 Review</h1>
+		<hr>	
+		<div class="row" style="margin-top: 50px;">
+			
 				<form>
+					<input type="hidden" id="review-p_num" value="${product.p_num}">
 					<table class="table">
 						<tr class="table-dark" style="text-align: center">
 							<th>번호</th>
 							<th style="width:1000px;">내용</th>
 							<th>작성일</th>
 							<th>작성자</th>
+							
 						</tr>
 						<tbody id="commentList">
 						</tbody>
-				        
-						<tr style="text-align: center">
+				        <c:if test="${orderCheck > 0 }">
+						<tr>
 							<td colspan="4" style=" border-top:30px solid #fff;">
 								<input type="hidden" name="id" id="id" value="${member.id }"> 
-								<input type="hidden" id="p_num" value="${product.p_num}">
 								<div class="row" style="text-align:center;">
 									<div class="col-11">
 										<textarea rows="5" cols="150" name="b_content" style="width:100%;height:50%" id="b_content"></textarea>
@@ -370,6 +365,7 @@ function orderFormChk() {
 								</div>
 							</td>
 						</tr>
+						</c:if>
 					</table>
 				</form>
 				</div>
@@ -379,7 +375,7 @@ function orderFormChk() {
 		<!-- Related items section-->
 		<section class="py-5 bg-light" style="margin-top: 100px;">
 			<div class="container px-4 px-lg-5 mt-5">
-				<h2 class="fw-bolder mb-4">Related products</h2>
+				<h2 class="fw-bolder mb-4">이런 상품은 어떠세요?</h2>
 				<div
 					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 					<c:if test="${not empty	productList }">

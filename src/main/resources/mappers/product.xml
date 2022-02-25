@@ -417,7 +417,7 @@
 	<select id="productSearchList" parameterType="Product" resultType="Product">
 		<![CDATA[select p.*, c1.c_content main_content, c2.c_content mini_content,
 				(case when  round(to_date(p.p_end)-sysdate) < 0 then '판매종료'
-      		 	 when  round(to_date(p.p_end)-sysdate) = 0 then '1일 남음' 
+      		 	 when  round(to_date(p.p_end)-sysdate) = 0 then '오늘마감' 
  			 	 else  to_char(ceil(to_number(round(to_date(p_end)-sysdate,1))))||'일 남음' end) leftdate,
 				 round((p_currentprice /p_goalprice)*100,2) attainment 
 				from product p,
@@ -427,7 +427,7 @@
 				and	  p.main_cat = c2.main_cat
 				and   p.mini_cat = c2.mini_cat
 				and   lower(p_name) like '%' || lower(#{keyword}) || '%'
-				and   p_condition in (2,3)]]>
+				and   p_condition = #{p_condition}]]>
 	</select>
 	
 	

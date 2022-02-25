@@ -51,6 +51,8 @@
 
       .shipping-table {
         width: 80%;
+        border-collapse: separate;
+  		border-spacing: 0 10px;
       }
 
       .shipping-table tr {
@@ -77,6 +79,8 @@
 
       .pay-table {
         width: 100%;
+        border-collapse: separate;
+  		border-spacing: 0 10px;
       }
 
       .pay-table tr {
@@ -136,20 +140,23 @@
     </form>
 
     <div class="container">
+      <div class="sub-banner">
+		<h2 class="sub-title">주문서 작성</h2>
+	  </div>
       <!-- width: 960px;-->
       <div class="order-warp">
         <div class="order-info">
           <!-- 주문 상품 정보 -->
           <div class="order-product">
-            <h5>상품정보</h5>
-            <img src="${pageContext.request.contextPath}/upload/${orderProduct.p_image1}" />
-            <input type="hidden" name="p_name" id="p_name" value="${orderProduct.p_name}" />
-            <span>${orderProduct.p_name}</span>
+            <h3>상품정보</h3>
+            <img src="${pageContext.request.contextPath}/upload/${orderProduct.p_image1}" style="margin-top: 30px;"/>
+            <input type="hidden" name="p_name" id="p_name" value="${orderProduct.p_name}"/>
+            <span style="margin-top: 30px;"><h3>${orderProduct.p_name}</h3></span>
           </div>
-
           <!-- 주문 배송지 정보 -->
           <div class="shipping-info">
-            <h5>배송지 정보</h5>
+            <h3>배송지 정보</h3>
+		  	<hr style="width: 500px;">
             <table class="shipping-table">
               <tr>
                 <td><input type="radio" id="shipping" name="shipping" onclick="defaultShipping()" />&nbsp;기본배송지</td>
@@ -167,7 +174,7 @@
                 <td>배송지 주소</td>
                 <td>
                   <input type="text" class="form-control" name="o_zipcode" id="o_zipcode" placeholder="우편 번호" button="DaumPostcode()" readonly />
-                  <input type="button" class="btn btn-primary" button="DaumPostcode()" value="주소찾기" />
+                  <input type="button" class="btn" button="DaumPostcode()" value="주소찾기" style="border: 1px solid #2F3A8F; color: #2F3A8F; height: 34px; width: 8rem;"/>
                 </td>
               </tr>
               <tr>
@@ -195,7 +202,8 @@
 
         <!-- 결제 정보 -->
         <div class="pay-info">
-          <h5>결제 금액</h5>
+          <h3>결제 금액</h3>
+          <hr>
           <table class="pay-table">
             <tr>
               <td>상품 금액</td>
@@ -217,7 +225,7 @@
             <h5>결제 방법</h5>
             <input type="radio" name="" checked />&nbsp;카카오 페이
             <input type="hidden" name="p_num" id="p_num" value="${orders.p_num }" />
-            <button class="btn btn-primary" id="check_module" type="button">주문하기</button>
+            <button class="btn" id="check_module" type="button" style=" background-color:#2F3A8F;color:#fff; height: 34px; width: 100%; font-size: 14px;">주문하기</button>
           </div>
         </div>
       </div>
@@ -297,11 +305,11 @@
               });
 
               var msg = "결제가 완료되었습니다.";
-             /*  msg += "결제 금액 : " + rsp.paid_amount + "merchant_uid" + rsp.merchant_uid; */
+              msg += "결제 금액 : " + rsp.paid_amount + "merchant_uid" + rsp.merchant_uid;
               console.log(msg);
             } else {
               var msg = "결제에 실패하였습니다.";
-              /* msg += "에러내용 : " + rsp.error_msg; */
+              msg += "에러내용 : " + rsp.error_msg;
               console.log(msg);
             }
             alert(msg);
