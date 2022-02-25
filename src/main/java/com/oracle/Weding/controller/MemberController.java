@@ -1,9 +1,12 @@
 package com.oracle.Weding.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,9 +89,10 @@ public class MemberController {
 	 * @param member
 	 * @param session
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping(value="login") //로그인 
-	public String login(Member member, HttpSession session) { 
+	public String login(Member member, HttpServletResponse response, HttpSession session, Model model) throws IOException { 
 		System.out.println("MemberController Start Login.......");
 		Member result = ms.login(member);
 		
@@ -96,9 +100,13 @@ public class MemberController {
 			session.setAttribute("member", result);
 			return "redirect:main";
 		} else {
-			return "redirect:loginForm"; 
+			response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
+            out.flush();
 		}
 		
+		return "login";
 	}
 	
 	
