@@ -8,9 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <c:if test="${check==1}">성공적으로 전송되었습니다</c:if>
-    <c:if test="${check!=1}">메일전송이 실패되었습니다</c:if>
-    <c:if test="${check==null}">              </c:if><p>
-    <button><a href="main">메인으로</a></button>
+    <c:if test="${check==1}">
+    	<script>
+    		alert('성공적으로 전송되었습니다');
+    	</script>
+    	
+   	</c:if>
+    <c:if test="${check!=1}">
+   	 	<script>
+    		alert('메일전송이 실패되었습니다');
+    	</script>
+   	</c:if>
+ 	<script>
+   		location.href='main';
+   	</script>
 </body>
 </html>

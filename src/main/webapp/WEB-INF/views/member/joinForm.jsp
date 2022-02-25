@@ -32,7 +32,16 @@
 		var emailNum   = $('#emailNum').val();   
 		var emailCheck = $('#emailCheck').val();
 		
-		var idDuplCheck = $("#idDuplCheck").val()
+		var idDuplCheck = $("#idDuplCheck").val();
+		
+		var RegPhone = /^\d{11}$/;
+        var objPhone = document.getElementById("phone");
+
+   
+        if(!RegPhone.test(objPhone.value)){ //전화번호 유효성검사
+            alert("연락처를 확인해주세요.");   
+            return false;
+        }
 		
 		if (password.value != password_check.value) {
 			alert('비밀번호 불일치');
@@ -233,8 +242,8 @@
 				<div class="row">
 					<div class="col-3">이메일</div>
 					<div class="col-5">
-						<input type="text" class="form-control" style="width:45%;display:inline" name="email1" id="email1"
-							placeholder="이메일 입력">&nbsp;&nbsp;@&nbsp;&nbsp;<select name="email2" class="form-select" style="width:45%;display:inline; height: 34px;" id="email2"
+						<input type="text" class="form-control" style="width:40%;display:inline" name="email1" id="email1"
+							placeholder="이메일 입력">&nbsp;&nbsp;@&nbsp;&nbsp;<select name="email2" class="form-select" style="width:40%;display:inline; height: 34px;" id="email2"
 							required>
 							<option value="naver.com" value="naver.com">naver.com</option>
 							<option value="gmail.com" value="gmail.com">gmail.com</option>

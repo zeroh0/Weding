@@ -56,3 +56,13 @@ mybatis:
 #  org.hibernate.SQL: debug
   # org.hibernate.type: trace
   
+#resource:
+#  path: file:///C:/Users/bocci/Desktop/projects/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Weding/upload/
+
+resource:
+  path: file:///C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/Weding/upload/
+    
+    
+upload:
+  path: /upload/**
+  

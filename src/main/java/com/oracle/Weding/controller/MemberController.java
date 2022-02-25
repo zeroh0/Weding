@@ -162,7 +162,7 @@ public class MemberController {
 		String tomail = tomail1 + '@' + tomail2;
 		System.out.println("tomail " + tomail);
 		String setfrom = "wedingfunding@gmail.com";
-		String title = "mailConfirm 입니다";                 // 제목
+		String title = "[We_ding] 이메일 인증번호";                 // 제목
 		String tempPassword = "";
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
@@ -171,8 +171,9 @@ public class MemberController {
 			messageHelper.setTo(tomail);       // 받는사람 이메일
 			messageHelper.setSubject(title);   
 			tempPassword = (int) (Math.random() * 999999) + 1 + "";
-			messageHelper.setText("이메인 인증번호 : " + tempPassword);
-			System.out.println("이메인 인증번호 : " + tempPassword);
+			String content = "<h3>We_ding 이메인 인증번호입니다.<h3><hr><br> 이메인 인증번호 : " + tempPassword;
+			message.setText(content, "utf-8","html"); //메일 내용
+			System.out.println("이메일 인증번호 : " + tempPassword);
 			mailSender.send(message);
 			
 			model.addAttribute("check", 1);   // 정상 전달

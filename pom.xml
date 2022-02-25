@@ -103,11 +103,15 @@
 	</dependencies>
 
 	<build>
+		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<url>http://127.0.0.1:9000/manager/html</url>
+                	<server>settingid</server>
+                	<path>/Weding</path>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
