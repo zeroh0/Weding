@@ -162,7 +162,7 @@ public class MemberController {
 		String tomail = tomail1 + '@' + tomail2;
 		System.out.println("tomail " + tomail);
 		String setfrom = "wedingfunding@gmail.com";
-		String title = "[We_ding] 이메일 인증번호";                 // 제목
+		String title = "[We_ding] 회원가입 인증번호입니다.";                 // 제목
 		String tempPassword = "";
 		try {
 			MimeMessage message = mailSender.createMimeMessage();

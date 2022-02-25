@@ -56,7 +56,8 @@ public class MailController {
 			messageHelper.setFrom(setFrom);		//보내는 사람 생략하거나 하면 정상작동을 안함 
 			messageHelper.setTo(tomail);;		//받는사람 이메일 
 			messageHelper.setSubject(title);	//메일제목은 생략이 가능하다 
-			messageHelper.setText("내일은 "+emailList.get(0).getP_name()+"상품오픈일입니다.");		//메일 내용 
+			String content = "<h3>내일은 "+emailList.get(0).getP_name()+" 상품 오픈일입니다.</h3><hr><h3>더 많은 상품이 궁금하시다면?</h3><h1><a href='http://116.43.93.249:9000/Weding/main'>We-ding</a></h1>";
+			message.setText(content, "utf-8","html"); //메일 내용
 //			DataSource dataSource = new FileDataSource("/Users/zeroh0/Desktop/upload/fun.jpeg");			//첨부메일 
 //			messageHelper.addAttachment(MimeUtility.encodeText("airport.png", "UTF-8", "B"), dataSource);	//첨부문자 rename 
 			mailSender.send(message);

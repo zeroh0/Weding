@@ -16,12 +16,8 @@
    .soldListTableTd {
       text-align: left;
        font-size: 15px;
-       display: inline-block; 
        width: 483px; 
        height: auto;
-       white-space: nowrap; 
-       text-overflow: ellipsis;
-       overflow: hidden;
    }
    
    .soldListTableTd img {
