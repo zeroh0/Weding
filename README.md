@@ -18,8 +18,10 @@ Dependencies
 DB: oracle database  
 IDE: STS  
 
-#### 프로젝트 기획
-https://drive.google.com/file/d/1fV9tmMnjTplyLueE_galnomm1ixrHy3x/view?usp=sharing
+#### [프로젝트 기획](https://drive.google.com/file/d/1fV9tmMnjTplyLueE_galnomm1ixrHy3x/view?usp=sharing)
 
-#### 화면구성 기획
-https://xd.adobe.com/view/30234839-0fd6-4877-99a9-e086b71e1d48-6570/
+
+#### [화면구성 기획](https://xd.adobe.com/view/30234839-0fd6-4877-99a9-e086b71e1d48-6570/)
+
+
+#### [서버 구축](https://github.com/zeroh0/Weding/blob/master/server.md)
