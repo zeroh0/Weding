@@ -1,9 +1,9 @@
 스프링, 스프링부트을 통해서 만들어진 프로젝트는 보통 서버 구축을 AWS를 사용한다고 들었다.  
 하지만 시간이 부족하기에 과거에 포트포워딩 방식으로 JSP 프로젝트를 배포한적이 있어 **포트포워딩**을 활용해 프로젝트를 배포 계획  
 
-## 사전작업
+# 사전작업
 
-### 공유기 설정
+## 공유기 설정
 `콘솔 창에서 ipconfig를 입력`  
 
 ![ipconfig](https://user-images.githubusercontent.com/89443479/155833990-6f76f48a-3ba7-488f-8798-2d366d1afe73.png)  
@@ -21,7 +21,7 @@
 
 <br>
 
-### 스프링 프로젝트 설정 (maven, war)
+## 스프링 프로젝트 설정 (maven, war)
 
 ###### WedingApplication.java
 ``` java
@@ -80,6 +80,8 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
+<br>
+
 ###### application.yml
 ``` yml
 resource:
@@ -134,7 +136,9 @@ Profiles는 빈 칸으로 둔다.
 ![image](https://user-images.githubusercontent.com/89443479/155835227-bae08045-1048-48d2-a64d-87318872a796.png)  
 빌드가 완료된 war 파일이 있는 걸 확인할 수 있다.  
 
-### 톰캣 설정
+<br>
+
+## 톰캣 설정
 실제 톰캣이 있는 경로로 들어간 뒤 server.xml에서 포트 번호를 9000으로 변경해준다.  
 *C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\server.xml* 
 
@@ -146,7 +150,9 @@ bin 폴더에 들어가 Tomcat9.exe나 Tomcat9w.exe로 톰캣을 실행해주게
 ![image](https://user-images.githubusercontent.com/89443479/155835786-7e7bc31a-0a23-43d0-b406-32059119e5db.png)  
 프로젝트 폴더가 생성이 된다. 
 
-### 마지막
+<br>
+
+## 마지막
 
 네이버 ip 주소 확인을 검색해주면 공인 ip를 확인할 수 있는데  
 ![image](https://user-images.githubusercontent.com/89443479/155835910-78f80cbe-de00-4681-b684-69f550068089.png)  
