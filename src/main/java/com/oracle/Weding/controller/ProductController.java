@@ -1,6 +1,7 @@
 package com.oracle.Weding.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -375,10 +376,33 @@ public class ProductController {
  	 * @param product
  	 * @param model
  	 * @return
+ 	 * @throws Exception 
+ 	 * @throws IOException 
  	 */
-	@GetMapping(value ="allProductUpdate")
-	public String allProductUpdate(Product product, Model model) {
+	@PostMapping(value ="allProductUpdate")
+	public String allProductUpdate(Product product, Model model, HttpServletRequest request, MultipartFile file1, MultipartFile file2) throws IOException, Exception {
 		System.out.println("ProductController allProductUpdate Start...");
+		
+		//상품사진업로드
+		System.out.println("file1->"+file1);
+		System.out.println("file2->"+file2);
+		String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+		System.out.println("uploadForm POST Start");
+		log.info("originalName: " + file1.getOriginalFilename());
+		log.info("size: " + file1.getSize());
+		log.info("contentType: " + file1.getContentType());
+		log.info("uploadPath: " + uploadPath);
+	    
+	    String p_image11 = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+	    String p_image22 = uploadFile(file2.getOriginalFilename(), file2.getBytes(), uploadPath);
+		
+	    System.out.println("업로드한 p_image11->"+p_image11);
+	    System.out.println("업로드한 p_image22->"+p_image22);
+		
+	    //DB에 상품 insert 
+	    product.setP_image1(p_image11);
+	    product.setP_image2(p_image22);
+		
 		int allProductUpdate = ps.allProductUpdate(product);
 		System.out.println("ProductController allProductUpdate count -> " + allProductUpdate);
 		model.addAttribute("allProductUpdate", allProductUpdate);

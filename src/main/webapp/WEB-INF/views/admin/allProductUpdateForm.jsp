@@ -40,7 +40,7 @@
 	<div class="row">
 		<%@include file="../mypage/menu.jsp"%>
 		<div class="col-10">
-		<form action="allProductUpdate" method="get" class="row-form-body col-md-10">
+		<form action="allProductUpdate" method="post" enctype="multipart/form-data" class="row-form-body col-md-10">
 			<table class="table">
 				<tr><td id="menu-name" style="border:none;">상품번호</td> <td style="border:none;"><input type="text" style="width:30%;" class="form-control" id="p_num" name="p_num" value="${allProductUpdateForm.p_num}" readonly="readonly"></td></tr>
 				<tr><td id="menu-name" style="border:none;">카테고리</td> <td style="border:none;"><select name="mini_cat" style="width:30%;height: 34px;" class="form-select" id="category-select">
@@ -57,8 +57,8 @@
 					</select></td></tr>
 				<tr><td id="menu-name" style="border:none;">상품판매업체</td> <td style="border:none;"><input type="text" class="form-control" style="width:30%" name="p_store" value="${allProductUpdateForm.p_store}"></td></tr>
 				<tr><td id="menu-name" style="border:none;">상품이름</td>	 <td style="border:none;"><input type="text" class="form-control" style="width:70%;" name="p_name" value="${allProductUpdateForm.p_name}"></td></tr>
-				<tr><td id="menu-name" style="border:none;">대표이미지</td>	 <td style="border:none;"><input type="file" class="form-control" name="p_image1" style="width:30%" value="${allProductUpdateForm.p_image1}"></td></tr>
-				<tr><td id="menu-name" style="border:none;">상세이미지</td>  <td style="border:none;"><input type="file" class="form-control" name="p_image2" style="width:30%" value="${allProductUpdateForm.p_image2}"></td></tr>
+				<tr><td id="menu-name" style="border:none;">대표이미지</td>	 <td style="border:none;"><input type="file" class="form-control" name="file1" style="width:30%" value="${allProductUpdateForm.p_image1}"></td></tr>
+				<tr><td id="menu-name" style="border:none;">상세이미지</td>  <td style="border:none;"><input type="file" class="form-control" name="file2" style="width:30%" value="${allProductUpdateForm.p_image2}"></td></tr>
 				<tr><td id="menu-name" style="border:none;">상품설명</td>	 <td style="border:none;"><textarea name="p_description" class="form-control" style="resize: vertical;" rows="5" cols="65">
 																	   ${allProductUpdateForm.p_description}</textarea></td></tr>
 				<tr><td id="menu-name" style="border:none;">펀딩기간</td>	 <td style="border:none;"><input type="text" class="form-control" style="width:30%;display:inline;" value="${allProductUpdateForm.p_start}" readonly="readonly"> ~ 

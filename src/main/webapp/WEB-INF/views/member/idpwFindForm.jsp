@@ -186,7 +186,7 @@
       
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:#2F3A8F;color:#fff"><a href="login">로그인</a></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:#2F3A8F;color:#fff" onclick="location.href='loginForm'">로그인</button>
        <!--  <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><a href="">비밀번호 찾기</a></button> -->
       </div>
       <div class="modal-footer2"></div>

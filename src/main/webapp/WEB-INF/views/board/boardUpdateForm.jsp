@@ -58,6 +58,9 @@ console.log('${board}');
     		<c:if test="${board.mini_cat == 200}">
     			<h1 class="sub-title">문의사항</h1>
     		</c:if>
+    		<c:if test="${board.mini_cat == 300}">
+    			<h1 class="sub-title">1:1 문의사항</h1>
+    		</c:if>
     	</div>	
 		<article>
 			<form action="update" method="post" enctype="multipart/form-data">

@@ -258,7 +258,7 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-3">이메일</div>
+					<div class="col-3">이메일 인증번호</div>
 					<div class="col-5">
 						<input type="text" class="form-control" name="emailNum" id="emailNum" size=30
 							placeholder="인증번호 입력" required> <input type="hidden"
